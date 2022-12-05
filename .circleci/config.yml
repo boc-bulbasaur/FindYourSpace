@@ -1,23 +1,37 @@
 version: 2.1
+orbs:
+  node: circleci/node@5.0.3
 jobs:
   build:
-    working_directory: ~/repo
-    docker:
-      - image: circleci/node:16.14.0
+    working_directory: ~/FindYourSpace
+    executor: node/default
     steps:
       - checkout
-      - run:
-          name: Update NPM
-          command: "sudo npm install -g npm@5"
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: Install Dependencies
-          command: npm install
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+      - node/install-npm
+      - node/install-packages:
+          app-dir: ~/FindYourSpace
+          cache-path: node_modules
+          override-ci-command: npm i
+      - persist_to_workspace:
+          root: .
           paths:
-            - ./node_modules
+            - .
+
+  test:
+    docker:
+      - image: cimg/node:current
+    steps:
+      - attach_workspace:
+          at: .
       - run:
-          name: Run tests
-          command: npm run test
+          name: Test
+          command: npm test
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
