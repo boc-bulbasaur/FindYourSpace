@@ -6,7 +6,6 @@ jobs:
       - image: cimg/node:16.14.0
     steps:
       - checkout
-          path: ~/repo
       - run:
           name: Update NPM
           command: "sudo npm install -g npm"
