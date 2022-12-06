@@ -10,7 +10,11 @@ jobs:
       - node/install:
           install-yarn: false
           node-version: '16.14'
-      - run: node --version
+      - run: sudo npm install -g npm@latest
+      - node/install-packages:
+          cache-path: ~/project/node_modules
+          override-ci-command: npm install
+      - run: npm run test
 workflows:
   test_my_app:
     jobs:
