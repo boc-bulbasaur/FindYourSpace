@@ -4,12 +4,9 @@ orbs:
 jobs:
   install-node-example:
     docker:
-      - image: 'cimg/base:stable'
+      - image: 'cimg/node:16.14.0'
     steps:
       - checkout
-      - node/install:
-          install-yarn: false
-          node-version: '16.14'
       - run: sudo npm install -g npm@latest
       - node/install-packages:
           cache-path: ~/project/node_modules
