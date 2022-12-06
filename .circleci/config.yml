@@ -2,9 +2,8 @@ version: '2.1'
 orbs:
   node: circleci/node@5.0.3
 jobs:
-  install-node-example:
-    docker:
-      - image: 'cimg/node:16.14.0'
+  test:
+    executor: node/default
     steps:
       - checkout
       - run: sudo npm install -g npm@latest
@@ -15,4 +14,4 @@ jobs:
 workflows:
   test_my_app:
     jobs:
-      - install-node-example
+      - test
