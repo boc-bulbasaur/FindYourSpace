@@ -19,8 +19,6 @@ workflows:
   test_my_app:
     jobs:
       - install-node-example
-      - node/test:
-          test-results-for: jest
 
 # version: 2.1
 # orbs:
