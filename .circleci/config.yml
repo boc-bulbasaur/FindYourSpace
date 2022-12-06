@@ -18,7 +18,7 @@ jobs:
       - checkout
       - aws-cli/setup:
           profile-name: circleci
-      - run: echo "ls"
+      - run: echo "ssh -o StrictHostKeyChecking=no ubuntu@ec2-52-9-156-127.us-west-1.compute.amazonaws.com"
     # steps:
     #   - checkout
     #   - run:
