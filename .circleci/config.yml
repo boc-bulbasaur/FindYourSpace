@@ -2,20 +2,16 @@ version: '2.1'
 orbs:
   node: circleci/node@5.0.3
 jobs:
-  install-node-example:
-    docker:
-      - image: 'cimg/base:stable'
+  test:
+    executor: node/default
     steps:
       - checkout
-      - node/install:
-          install-yarn: false
-          node-version: '16.14'
       - run: sudo npm install -g npm@latest
       - node/install-packages:
           cache-path: ~/project/node_modules
           override-ci-command: npm install
-      - run: npm run test
+      - run: npm run test --config
 workflows:
   test_my_app:
     jobs:
-      - install-node-example
+      - test
