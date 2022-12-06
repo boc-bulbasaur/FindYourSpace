@@ -1,30 +1,22 @@
-version: 2.1
+version: '2.1'
 orbs:
-  node: circleci/node@5.0.2
-
+  node: circleci/node@5.0.3
 jobs:
-  build_and_test: # this can be any name you choose
-    executor: node/default # use the default executor defined within the orb
+  install-node-example:
+    docker:
+      - image: 'cimg/base:stable'
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
-      - run:
-          command: npm run test
-          name: Run tests
-      - run:
-          command: npm run build
-          name: Build app
-      - persist_to_workspace:
-          root: ~/rpp2204-boc-bulbasaur/FindYourSpace
-          paths:
-            - .
-
-
+      - node/install:
+          install-yarn: false
+          node-version: '16.14'
+      - run: node --version
 workflows:
   test_my_app:
     jobs:
-      - build_and_test
+      - install-node-example
+      - node/test:
+          test-results-for: jest
 
 # version: 2.1
 # orbs:
