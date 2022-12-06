@@ -10,8 +10,36 @@ jobs:
       - node/install-packages:
           cache-path: ~/project/node_modules
           override-ci-command: npm install
-      - run: npm run test --config
+      - run: npm run test
+  deploy:
+    docker:
+      - image: 'cimg/openjdk:19.0.1'
+    steps:
+      - checkout
+      - run:
+          command: |
+            curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+            unzip awscli-bundle.zip
+            ./awscli-bundle/install -b ~/bin/aws
+            PUBLIC_IP=$(curl ipinfo.io/ip)
+            AWS_REGION=us-west-1
+            SG_ID=sg-0bd522f71bf95773c
+            ~/bin/aws ec2 authorize-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
+              --protocol tcp --port 22 --cidr $PUBLIC_IP/24
+            sleep 5
+            EC2_USERNAME=ubuntu
+            # TODO Change to your server's URL or public IP
+            EC2_PUBLIC_DNS=ec2-52-9-156-127.us-west-1.compute.amazonaws.com
+            ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS \
+            # Add Deploy steps
+            cd FindYourSpace/
+            git pull origin master
+            ~/bin/aws ec2 revoke-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
+              --protocol tcp --port 22 --cidr $PUBLIC_IP/24
 workflows:
-  test_my_app:
+  test_and_deploy:
     jobs:
       - test
+      - deploy:
+          requires:
+            - test
