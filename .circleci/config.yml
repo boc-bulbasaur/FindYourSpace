@@ -22,6 +22,8 @@ jobs:
           name: deploy to ec2
           command: |
             ssh $SSH_USER@$SSH_HOST "cd /FindYourSpace && git pull origin main"
+            sleep 30
+            c0:8b:79:5b:84:02:ae:24:41:51:ea:d9:6e:55:fe:19
 workflows:
   test and deploy:
     jobs:
