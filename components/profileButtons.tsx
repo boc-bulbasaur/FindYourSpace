@@ -6,7 +6,10 @@ class ProfileButtons extends React.Component {
 
   constructor(props: {} | Readonly<{}>) {
     super(props);
-    this.state = {};
+    this.state = {
+      blockLabel: 'Block',
+      favLabel: 'Favorite'
+    };
 
     this.buttonClick = this.buttonClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,15 +40,23 @@ class ProfileButtons extends React.Component {
       return response.json();
     };
     postData().then((data) => {
+      console.log('API called');
       console.log(data);
     });
+
+    if (e.target.name === 'block') {
+      this.setState({blockLabel: 'Blocked'});
+    } else if (e.target.name === 'favorite') {
+      // e.target.name = 'Added to Favorites';
+      this.setState({favLabel: 'Added to Favorites'});
+    }
   }
 
   render() {
     return (
       <>
-        <Button variant="contained" onClick={this.handleSubmit} name="favorite">Favorite</Button>
-        <Button variant="contained" onClick={this.handleSubmit} name="block">Block</Button>
+        <Button variant="contained" onClick={this.handleSubmit} name="favorite" children={this.state.favLabel}></Button>
+        <Button variant="contained" onClick={this.handleSubmit} name="block" children={this.state.blockLabel}></Button>
       </>
     )
   }
