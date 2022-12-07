@@ -33,4 +33,5 @@ workflows:
       - deploy:
           requires:
             - test
+            - hold
           context: aws
