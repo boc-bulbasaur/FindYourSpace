@@ -54,7 +54,6 @@ export default function Home() {
             </p>
           </a>
         </div>
-        <Profile />
         <Link href="/profile">Profile</Link>
       </main>
 
