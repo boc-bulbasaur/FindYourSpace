@@ -1,6 +1,7 @@
 version: '2.1'
 orbs:
   node: circleci/node@5.0.3
+  aws-cli: circleci/aws-cli@3.1.4
 jobs:
   test:
     executor: node/default
@@ -11,7 +12,21 @@ jobs:
           cache-path: ~/project/node_modules
           override-ci-command: npm install
       - run: npm run test
+  deploy:
+    executor: aws-cli/default
+    steps:
+      - checkout
+      - aws-cli/setup:
+          profile-name: circleci
+      - run:
+          name: deploy to ec2
+          command: |
+            ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "cd FindYourSpace/ && git pull origin main"
 workflows:
-  test_and_deploy:
+  test and deploy:
     jobs:
       - test
+      - deploy:
+          requires:
+            - test
+          context: aws
