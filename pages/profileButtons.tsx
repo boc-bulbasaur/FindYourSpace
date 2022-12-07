@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
+import Button from '@mui/material/Button';
 
 class ProfileButtons extends React.Component {
 
@@ -43,8 +44,8 @@ class ProfileButtons extends React.Component {
   render() {
     return (
       <>
-        <button onClick={this.handleSubmit} name="favorite">Favorite</button>
-        <button onClick={this.handleSubmit} name="block">Block</button>
+        <Button variant="contained" onClick={this.handleSubmit} name="favorite">Favorite</Button>
+        <Button variant="contained" onClick={this.handleSubmit} name="block">Block</Button>
       </>
     )
   }

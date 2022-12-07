@@ -5,7 +5,7 @@ export default function Profile() {
   return (
     <>
       <h1>Profile</h1>
-      <ProfileAbout />
+      <ProfileAbout name="testName"/>
       <div className="list">
         <ul>listing 1</ul>
         <ul>listing 2</ul>
