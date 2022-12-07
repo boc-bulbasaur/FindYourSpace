@@ -18,7 +18,10 @@ jobs:
       - checkout
       - aws-cli/setup:
           profile-name: circleci
-      - run: echo "ssh -o StrictHostKeyChecking=no ubuntu@ec2-52-9-156-127.us-west-1.compute.amazonaws.com"
+      - run: 
+          name: deploy to ec2
+          command: |
+            ssh $SSH_USER@$SSH_HOST ""
     # steps:
     #   - checkout
     #   - run:
