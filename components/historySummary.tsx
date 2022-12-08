@@ -3,45 +3,27 @@ import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
-  {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 90,
-  },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params: GridValueGetterParams) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-  },
+  { field: 'address', headerName: 'Address', width: 220 },
+  { field: 'startDateTime', type: 'dateTime', headerName: 'Start DateTime', width: 220 },
+  { field: 'endDateTime', type: 'dateTime', headerName: 'End DateTime', width: 220 },
 ];
 
 const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+  { id: 1, address: '123 Anywhere st', startDateTime: new Date('2022-04-25 8:00'), endDateTime: new Date('2022-04-25 12:00')},
+  { id: 2, address: '101 Garage st. #304', startDateTime: new Date('2022-03-25 19:00'), endDateTime: new Date('2022-03-25 21:00')},
+  { id: 3, address: '99 Williams rd. #3', startDateTime: new Date('2022-04-25 12:00'), endDateTime: new Date('2022-04-25 13:00')},
+  { id: 4, address: '55 MLK dr.', startDateTime: new Date('2022-12-22 08:00'), endDateTime: new Date('2022-12-22 17:00')},
+  { id: 5, address: '55 MLK dr.', startDateTime: new Date('2022-12-23 10:00'), endDateTime: new Date('2022-12-23 17:00')},
 ];
 
 export default function HistoryTable() {
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <div style={{ height: 270, width: '100%' }}>
       <DataGrid
         rows={rows}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={3}
+        rowsPerPageOptions={[3]}
         checkboxSelection
       />
     </div>
