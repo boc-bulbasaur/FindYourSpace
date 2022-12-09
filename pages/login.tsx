@@ -24,6 +24,7 @@
 // }
 
 import React from "react";
+import NavBar from "../components/navBar";
 import {signIn, getSession, getCsrfToken } from "next-auth/react";
 import GoogleProvider from 'next-auth/providers/google'
 import {
@@ -38,32 +39,35 @@ import {
 
 export default function LogIn({ GoogleProvider, getCsrfToken }) {
   return (
-    <Container maxW="xl" centerContent>
-      <Heading as="h1" textAlign="center">
-        Welcome to our custom page
-      </Heading>
-      <Box alignContent="center" justifyContent="center" marginTop={12}>
-        <Box className="email-form">
-          <form method="post" action="/api/auth/signin/email">
-            <Input name="csrfToken" type="hidden" defaultValue={getCsrfToken} />
-            <label>
-              Email address
-              <Input type="text" id="email" name="email" />
-            </label>
-            <Button type="submit">Use your Email</Button>
-          </form>
-        </Box>
-        <Stack isInline marginTop={12}>
-           return (
-            <Box key= 'google'>
-              <Button variant="outline" onClick={() => signIn(GoogleProvider)}>
-              Sign in with Google</Button>
-            </Box>
+    <>
+      <NavBar />
+      <Container maxW="xl" centerContent>
+        <Heading as="h2" textAlign="center">
+          Log in to your account
+        </Heading>
+        <Box alignContent="center" justifyContent="center" marginTop={12}>
+          {/* <Box className="email-form">
+            <form method="post" action="/api/auth/signin/email">
+              <Input name="csrfToken" type="hidden" defaultValue={getCsrfToken} />
+              <label>
+                Email address
+                <Input type="text" id="email" name="email" />
+              </label>
+              <Button type="submit">Use your Email</Button>
+            </form>
+          </Box> */}
+          <Stack isInline marginTop={12}>
+            return (
+              <Box key= 'google'>
+                <Button variant="outline" onClick={() => signIn(GoogleProvider)}>
+                Sign in with Google</Button>
+              </Box>
 
-           )
-        </Stack>
-      </Box>
-    </Container>
+            )
+          </Stack>
+        </Box>
+      </Container>
+    </>
   );
 }
 
