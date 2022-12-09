@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import ProfileButtons from "./profileButtons";
-import HistoryTable from './historySummary';
+import ProfileTable from './profileTable';
 
 class ProfileAbout extends React.Component {
 
@@ -27,7 +27,8 @@ class ProfileAbout extends React.Component {
           About: {this.state.about}<br />
         <div>Extra Info</div>
         <ProfileButtons />
-        <HistoryTable />
+        <h3>You have 2 past bookings with this User</h3>
+        <ProfileTable />
       </div>
     )
   }
