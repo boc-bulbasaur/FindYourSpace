@@ -60,6 +60,7 @@ export default function Home() {
           </a>
         </div>
         <Link href="/profile">Profile</Link>
+        <Link href="/reservation">book now!</Link>
       </main>
 
       <footer className={styles.footer}>
