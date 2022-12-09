@@ -1,7 +1,7 @@
 import ProfileButtons from "../components/profile/profileButtons";
 import ProfileAbout from "../components/profile/profileAbout";
 import NavBar from "../components/navBar";
-import HistoryTable from '../components/historyTable';
+import HistoryTable from '../components/history/r_historyTable';
 
 
 export default function RenterHistory() {
