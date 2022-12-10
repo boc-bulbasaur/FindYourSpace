@@ -1,9 +1,10 @@
-import O_RenderHistory from "../components/ownerRenderHistory.tsx"
+import O_RenderHistory from "../components/ownerRenderHistory"
+import DatePicker from "../components/ownerCalendarView"
 
 export default function OwnerHistory() {
   return (
     <>
-      <h1>Testing History</h1>
+      <DatePicker />
       <O_RenderHistory />
     </>
   )

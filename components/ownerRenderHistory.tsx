@@ -9,7 +9,7 @@ const columns: GridColDef[] = [
     description: 'This column has a value getter and is not sortable.',
     width: 160,
   },
-  { field: 'duration', headerName: 'Duration', width: 100, sortable: false},
+  { field: 'duration', headerName: 'Rental Duration', width: 140, sortable: false},
   { field: 'location', headerName: 'Location', width: 200, sortable: false},
   { field: 'total', headerName: 'Total', width: 100 },
   { field: 'block', headerName: 'Block User', width: 100, sortable: false, type: 'boolean' }
@@ -40,7 +40,3 @@ export default function O_RenderHistory() {
     </div>
   );
 }
-
-// export default function O_RenderHistory() {
-//   return <h1>First Post</h1>;
-// }

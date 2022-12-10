@@ -24,3 +24,30 @@ a {
     background: black;
   }
 }
+
+/* //////OWNER HISTORY CSS////// */
+
+/* Disables unwanted calendar features */
+.css-hlj6pa-MuiDialogActions-root, .css-z3au5x-MuiButtonBase-root-MuiIconButton-root-MuiPickersToolbar-penIconButton,
+.css-1hbyad5-MuiTypography-root {
+  display: none !important
+}
+
+/* Center Calendar Date */
+.css-jhsfre-MuiGrid-root-MuiPickersToolbar-content {
+  justify-content: center !important;
+}
+
+/* Calendar size and shadow */
+.css-u0soqy-MuiPickerStaticWrapper-root {
+  margin: 20px 0px 20px 20px;
+  height: 425px;
+  width: 410px;
+  box-shadow: 3px 2px 10px 5px #888888 !important;
+}
+
+/* history breakdown styling */
+.css-1e2bxag-MuiDataGrid-root {
+  margin: 0px 20px 10px 20px;
+  box-shadow: 3px 2px 10px 5px #888888 !important;
+}
