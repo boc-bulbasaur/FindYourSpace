@@ -39,7 +39,7 @@ a {
 .css-jhsfre-MuiGrid-root-MuiPickersToolbar-content {
   justify-content: center !important;
   color: white;
-  background-color: #1976d2;
+  background-color: #2196f3;
   /* padding: 1rem; */
 }
 
@@ -51,7 +51,7 @@ a {
 
 /* Calendar size and shadow */
 .css-u0soqy-MuiPickerStaticWrapper-root {
-  margin: 20px 0px 20px 20px;
+  margin: 20px 0px 20px 60px;
   height: 425px;
   width: 410px;
   box-shadow: 3px 2px 10px 5px #888888 !important;
@@ -61,16 +61,45 @@ a {
 
 /* history breakdown styling */
 .css-1e2bxag-MuiDataGrid-root {
-  margin: 0px 20px 10px 20px;
+  margin: 0px 60px 10px 60px;
   box-shadow: 3px 2px 10px 5px #888888 !important;
 }
 
 /* set color of top row */
 .css-gl260s-MuiDataGrid-columnHeadersInner {
-  background-color: #1976d2;
+  background-color: #2196f3;
 }
 
+/* adjust color of table row names */
 .MuiDataGrid-columnHeaderTitleContainerContent {
   color: white;
+}
+
+/* display calendar and list in a row */
+.calendar-list-view{
+  display: flex;
+  flex-direction: row;
+}
+
+/* adjust styling of rental list box */
+.css-399ykn {
+  margin: 20px 0px 20px 60px;
+  max-width: 425px;
+  height: 425px;
+  width: 210px;
+  box-shadow: 3px 2px 10px 5px #888888 !important;
+}
+
+.css-1a40jv2-MuiTypography-root {
+  margin: 0;
+  color: white;
+  background-color: #2196f3;;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 2.125rem;
+  line-height: 1.235;
+  letter-spacing: 0.00735em;
+  text-align: center;
+  width: 425px;
+  height: 82px;
 }
