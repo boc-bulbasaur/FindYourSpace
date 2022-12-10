@@ -1,7 +1,13 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../styles/Home.module.css';
-import Link from 'next/link';
+import Head from 'next/head'
+import Image from 'next/image'
+import styles from '../styles/Home.module.css'
+import Link from 'next/link'
+// MUI default Robot font
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 
 export default function Home() {
   return (
@@ -53,6 +59,7 @@ export default function Home() {
             </p>
           </a>
         </div>
+        <Link href="/profile">Profile</Link>
         <Link href="/reservation">book now!</Link>
       </main>
 
