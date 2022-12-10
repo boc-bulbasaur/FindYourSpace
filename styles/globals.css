@@ -27,6 +27,8 @@ a {
 
 /* //////OWNER HISTORY CSS////// */
 
+/* +++++CALENDAR STYLING+++++++ */
+
 /* Disables unwanted calendar features */
 .css-hlj6pa-MuiDialogActions-root, .css-z3au5x-MuiButtonBase-root-MuiIconButton-root-MuiPickersToolbar-penIconButton,
 .css-1hbyad5-MuiTypography-root {
@@ -36,6 +38,15 @@ a {
 /* Center Calendar Date */
 .css-jhsfre-MuiGrid-root-MuiPickersToolbar-content {
   justify-content: center !important;
+  color: white;
+  background-color: #1976d2;
+  /* padding: 1rem; */
+}
+
+/* adjust padding and alignment of calendar date */
+.css-1eurbeq-MuiPickersToolbar-root-MuiDatePickerToolbar-root {
+  padding: 0px;
+  height: 80px;
 }
 
 /* Calendar size and shadow */
@@ -46,8 +57,20 @@ a {
   box-shadow: 3px 2px 10px 5px #888888 !important;
 }
 
+/* +++++++ HISTORY STYLING+++++++ */
+
 /* history breakdown styling */
 .css-1e2bxag-MuiDataGrid-root {
   margin: 0px 20px 10px 20px;
   box-shadow: 3px 2px 10px 5px #888888 !important;
+}
+
+/* set color of top row */
+.css-gl260s-MuiDataGrid-columnHeadersInner {
+  background-color: #1976d2;
+}
+
+.MuiDataGrid-columnHeaderTitleContainerContent {
+  color: white;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
 }
