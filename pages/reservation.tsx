@@ -7,13 +7,17 @@ export default function NewReservation() {
       <h1>CHECKOUT</h1>
       <h3>1234 USA Street, Sunnyvale, CA, 94560</h3>
       <h3>12/10/2023 10:30:00AM - 12/10/2023 02:30:00PM</h3>
-      {/* <Image
-        src="/../images/map.png"
-        alt="map"
-        width={600}
-        height={600}
-      /> */}
       <div className="price">
+        <div className="details">
+          <Image
+            src="/../public/map.png"
+            alt="map"
+            className="map"
+            width={350}
+            height={250}
+          />
+          <p className="park-details">This parking spot is streetside parking. Please only park directly in front of the house addressed.</p>
+        </div>
         <h4 className="right-price">$8.00 / hr X 4 Hours</h4>
         <hr />
         <h4 className="right-price">Total Price: $32.00</h4>

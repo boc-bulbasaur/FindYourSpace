@@ -72,10 +72,6 @@ p {
   margin: auto;
 }
 
-Image {
-  width: 500px;
-}
-
 .right-price {
   text-align: right;
 }
@@ -83,4 +79,13 @@ Image {
 hr {
   width: 50%;
   margin-left: 50%;
+}
+
+.details {
+  display: flex;
+  flex-direction: row;
+}
+
+.park-details {
+  text-align: center;
 }
