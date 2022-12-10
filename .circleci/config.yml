@@ -26,7 +26,12 @@ workflows:
   test and deploy:
     jobs:
       - test
+      - hold:
+          type: approval
+          requires:
+            - test
       - deploy:
           requires:
             - test
+            - hold
           context: aws
