@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import React, { useState } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
 import{Flex, InputGroup, InputRightElement, Input, Menu, MenuButton, MenuList, MenuItem, Text} from '@chakra-ui/react'
@@ -29,15 +30,15 @@ const Header = ({setType, setRatings, setCoordinates})=>{
             children={<BiSearch color ='gray' fontSize={20} />}
             />
             <Input
-            type={'text'}
-            placeholder ='Search Available Parking...'
-            variant = {'filled'}
-            fontSize = {18}
-            bg = {'white'}
-            color = {'gray.700'}
-            _hover = {{bg:'whiteAlppha.800'}}
-            _focus = {{bg: 'whiteAlpha.800'}}
-            _placeholder ={{color: 'gray.700'}}
+              type={'text'}
+              placeholder ='Search Available Parking...'
+              variant = {'filled'}
+              fontSize = {18}
+              bg = {'white'}
+              color = {'gray.700'}
+              _hover = {{bg:'whiteAlppha.800'}}
+              _focus = {{bg: 'whiteAlpha.800'}}
+              _placeholder ={{color: 'gray.700'}}
             />
           </InputGroup>
         </Autocomplete>
