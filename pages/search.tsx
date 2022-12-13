@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import SearchBar from '../components/searchBar';
 import Map from '../components/map';
-import Head from 'next/head'
+import Head from 'next/head';
+import Script from 'next/script';
 import { Flex } from '@chakra-ui/react'
 import SearchResults from '../components/searchResults';
+import AutoComplete from '../components/autoComplete';
 
 
 type SearchProps = {
@@ -76,21 +78,22 @@ export default function Search(props: SearchProps) {
     }
   ];
 
+  const scriptURL = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_API_KEY}&libraries=places&callback=initMap`
+
   return (
     <>
-      <Head>
-        <script async defer src='https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyCQaRzoY9ix-fRrNmoyzizVJ7gSR8V_V7Y' ></script>
-      </Head>
+      <Script id="google-map-script" src={scriptURL} strategy="beforeInteractive" />
       <Flex
         justifyContent= {'center'}
         alignItems = {'center'}
-        width = {'100vw'}
-        height = { '100vw'}
-        maxWidth = {'90vw'}
-        maxHeight = {'90vh'}
+        width = {'90vw'}
+        height = { '90vw'}
+        maxWidth = {'100vw'}
+        maxHeight = {'100vh'}
+        margin = {'auto'}
         position = {'relative'}
       >
-        <Flex width={'95vw'} height={'20vh'} justifyContent= {'center'} alignItems = {'center'}>
+        <Flex width={'100%'} height={'20%'} position = {'relative'} margin={'auto'}>
           <SearchBar
             setCoordinates={setCoordinates}
             startTime={startTime}
@@ -99,11 +102,11 @@ export default function Search(props: SearchProps) {
             setEndTime={setEndTime}
           />
         </Flex>
-        <Flex width={'100vw'} height={'70vh'} justifyContent= {'center'} alignItems = {'center'}>
+        <Flex width={'100%'} height={'70%'} position = {'relative'}>
           <SearchResults results={mokeResults} isLoading ={isLoading}/>
           <Map setCoordinates = {setCoordinates} coordinates = {coordinates} results={mokeResults}/>
         </Flex>
-        {/* <ParkingDetail /> */}
+        {/* <ParkingSpotDetail /> */}
       </Flex>
     </>
   );
