@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import { Autocomplete } from '@react-google-maps/api';
-import{ Flex, InputGroup, InputRightElement, Input } from '@chakra-ui/react';
-import { BiSearch } from 'react-icons/bi';
-import type {} from '@mui/x-date-pickers/themeAugmentation';
-import type {} from '@mui/x-date-pickers-pro/themeAugmentation';
+import{ Flex, InputGroup, Input } from '@chakra-ui/react';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Stack } from '@mui/system';
 import { TextField, TextFieldProps } from '@mui/material';
-import { now } from 'next-auth/client/_utils';
 
 type SearchBarProps = {
   setCoordinates: Function;
@@ -30,7 +26,7 @@ const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTim
   let now = new Date();
   return (
     <Flex
-    position ={'absolute'}
+    position ={'relative'}
     top={0}
     left={0}
     width={'full'}
@@ -42,10 +38,6 @@ const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTim
       <Flex width={'30%'} height={'full'} >
         <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
           <InputGroup width={'100%'} shadow='lg'>
-            <InputRightElement
-            pointerEvents={'none'}
-            children={<BiSearch color ='gray' fontSize={20} />}
-            />
             <Input
               type={'text'}
               placeholder ='Search address for available parking...'
