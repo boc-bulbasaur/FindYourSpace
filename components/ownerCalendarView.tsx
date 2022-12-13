@@ -16,11 +16,12 @@ const isWeekend = (date) => {
 
 export default function DatePicker() {
   const [value, setValue] = React.useState(new Date('2022-04-07'));
+  console.log('selected Value: ', value)
   const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15]);
 
   return (
     <div>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <LocalizationProvider className="owner-calendar-view" dateAdapter={AdapterDayjs}>
         <StaticDatePicker
           orientation="portrait"
           openTo="day"

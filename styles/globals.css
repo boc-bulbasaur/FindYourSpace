@@ -103,3 +103,14 @@ a {
   width: 425px;
   height: 82px;
 }
+
+/* rounds calendar and rental history components */
+.css-399ykn, .owner-rental-list, .css-1a40jv2-MuiTypography-root,
+.css-u0soqy-MuiPickerStaticWrapper-root, .css-xelq0e-MuiPickerStaticWrapper-content {
+  border-radius: 10px;
+}
+
+/* rounds history table */
+.owner-history-table, .css-1e2bxag-MuiDataGrid-root, .css-f3jnds-MuiDataGrid-columnHeaders {
+  border-radius: 10px;
+}

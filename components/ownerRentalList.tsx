@@ -33,7 +33,7 @@ export default function O_RentalList() {
   const [secondary, setSecondary] = React.useState(false);
 
   return (
-    <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
+    <Box className="owner-history-table" sx={{ flexGrow: 1, maxWidth: 752 }}>
       <FormGroup row>
       </FormGroup>
 
