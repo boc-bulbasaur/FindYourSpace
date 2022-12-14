@@ -22,8 +22,6 @@ export default function NewReservation() {
         <hr />
         <h4 className="right-price">Total Price: $32.00</h4>
       </div>
-      <h3>Recurring Hold Details</h3>
-      <p>This is not a recurring hold.</p>
       <h3>Cancellation Policy</h3>
       <p>To receive a full refund, guests must cancel at least 30 days before check-in. They can also get a full refund within 48 hours of booking if the cancellation occurs at least 14 days before check-in. If they cancel between 7 and 30 days before check-in, you’ll be paid 50% for all nights. If they cancel less than 7 days before check-in, you’ll be paid 100% for all nights.</p>
       <form /*onSubmit={onSubmit}*/>
