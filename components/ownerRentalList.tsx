@@ -4,17 +4,15 @@ import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemIcon from '@mui/material/ListItemIcon';
+// import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
+// import Avatar from '@mui/material/Avatar';
+// import IconButton from '@mui/material/IconButton';
 import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import FolderIcon from '@mui/icons-material/Folder';
-import DeleteIcon from '@mui/icons-material/Delete';
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
 function generate(element) {
   return [0, 1, 2].map((value) =>
@@ -29,7 +27,6 @@ const Demo = styled('div')(({ theme }) => ({
 }));
 
 export default function O_RentalList() {
-  const [dense, setDense] = React.useState(false);
   const [secondary, setSecondary] = React.useState(false);
 
   return (
@@ -43,17 +40,17 @@ export default function O_RentalList() {
             Scheduled Rentals
           </Typography>
           <Demo>
-            <List dense={dense}>
+            <List>
               {generate(
                 <ListItem>
                   <ListItemAvatar>
-                    <Avatar>
+                    <AccountCircleRoundedIcon fontSize="large">
                       <FolderIcon />
-                    </Avatar>
+                    </AccountCircleRoundedIcon>
                   </ListItemAvatar>
                   <ListItemText
-                    primary="Single-line item"
-                    secondary="Secondary text"
+                    primary="Full Name | $25.00"
+                    secondary="Cancel Reservation"
                   />
                 </ListItem>,
               )}
