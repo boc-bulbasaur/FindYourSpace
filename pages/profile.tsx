@@ -1,5 +1,5 @@
-import ProfileButtons from "../components/profileButtons";
-import ProfileAbout from "../components/profileAbout";
+import ProfileButtons from "../components/profile/profileButtons";
+import ProfileAbout from "../components/profile/profileAbout";
 import NavBar from "../components/navBar";
 
 export default function Profile() {

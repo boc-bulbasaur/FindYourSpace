@@ -77,7 +77,7 @@ const SearchResults = ({results, isLoading}: SearchResultsProps) =>{
         {
           results && results.map((parking: Object): JSX.Element => {
             const {id, price, address, description } = parking;
-            return <SearchResult address={address} key={id} price={price} description={description} />
+            return <SearchResult address={address} id={id} price={price} description={description} />
           })
         }
       </Flex>
