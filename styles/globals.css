@@ -89,3 +89,7 @@ hr {
 .park-details {
   text-align: center;
 }
+.search-results::-webkit-scrollbar {
+  display: none;
+}
+

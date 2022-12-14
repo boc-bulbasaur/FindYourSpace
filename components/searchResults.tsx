@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Flex, Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
 import SearchResult from './searchResult'
+import { ToggleButton, ToggleButtonGroup } from '@mui/material';
 
 type SearchResultsProps = {
   results: {}[];
@@ -73,7 +74,32 @@ const SearchResults = ({results, isLoading}: SearchResultsProps) =>{
       overflow='hidden'
       px={2}
     >
-      <Flex flex={1} overflowY={'scroll'} mt ={16} direction={'column'}>
+      <Flex
+        justifyContent={'right'}
+        alignItems={'center'}
+      >
+        <Flex
+          justifyContent={'center'}
+          alignItems={'center'}
+        >
+          Sort By:
+        </Flex>
+        <Flex
+          justifyContent={'center'}
+          alignItems={'center'}
+        >
+          <ToggleButtonGroup
+            color="primary"
+            value={'sort'}
+            exclusive
+            aria-label="sortBy"
+          >
+            <ToggleButton value="distance">Distance</ToggleButton>
+            <ToggleButton value="price">Price</ToggleButton>
+          </ToggleButtonGroup>
+        </Flex>
+      </Flex>
+      <Flex flex={1} overflowY={'scroll'} mt ={16} direction={'column'} className='search-results'>
         {
           results && results.map((parking: Object): JSX.Element => {
             const {id, price, address, description } = parking;
