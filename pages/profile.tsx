@@ -1,12 +1,13 @@
 import ProfileButtons from "../components/profileButtons";
 import ProfileAbout from "../components/profileAbout";
 import NavBar from "../components/navBar";
-import { getSession } from "next-auth/react";
+import { useSession, getSession } from "next-auth/react";
 
 export default function Profile() {
+  const { data: session } = useSession();
   return (
     <>
-      <NavBar />
+      <NavBar session={session}/>
       <h1>Profile</h1>
       <ProfileAbout name="testName"/>
       <div className="list">
@@ -15,20 +16,4 @@ export default function Profile() {
       </div>
     </>
   )
-}
-
-export const getServerSideProps = async (context) => {
-  const session = await getSession(context);
-    if (!session) {
-      return {
-        redirect: {
-          destination: '/'
-        }
-      }
-    }
-  //Put in the rest of your serverSideProps logic here.
-  return {
-    //Leave session in the returned props.
-    props: {session},
-  }
 }

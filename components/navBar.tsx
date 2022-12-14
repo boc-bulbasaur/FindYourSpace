@@ -19,10 +19,7 @@ const pagesEndpoints = ['/search', '/reservation', '/newlisting'];
 const settings = ['Profile', 'History', 'Logout'];
 const settingsEndpoints = ['/profile', '/history', '/'];
 
-
-export default function NavBar() {
-  const {data: session} = useSession();
-
+export default function NavBar({session} : {session:any}) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -40,7 +37,6 @@ export default function NavBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
   if (session) {
     const { user } = session;
     return (
@@ -107,7 +103,7 @@ export default function NavBar() {
               variant="h5"
               noWrap
               component="a"
-              href=""
+              href="/"
               sx={{
                 mr: 2,
                 display: { xs: 'flex', md: 'none' },
@@ -157,7 +153,9 @@ export default function NavBar() {
                 {settings.map((setting, index) => {
                   if (setting === 'Logout') {
                     return (
-                      <MenuItem key={setting} onClick={() => signOut()}>
+                      <MenuItem key={setting} onClick={() => {
+                        signOut({ callbackUrl: 'http://localhost:3000/'});
+                      }}>
                       <Typography textAlign="center">
                         <Link href={settingsEndpoints[index]}>
                         {setting}
@@ -186,7 +184,7 @@ export default function NavBar() {
     );
   }
   return (
-    <AppBar position="static">
+    <AppBar position="static" >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -196,7 +194,7 @@ export default function NavBar() {
             href="/"
             sx={{
               mr: 2,
-              display: 'flex',
+              flexGrow: 1,
               fontFamily: 'sans-serif',
               fontWeight: 700,
               letterSpacing: '.1rem',
@@ -206,7 +204,20 @@ export default function NavBar() {
           >
             find your space
           </Typography>
-          <Button href={'/login'} color='inherit'>Log in</Button>
+          <Button
+            variant='text'
+            sx={{mr: 1, color: 'white'}}>
+            <Link href='signup'>List your Parking Space</Link>
+          </Button>
+          <Button
+            variant="outlined"
+            sx={{ mr: 1, color: 'white', borderColor: 'white' }}
+          >
+            <Link href={'/login'}>Log in</Link>
+          </Button>
+          <Button variant="contained" color="secondary" sx={{mr: 1}}>
+            <Link href={'/signup'}>Sign up</Link>
+          </Button>
         </Toolbar>
       </Container>
     </AppBar>
