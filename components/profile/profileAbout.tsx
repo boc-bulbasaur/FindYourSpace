@@ -1,5 +1,4 @@
 import React from 'react';
-import { render } from 'react-dom';
 import ProfileButtons from "./profileButtons";
 import ProfileTable from './profileTable';
 import Avatar from '@mui/material/Avatar';
