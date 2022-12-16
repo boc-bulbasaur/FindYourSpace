@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import Router from 'next/router';
 import NavBar from "../components/navBar";
 import { signIn, useSession, getSession, getProviders, getCsrfToken } from "next-auth/react";
 import utils from '../../../lib/crypto.js';
-import client from '../../../database/db.js';
 import Link from 'next/link';
 import {
   Box,
@@ -11,13 +11,19 @@ import {
   Container,
 } from "@chakra-ui/react";
 import { Button, TextField, Typography, } from '@mui/material';
+import { setSyntheticTrailingComments } from "typescript";
 
 export default function Signup() {
   const { data: session } = useSession();
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [disabledButton, setDisabledButton ] = useState(true);
 
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -26,13 +32,35 @@ export default function Signup() {
   };
   const handleConfirmPasswordChange = (e) => {
     setConfirmPassword(e.target.value);
+    if (email.length && name.length && password.length && password === e.target.value) {
+      setDisabledButton(false);
+    } else {
+      setDisabledButton(true);
+    }
   };
   const handleSubmit = (e) => {
-    client.query(`SELECT * FROM users WHERE email = ${email}`, (err, res) => {
-      if (res.rows[0]) {
-
+    if (email.length && name.length && password.length && password === confirmPassword) {
+      const credentials = {
+        name,
+        email,
+        password,
       }
-    })
+      fetch('/api/signup', {
+        method: 'POST',
+        body: JSON.stringify(credentials),
+      })
+      .then((response) => {
+        if (response.status === 422) {
+          throw new Error;
+        }
+      })
+      .then((data) => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    }
   }
 
   return (
@@ -55,12 +83,23 @@ export default function Signup() {
             </Button>
             <Typography color={'black'} textAlign="center" margin={2}>or</Typography>
             <TextField
+              id="name"
+              label="Name"
+              variant="outlined"
+              type="text"
+              required={true}
+              error={false}
+              sx={{ p: 1.2 }}
+              onChange={handleNameChange}
+            />
+            <TextField
               id="email"
               label="Email"
               variant="outlined"
-              required={false}
+              type="email"
+              required={true}
               error={false}
-              sx={{ p: 1.5 }}
+              sx={{ p: 1.2 }}
               onChange={handleEmailChange}
             />
             <TextField
@@ -68,9 +107,10 @@ export default function Signup() {
               label="Password"
               type="password"
               variant="outlined"
+              required={true}
               error={false}
               helperText={''}
-              sx={{ p: 1.5 }}
+              sx={{ p: 1.2 }}
               onChange={handlePasswordChange}
             />
             <TextField
@@ -78,20 +118,20 @@ export default function Signup() {
               label="Confirm Password"
               type="password"
               variant="outlined"
+              required={true}
               error={false}
               helperText={''}
-              sx={{ p: 1.5 }}
+              sx={{ p: 1.2 }}
               onChange={handleConfirmPasswordChange}
             />
             <Button
               type="submit"
               variant="contained"
               sx={{ p: 1, m: 1 }}
-              onClick={() => {
-                signIn('credentials', { email, password, callbackUrl: 'http://localhost:3000/'});
-              }}
+              onClick={handleSubmit}
+              disabled={disabledButton}
             >
-              Log In
+              Sign up
             </Button>
             <Typography color={'primary'} textAlign="center" marginTop={3}>Already have an account?</Typography>
             <Typography color={'primary'} textAlign="center" margin={1}><Link href='/login'>Log in</Link></Typography>

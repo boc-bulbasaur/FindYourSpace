@@ -41,7 +41,7 @@ const options = {
           const user = rows[0];
           console.log('User:', user);
           if (user !== null) {
-            const authenticated = utils.compareHash(password, user.password);
+            const authenticated = utils.compareHash(password, user.password, user.salt);
             if (authenticated) {
               console.log('Authenticated');
               return user;
