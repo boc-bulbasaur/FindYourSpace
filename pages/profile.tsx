@@ -3,15 +3,15 @@ import ProfileAbout from "../components/profile/profileAbout";
 import NavBar from "../components/navBar";
 import HistoryTable from "../components/history/r_historyTable";
 
-const hasHistory = (currentUser: any, profileUser: any) => {
+const hasHistory = (devToggle: boolean, currentUser: any, profileUser: any) => {
   //Code to check if logged-in user has any past listings with profile user
 
-  return true;
+  return devToggle;
 }
 
 export default function Profile(props) {
   let history;
-  if (hasHistory('currentUser', 'profileuser')) {
+  if (hasHistory(true, '', '')) {
     history =
       <>
         <h3>You have past bookings with this user:</h3>
