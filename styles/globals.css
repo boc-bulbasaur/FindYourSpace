@@ -25,6 +25,11 @@ a {
   }
 }
 
+/* RENTAL HISTORY CSS */
+.leaflet-container {
+  margin: 20px 60px 20px 60px;
+}
+
 /* //////OWNER HISTORY CSS////// */
 
 /* +++++CALENDAR STYLING+++++++ */
