@@ -68,6 +68,7 @@ class History extends React.Component {
     return (
       <ThemeProvider theme={theme}>
         <NavBar />
+        {/* Note the modular CSS below */}
         <div className={styles.history}>
             <div className="history-container">
               <HistoryToggle handleToggle={this.handleToggle}/>
