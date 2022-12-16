@@ -25,6 +25,7 @@ class RenterHistory extends React.Component {
   }
 
   componentDidMount(): void {
+
     this.calculateTimeRange();
   }
 

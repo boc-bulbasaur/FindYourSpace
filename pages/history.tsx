@@ -27,8 +27,6 @@ class History extends React.Component {
 
   handleToggle(event: React.MouseEvent<HTMLElement>,
     selection: string,): void {
-    console.log('toggle clicked');
-    console.log(selection);
     this.setState({toggle: selection});
   }
 

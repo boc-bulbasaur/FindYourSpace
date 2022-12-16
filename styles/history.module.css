@@ -5,3 +5,7 @@
   margin:2em;
 
 }
+
+.css-1vgdxna-MuiDataGrid-root .MuiDataGrid-columnSeparator--sideRight {
+  background-color: 'black';
+}

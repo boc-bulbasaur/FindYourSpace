@@ -81,12 +81,13 @@ a {
 
 /* set color of top row */
 .css-gl260s-MuiDataGrid-columnHeadersInner {
-  background-color: #2196f3;
+  background-color: #1b2139;
 }
 
 /* adjust color of table row names */
 .MuiDataGrid-columnHeaderTitleContainerContent {
   color: white;
+  background-color: #1b2139;
 }
 
 .css-1a40jv2-MuiTypography-root {
