@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { DataGrid, GridColDef, GridEventListener, GridValueGetterParams } from '@mui/x-data-grid';
-import Button from '@mui/material/Button';
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'Conf #', width: 70 },
@@ -39,7 +38,7 @@ export default function HistoryTable(props: any) {
       const startDate = new Date(e.timeRangeStart);
       const endDate = new Date(e.timeRangeEnd);
       const diffDate = diff_hours(endDate, startDate);
-      rows.push({id: e.id, name: `${e.firstName} ${e.lastName}`, address: e.address, detail: e.detail,
+      rows.push({id: e.id, name: e.name, address: e.address, detail: e.detail,
       city: e.place_id, startDateTime: startDate, endDateTime: endDate, duration: diffDate, lat: e.lat, lng: e.lng, rebook: e.rebook});
     });
   }
@@ -52,6 +51,7 @@ export default function HistoryTable(props: any) {
         rowsPerPageOptions={[3]}
         checkboxSelection={false}
         onRowClick={props.handleTableClick}
+        sx={{ m: 5}}
       />
     </div>
   );

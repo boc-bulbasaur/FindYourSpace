@@ -3,6 +3,9 @@ import NavBar from "../components/navBar";
 import OwnerHistory from "./ownerHistoryDash";
 import RenterHistory from "./renterHistory";
 import HistoryToggle from "../components/history/historyToggle";
+// MUI default Robot font
+import styles from '../styles/history.module.css';
+import { ThemeProvider, createTheme } from "@mui/material";
 
 class History extends React.Component {
 
@@ -28,6 +31,19 @@ class History extends React.Component {
   }
 
   render() {
+    const theme = createTheme({
+      palette: {
+        primary: {
+          main: '#00000',
+        },
+        secondary: {
+          main: '#3949ab',
+        }
+      },
+      typography: {
+        fontFamily: ['sono','sans-serif'].join(',')
+      },
+    });
     let history;
     if (this.state.toggle === 'renter') {
       history = <RenterHistory />
@@ -35,13 +51,15 @@ class History extends React.Component {
       history = <OwnerHistory />
     }
     return (
-      <>
-        <NavBar />
-        <div className="history-container">
-          <HistoryToggle handleToggle={this.handleToggle}/>
-          {history}
+      <ThemeProvider theme={theme}>
+        <div className="history">
+          <NavBar />
+          <div className="history-container">
+            <HistoryToggle handleToggle={this.handleToggle}/>
+            {history}
+          </div>
         </div>
-      </>
+      </ThemeProvider>
     )
   }
 }
