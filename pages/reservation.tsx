@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import PersonIcon from '@mui/icons-material/Person';
+import HomeIcon from '@mui/icons-material/Home';
 
 export default function NewReservation() {
   return (
@@ -29,11 +31,11 @@ export default function NewReservation() {
         <div className="billing">
           <div className="billing-row">
             <div className="billing-col col-50">
-              <label className="label">First Name</label>
+              <label className="label"><PersonIcon></PersonIcon>First Name</label>
               <input type="text" name="firstName" placeholder="John" />
             </div>
             <div className="billing-col col-50">
-              <label className="label">Last Name</label>
+              <label className="label"><PersonIcon></PersonIcon>Last Name</label>
               <input type="text" name="lastName" placeholder="Doe"/>
             </div>
           </div>
@@ -41,12 +43,12 @@ export default function NewReservation() {
           <br/>
             <div className="billing-col">
               <div className="billing-col address1">
-                <label>Address Line 1</label>
+                <label><HomeIcon></HomeIcon>Address Line 1</label>
                 <input name="streetAddress" placeholder="1234 Main Street" />
                 <br/>
               </div>
               <div className="billing-col">
-                <label>Address Line 2</label>
+                <label><HomeIcon></HomeIcon>Address Line 2</label>
                 <input name="addAddress" placeholder="Apt / Suite / Unit (Optional)" />
                 <br/>
               </div>
@@ -71,6 +73,30 @@ export default function NewReservation() {
 
         <div className="billing">
           <h3>Payment Information</h3>
+          <p>Accepted Cards</p>
+          <div className="cards">
+          <Image
+            src="/../public/visa.png"
+            alt="credit cards"
+            className="map"
+            width={100}
+            height={100}
+          />
+          <Image
+            src="/../public/discover.png"
+            alt="credit cards"
+            className="map"
+            width={100}
+            height={100}
+          />
+          <Image
+            src="/../public/american-express.png"
+            alt="credit cards"
+            className="map"
+            width={100}
+            height={100}
+          />
+          </div>
           <label>Name on Card</label>
           <input name="cardName" placeholder="John M. Doe" />
           <br />
