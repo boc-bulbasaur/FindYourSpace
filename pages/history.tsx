@@ -67,13 +67,13 @@ class History extends React.Component {
     }
     return (
       <ThemeProvider theme={theme}>
-      <div className="history">
         <NavBar />
-          <div className="history-container">
-            <HistoryToggle handleToggle={this.handleToggle}/>
-            {history}
-          </div>
-      </div>
+        <div className={styles.history}>
+            <div className="history-container">
+              <HistoryToggle handleToggle={this.handleToggle}/>
+              {history}
+            </div>
+        </div>
       </ThemeProvider>
     )
   }
