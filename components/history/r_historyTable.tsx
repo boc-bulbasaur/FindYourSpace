@@ -11,7 +11,7 @@ const columns: GridColDef[] = [
   // { field: 'zip', headerName: 'ZIP', width: 70 },
   { field: 'startDateTime', type: 'dateTime', headerName: 'Start DateTime', width: 180 },
   { field: 'endDateTime', type: 'dateTime', headerName: 'End DateTime', width: 180 },
-  { field: 'duration', type: 'number', headerName: 'Duration (hrs)', width: 100 },
+  { field: 'duration', type: 'number', headerName: 'Duration', width: 100 },
   { field: 'rebook', headerName: 'Rebook', width: 250, sortable: false, type: 'boolean' },
 ];
 
@@ -39,7 +39,7 @@ export default function HistoryTable(props: any) {
       const endDate = new Date(e.timeRangeEnd);
       const diffDate = diff_hours(endDate, startDate);
       rows.push({id: e.id, name: e.name, address: e.address, detail: e.detail,
-      city: e.place_id, startDateTime: startDate, endDateTime: endDate, duration: diffDate, lat: e.lat, lng: e.lng, rebook: e.rebook});
+      city: e.place_id, startDateTime: startDate, endDateTime: endDate, duration: `${diffDate} hours`, lat: e.lat, lng: e.lng, rebook: e.rebook});
     });
   }
   return (
@@ -51,7 +51,7 @@ export default function HistoryTable(props: any) {
         rowsPerPageOptions={[3]}
         checkboxSelection={false}
         onRowClick={props.handleTableClick}
-        sx={{ m: 5}}
+        sx={{}}
       />
     </div>
   );

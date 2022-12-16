@@ -6,6 +6,8 @@ import HistoryToggle from "../components/history/historyToggle";
 // MUI default Robot font
 import styles from '../styles/history.module.css';
 import { ThemeProvider, createTheme } from "@mui/material";
+import { Palette } from '@mui/icons-material';
+import { dark } from '@mui/material/styles/createPalette';
 
 class History extends React.Component {
 
@@ -33,16 +35,29 @@ class History extends React.Component {
   render() {
     const theme = createTheme({
       palette: {
+        mode: 'light',
         primary: {
-          main: '#00000',
+          main: '#fffff',
+          contrastText: '#0000'
         },
         secondary: {
           main: '#3949ab',
+          contrastText: '#fffff'
         }
       },
       typography: {
         fontFamily: ['sono','sans-serif'].join(',')
       },
+      components: {
+        MuiAppBar: {
+          styleOverrides: {
+            colorPrimary: {
+              backgroundColor: 'black',
+              color: 'white'
+            }
+          }
+        }
+      }
     });
     let history;
     if (this.state.toggle === 'renter') {
@@ -52,13 +67,13 @@ class History extends React.Component {
     }
     return (
       <ThemeProvider theme={theme}>
-        <div className="history">
-          <NavBar />
+      <div className="history">
+        <NavBar />
           <div className="history-container">
             <HistoryToggle handleToggle={this.handleToggle}/>
             {history}
           </div>
-        </div>
+      </div>
       </ThemeProvider>
     )
   }
