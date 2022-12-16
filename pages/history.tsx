@@ -37,27 +37,18 @@ class History extends React.Component {
       palette: {
         mode: 'light',
         primary: {
-          main: '#fffff',
-          contrastText: '#0000'
+          main: '#1b2139',
         },
         secondary: {
-          main: '#3949ab',
-          contrastText: '#fffff'
-        }
+          main: '#000000',
+        },
+        background: {
+          default: '#fbfbfb',
+        },
       },
       typography: {
-        fontFamily: ['sono','sans-serif'].join(',')
+        fontFamily: ['Sono','sans-serif'].join(',')
       },
-      components: {
-        MuiAppBar: {
-          styleOverrides: {
-            colorPrimary: {
-              backgroundColor: 'black',
-              color: 'white'
-            }
-          }
-        }
-      }
     });
     let history;
     if (this.state.toggle === 'renter') {
