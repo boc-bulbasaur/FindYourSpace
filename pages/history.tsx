@@ -5,7 +5,7 @@ import RenterHistory from "./renterHistory";
 import HistoryToggle from "../components/history/historyToggle";
 // MUI default Robot font
 import styles from '../styles/history.module.css';
-import { ThemeProvider, createTheme } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Palette } from '@mui/icons-material';
 import { dark } from '@mui/material/styles/createPalette';
 
@@ -59,10 +59,8 @@ class History extends React.Component {
         <NavBar />
         {/* Note the modular CSS below */}
         <div className={styles.history}>
-            <div className="history-container">
-              <HistoryToggle handleToggle={this.handleToggle}/>
-              {history}
-            </div>
+          <HistoryToggle handleToggle={this.handleToggle} sx={{color: 'black'}}/>
+          {history}
         </div>
       </ThemeProvider>
     )
