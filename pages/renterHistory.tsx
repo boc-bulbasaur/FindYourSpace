@@ -2,7 +2,7 @@ import React from 'react';
 import HistoryTable from '../components/history/r_historyTable';
 import dynamic from 'next/dynamic'
 import { GridEventListener } from '@mui/x-data-grid';
-import { Card } from '@mui/material';
+import { Card, Typography } from '@mui/material';
 
 class RenterHistory extends React.Component {
 
@@ -58,9 +58,9 @@ class RenterHistory extends React.Component {
     diff /= (60 * 60);
     const totalHours = Math.abs(Math.round(diff));
     const days = Math.floor(totalHours/24);
-    var years = Math.floor(days/365);
-    var hours = totalHours % 24;
-    this.setState({timeRange: `${years} years, ${days} days, ${hours} hours`});
+    const years = Math.floor(days/365);
+    const hours = totalHours % 24;
+    this.setState({timeRange: [years, days, hours]});
   }
 
   handleTableClick: GridEventListener<'rowClick'> = (
@@ -82,8 +82,17 @@ class RenterHistory extends React.Component {
     );
     let timeRange;
     if (this.state.timeRange !== '') {
-      timeRange = <Card sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)', padding: 2, margin: 2}}>
-        {this.state.numListings} reservations over {this.state.timeRange}
+      timeRange = <Card sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)', padding: 2, margin: 2, width: '50%'}}>
+        <Typography variant="h4" component="div">
+          Quick stats:
+          <Typography sx={{ fontSize: 20 }} color="text.secondary">
+            {this.state.numListings} reservations over<br />
+            {this.state.timeRange[0]} year(s)<br />
+            {this.state.timeRange[1]} day(s)<br />
+            {this.state.timeRange[2]} hour(s)
+          </Typography>
+        </Typography>
+
         </Card>
     }
     return (

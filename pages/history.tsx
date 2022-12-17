@@ -23,6 +23,7 @@ class History extends React.Component {
 
   componentDidMount(): void {
     //code to query if current user is renter AND owner
+    //if true set this.state.rentAndOwn
   }
 
   handleToggle(event: React.MouseEvent<HTMLElement>,
@@ -55,7 +56,8 @@ class History extends React.Component {
       history = <OwnerHistory />
     }
     return (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme} >
+        <></>
         <NavBar />
         {/* Note the modular CSS below */}
         <div className={styles.history}>
