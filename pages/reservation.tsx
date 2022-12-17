@@ -1,8 +1,31 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import Payment from '../components/payment/index.js';
+import { useEffect } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+import { useRouter } from 'next/router';
+
+loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 export default function NewReservation() {
+  const router = useRouter();
+	const { success, canceled } = router.query;
+
+	useEffect(() => {
+		if (success !== undefined || canceled !== undefined) {
+			if (success) {
+				console.log(
+					'Order placed! You will receive an email confirmation.'
+				);
+			}
+
+			if (canceled) {
+				console.log(
+					'Order canceled -- continue to shop around and checkout when you’re ready.'
+				);
+			}
+		}
+	}, [success, canceled]);
+
   return (
     <div className="newRes">
       <h1>CHECKOUT</h1>
@@ -95,6 +118,60 @@ export default function NewReservation() {
       {/* add fully functioning payment process- can add a button "Go to payment" */}
 
       </form>
+
+      <form action='/api/checkout_sessions' method='POST'>
+			<section>
+				<div>{success ? (<div>Payment Successful!</div>) : (<div></div>)}</div>
+				<button type='submit' role='link'>
+					Go to payment
+				</button>
+			</section>
+      <style jsx>
+				{`
+					.description {
+						float: right;
+						margin-left: 10px;
+					}
+					.image {
+						float: left;
+					}
+					.heading {
+						font-size: 28px;
+						font-weight: 200;
+					}
+					.price {
+						font-size: 18px;
+						font-weight: bold;
+					}
+					section {
+						background: #ffffff;
+						display: flex;
+						flex-direction: column;
+						width: 450px;
+						height: 112px;
+						border-radius: 6px;
+						justify-content: space-between;
+					}
+					button {
+						height: 45px;
+						padding: 10px;
+						background: #556cd6;
+						border-radius: 4px;
+						color: white;
+						border: 0;
+						font-size: 18px;
+						font-weight: 600;
+						cursor: pointer;
+						transition: all 0.2s ease;
+						box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+					}
+					button:hover {
+						opacity: 0.8;
+					}
+				`}
+			</style>
+		  </form>
+
       <footer>
         <h2>
           <Link href="/">Back to home</Link>
