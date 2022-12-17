@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
@@ -22,7 +22,6 @@ class HistoryMap extends React.Component {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker position={position} icon={icon}>
-          <Popup>hola!</Popup>
         </Marker>
       </MapContainer>
     )
