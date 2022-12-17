@@ -3,6 +3,11 @@ import NavBar from "../components/navBar";
 import OwnerHistory from "./ownerHistoryDash";
 import RenterHistory from "./renterHistory";
 import HistoryToggle from "../components/history/historyToggle";
+// MUI default Robot font
+import styles from '../styles/history.module.css';
+import { ThemeProvider, createTheme } from "@mui/material";
+import { Palette } from '@mui/icons-material';
+import { dark } from '@mui/material/styles/createPalette';
 
 class History extends React.Component {
 
@@ -22,12 +27,27 @@ class History extends React.Component {
 
   handleToggle(event: React.MouseEvent<HTMLElement>,
     selection: string,): void {
-    console.log('toggle clicked');
-    console.log(selection);
     this.setState({toggle: selection});
   }
 
   render() {
+    const theme = createTheme({
+      palette: {
+        mode: 'light',
+        primary: {
+          main: '#1b2139',
+        },
+        secondary: {
+          main: '#000000',
+        },
+        background: {
+          default: '#fbfbfb',
+        },
+      },
+      typography: {
+        fontFamily: ['Sono','sans-serif'].join(',')
+      },
+    });
     let history;
     if (this.state.toggle === 'renter') {
       history = <RenterHistory />
@@ -35,13 +55,16 @@ class History extends React.Component {
       history = <OwnerHistory />
     }
     return (
-      <>
+      <ThemeProvider theme={theme}>
         <NavBar />
-        <div className="history-container">
-          <HistoryToggle handleToggle={this.handleToggle}/>
-          {history}
+        {/* Note the modular CSS below */}
+        <div className={styles.history}>
+            <div className="history-container">
+              <HistoryToggle handleToggle={this.handleToggle}/>
+              {history}
+            </div>
         </div>
-      </>
+      </ThemeProvider>
     )
   }
 }
