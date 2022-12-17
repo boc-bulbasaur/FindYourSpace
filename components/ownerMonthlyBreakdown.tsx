@@ -1,4 +1,5 @@
-export default function O_MonthlyBreakdown() {
+export default function O_MonthlyBreakdown(props) {
+
   return (
     <div className="monthly-breakdown-container">
         <div className="mb-annual-revenue-container">
