@@ -10,7 +10,7 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const {email, name, order, price} = req.query
+  const {email, name, order, price, time} = req.query
   const data = {
     to : `${email}`,
     from : 'noreply@findyourspace.app',
@@ -37,15 +37,16 @@ export default function handler(
               </table>
             `,
   }
-  CreateJob()
-  mail.send(data)
-  .then(()=>{
-    res.status(200).end('success')
-    console.log('Mail sent successfully')
-    // Promise.resolve()
-  })
-  .catch((error: any)=>{
-    res.status(500).end(error)
-    return Promise.resolve(error)
-  })
+  CreateJob(time)
+  res.status(200).end('success')
+  // mail.send(data)
+  // .then(()=>{
+  //   res.status(200).end('success')
+  //   console.log('Mail sent successfully')
+  //   // Promise.resolve()
+  // })
+  // .catch((error: any)=>{
+  //   res.status(500).end(error)
+  //   return Promise.resolve(error)
+  // })
 }
