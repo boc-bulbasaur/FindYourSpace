@@ -21,8 +21,10 @@ export default async function handler(
     res.end();
   }
   try {
+    console.log('inputs', name, email, password);
     const { rows } = await client.query(`SELECT * FROM users WHERE email = '${email}'`);
     const user = rows[0];
+    console.log('user', user);
     if (user !== undefined) {
       res.status(422).json({ error: 'Cannot create user.' });
     } else {
@@ -37,6 +39,7 @@ export default async function handler(
         VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
         values);
       const newUser = rows[0];
+      console.log('newUser:', newUser);
       if (!newUser) {
         throw new Error;
       } else {
@@ -45,6 +48,7 @@ export default async function handler(
       }
     }
   } catch (err) {
+    console.log(err);
     res.status(500).send(err);
   }
 }
