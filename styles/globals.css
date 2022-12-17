@@ -186,78 +186,9 @@ a {
   color: green
 }
 
-/*NEW RESERVATION STYLES*/
-.newRes h1, .newRes h3, footer {
-  text-align: center;
-}
-
-.billing {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  width: 40%;
-  margin: auto;
-}
-
-.price {
-  display: flex;
-  flex-direction: column;
-  text-align: right;
-  width: 40%;
-  margin: auto;
-}
-
-.billing-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.billing-col {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.col-50 {
-  width: 50%;
-}
-
-.col-33 {
-  width: 33%;
-}
-
-.park-details {
-  width: 40%;
-  margin: auto;
-}
-
-.right-price {
-  text-align: right;
-}
-
-hr {
-  width: 50%;
-  margin-left: 50%;
-}
-
-.details {
-  display: flex;
-  flex-direction: row;
-}
-
-.park-details {
-  text-align: center;
-}
 .search-results::-webkit-scrollbar {
   display: none;
 }
 
 
 
-.cards {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
