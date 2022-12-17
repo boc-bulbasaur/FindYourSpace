@@ -25,6 +25,7 @@ class RenterHistory extends React.Component {
   }
 
   componentDidMount(): void {
+
     this.calculateTimeRange();
   }
 
@@ -75,8 +76,7 @@ class RenterHistory extends React.Component {
     return (
       <>
         <h1>My Rental History</h1>
-        <h3>Past Rentals</h3>
-        <HistoryTable listings={this.state.listings} handleTableClick={this.handleTableClick}/>
+        <HistoryTable listings={this.state.listings} handleTableClick={this.handleTableClick} />
         <LeafMap position={this.state.currentLoc} />
       </>
     )

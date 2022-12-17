@@ -62,7 +62,6 @@ export default function Home() {
         <Link href="/profile">Profile</Link>
         <Link href="/reservation">book now!</Link>
         <Link href="/history">History</Link>
-        <Link href="/renterHistory">Renter History</Link>
       </main>
 
       <footer className={styles.footer}>

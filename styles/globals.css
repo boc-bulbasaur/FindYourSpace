@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Sono:wght@200;300;400;500;600;700;800&display=swap');
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
+  font-family: 'Sono', sans-serif;
 }
 
 a {
@@ -78,12 +81,13 @@ a {
 
 /* set color of top row */
 .css-gl260s-MuiDataGrid-columnHeadersInner {
-  background-color: #2196f3;
+  background-color: #1b2139;
 }
 
 /* adjust color of table row names */
 .MuiDataGrid-columnHeaderTitleContainerContent {
   color: white;
+  background-color: #1b2139;
 }
 
 .css-1a40jv2-MuiTypography-root {
@@ -181,72 +185,9 @@ a {
   line-height: 1.235;
   color: green
 }
-=======
-/*NEW RESERVATION STYLES*/
-.newRes h1, .newRes h3, footer {
-  text-align: center;
-}
 
-.billing {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  width: 40%;
-  margin: auto;
-}
-
-.price {
-  display: flex;
-  flex-direction: column;
-  text-align: right;
-  width: 40%;
-  margin: auto;
-}
-
-.billing-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.billing-col {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.col-50 {
-  width: 50%;
-}
-
-.col-33 {
-  width: 33%;
-}
-
-p {
-  width: 40%;
-  margin: auto;
-}
-
-.right-price {
-  text-align: right;
-}
-
-hr {
-  width: 50%;
-  margin-left: 50%;
-}
-
-.details {
-  display: flex;
-  flex-direction: row;
-}
-
-.park-details {
-  text-align: center;
-}
 .search-results::-webkit-scrollbar {
   display: none;
 }
+
 
