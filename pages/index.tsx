@@ -78,6 +78,9 @@ export default function Home() {
             </p>
           </a>
         </div>
+        <Link href="/profile">Profile</Link>
+        <Link href="/reservation">book now!</Link>
+        <Link href="/history">History</Link>
       </main>
 
       <footer className={styles.footer}>
