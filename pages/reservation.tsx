@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import Payment from '../components/payment/index.js';
 
 export default function NewReservation() {
   return (
@@ -69,7 +70,7 @@ export default function NewReservation() {
         </div>
         <br />
 
-        <div className="billing">
+        {/* <div className="billing">
           <h3>Payment Information</h3>
           <label>Name on Card</label>
           <input name="cardName" placeholder="John M. Doe" />
@@ -89,7 +90,10 @@ export default function NewReservation() {
           </div>
           <br/>
           <button type="submit">CHECKOUT</button>
-        </div>
+        </div> */}
+
+      {/* add fully functioning payment process- can add a button "Go to payment" */}
+
       </form>
       <footer>
         <h2>
