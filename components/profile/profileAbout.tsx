@@ -1,6 +1,4 @@
 import React from 'react';
-import ProfileButtons from "./profileButtons";
-import ProfileTable from './profileTable';
 import Avatar from '@mui/material/Avatar';
 
 class ProfileAbout extends React.Component {
@@ -32,9 +30,6 @@ class ProfileAbout extends React.Component {
           Number: 212-123-4567<br />
           About: I live in Austin and am a big fan of concerts. <br />
         <div>Extra Info</div>
-        <ProfileButtons />
-        <h3>You have 2 past bookings with this User</h3>
-        <ProfileTable />
       </div>
     )
   }
