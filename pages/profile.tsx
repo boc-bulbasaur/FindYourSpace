@@ -41,16 +41,17 @@ export default function Profile(props) {
     },
   });
   return (
-    <ThemeProvider theme={theme}>
-
+     <>
       <NavBar />
-      <div className="profile-container">
-        <h1>Profile</h1>
-        <ProfileAbout name="testName"/>
-        <ProfileButtons />
-        {history}
-      </div>
+      <ThemeProvider theme={theme}>
+        <div className="profile-container">
+          <h1>Profile</h1>
+          <ProfileAbout name="testName"/>
+          <ProfileButtons />
+          {history}
+        </div>
+      </ThemeProvider>
+     </>
 
-    </ThemeProvider>
   )
 }

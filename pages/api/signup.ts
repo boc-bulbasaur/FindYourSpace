@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import utils from '../../lib/crypto.js';
-import sendVerificationEmail from '../../lib/verify-email.js';
+import { sendVerificationEmail } from '../../lib/emailers.js';
 import client from '../../database/db.js';
 
 type Data = {
@@ -30,12 +30,12 @@ export default async function handler(
     } else {
       const salt = await utils.createRandom32String();
       password = await utils.createHash(password, salt);
-      const hash = await utils.createRandom32String();
+      const token = await utils.createRandom32String();
       const registered_at = new Date();
-      const expires = new Date(registered_at.getTime() + 1000 * 60 * 60 * 24);
-      const values = [name, email, password, salt, registered_at, expires, hash];
+      const token_expires = new Date(registered_at.getTime() + 1000 * 60 * 60 * 24);
+      const values = [name, email, password, salt, registered_at, token_expires, token];
       const { rows } = await client.query(`INSERT INTO users
-        (name, email, password, salt, registered_at, expires, hash)
+        (name, email, password, salt, registered_at, token_expires, token)
         VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
         values);
       const newUser = rows[0];
@@ -43,8 +43,8 @@ export default async function handler(
       if (!newUser) {
         throw new Error;
       } else {
-        sendVerificationEmail(name, email, newUser.hash);
-        res.status(201).json({ message: 'User successfully created. Please verify your email.' });
+        sendVerificationEmail(name, email, newUser.token);
+        res.status(201).json({ message: 'User successfully created. Please check your email.' });
       }
     }
   } catch (err) {

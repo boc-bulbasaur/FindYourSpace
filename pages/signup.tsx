@@ -17,9 +17,14 @@ export default function Signup() {
   const { data: session } = useSession();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState(false);
+  const [emailHelper, setEmailHelper] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordHelper, setPasswordHelper] = useState('');
+  const [passwordError, setPasswordError] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [disabledButton, setDisabledButton ] = useState(true);
+  const [message, setMessage] = useState('');
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -27,8 +32,34 @@ export default function Signup() {
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
+  const handleEmailBlur = () => {
+    if (email.length > 4 && email.indexOf('@') === -1) {
+      console.log('Please enter a valid email address');
+      setEmailHelper('Please enter a valid email address');
+      setEmailError(true);
+      setDisabledButton(true);
+    }
+    else {
+      setEmailHelper('');
+      setEmailError(false);
+    }
+  };
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+    if (e.target.value > 5) {
+      setPasswordHelper('Password must contain at least 8 lowercase and uppercase letters, numbers, and symbols.');
+    }
+  };
+  const handlePasswordBlur = () => {
+    if (password.length < 8) {
+      setPasswordHelper('Password must contain at least 8 lowercase and uppercase letters, numbers, and symbols.');
+      setPasswordError(true);
+      setDisabledButton(true);
+    }
+    else {
+      setPasswordHelper('');
+      setPasswordError(false);
+    }
   };
   const handleConfirmPasswordChange = (e) => {
     setConfirmPassword(e.target.value);
@@ -38,24 +69,33 @@ export default function Signup() {
       setDisabledButton(true);
     }
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     if (email.length && name.length && password.length && password === confirmPassword) {
       const credentials = {
         name,
         email,
         password,
       }
-      fetch('/api/signup', {
+      await fetch('/api/signup', {
         method: 'POST',
         body: JSON.stringify(credentials),
       })
       .then((response) => {
         if (response.status === 422) {
+          console.log('User already exists.', new Date());
+          setMessage('User with that email cannot be created.');
+          setEmail('');
+          setEmailError(true);
           throw new Error;
         }
-      })
-      .then((data) => {
-        console.log('Success:', data);
+        if (response.status === 201) {
+          console.log('Success:', response);
+          setMessage('User created! Please check your email.');
+          setName('');
+          setEmail('');
+          setPassword('');
+          setConfirmPassword('');
+        }
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -87,6 +127,7 @@ export default function Signup() {
               label="Name"
               variant="outlined"
               type="text"
+              value={name}
               required={true}
               error={false}
               sx={{ p: 1.2 }}
@@ -97,33 +138,40 @@ export default function Signup() {
               label="Email"
               variant="outlined"
               type="email"
+              value={email}
               required={true}
-              error={false}
+              error={emailError}
+              helperText={emailHelper}
               sx={{ p: 1.2 }}
               onChange={handleEmailChange}
+              onBlur={handleEmailBlur}
             />
             <TextField
               id="password1"
               label="Password"
               type="password"
               variant="outlined"
+              value={password}
               required={true}
               error={false}
-              helperText={''}
+              helperText={passwordHelper}
               sx={{ p: 1.2 }}
               onChange={handlePasswordChange}
+              onBlur={handlePasswordBlur}
             />
             <TextField
               id="confirmPassword"
               label="Confirm Password"
               type="password"
               variant="outlined"
+              value={confirmPassword}
               required={true}
               error={false}
               helperText={''}
               sx={{ p: 1.2 }}
               onChange={handleConfirmPasswordChange}
             />
+            <Typography color={'error'} textAlign="center" sx={{ m: 1.2 }}>{message}</Typography>
             <Button
               type="submit"
               variant="contained"
@@ -133,7 +181,7 @@ export default function Signup() {
             >
               Sign up
             </Button>
-            <Typography color={'primary'} textAlign="center" marginTop={3}>Already have an account?</Typography>
+            <Typography color={'black'} textAlign="center" marginTop={3}>Already have an account?</Typography>
             <Typography color={'primary'} textAlign="center" margin={1}><Link href='/login'>Log in</Link></Typography>
           </Box>
         </Box>

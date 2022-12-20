@@ -19,7 +19,7 @@ const pagesEndpoints = ['/search', '/reservation', '/newlisting'];
 const settings = ['Profile', 'History', 'Logout'];
 const settingsEndpoints = ['/profile', '/history', '/'];
 
-export default function NavBar({session} : {session:any}) {
+export default function NavBar({session}) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
