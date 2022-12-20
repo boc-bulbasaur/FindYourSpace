@@ -1,3 +1,5 @@
+import styles from '../styles/ownerHistoryDash.module.css';
+
 export default function O_MonthlyBreakdown(props) {
 
   return (

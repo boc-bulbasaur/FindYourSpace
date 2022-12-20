@@ -1,6 +1,7 @@
 import * as React from 'react';
 import OwnerHistory from '../pages/ownerHistoryDash';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import styles from '../styles/ownerHistoryDash.module.css';
 
 
 const columns: GridColDef[] = [

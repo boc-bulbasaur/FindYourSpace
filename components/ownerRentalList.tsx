@@ -13,6 +13,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import FolderIcon from '@mui/icons-material/Folder';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import styles from '../styles/ownerHistoryDash.module.css';
 
 function generate(element) {
   return [0, 1, 2].map((value) =>

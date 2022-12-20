@@ -7,6 +7,7 @@ import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 import Badge from '@mui/material/Badge';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import styles from '../styles/ownerHistoryDash.module.css';
 
 const isWeekend = (date) => {
   const day = date.day();

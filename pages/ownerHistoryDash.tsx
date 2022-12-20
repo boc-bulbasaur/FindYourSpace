@@ -1,24 +1,44 @@
 import { format, formatDistance, formatRelative, subDays } from 'date-fns'
 
 import NavBar from "../components/navBar"
+import { ThemeProvider, createTheme } from "@mui/material";
 import DatePicker from "../components/ownerCalendarView"
 import O_MonthlyBreakdown from "../components/ownerMonthlyBreakdown"
 import O_RenderHistory from "../components/ownerRenderHistory"
 import O_RentalList from "../components/ownerRentalList"
+import styles from '../styles/ownerHistoryDash.module.css';
 
 export default function OwnerHistory( props ) {
-  // { ownerHistory } = props;
   console.log('Main History Dashboard props: ', props)
+
+  const theme = createTheme({
+    palette: {
+      mode: 'light',
+      primary: {
+        main: '#1b2139',
+      },
+      secondary: {
+        main: '#000000',
+      },
+      background: {
+        default: '#fbfbfb',
+      },
+    },
+    typography: {
+      fontFamily: ['Sono','sans-serif'].join(',')
+    },
+  });
+
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <NavBar />
-      <div className="calendar-list-view">
+      <div className={styles.calendar_list_view}>
         <DatePicker />
         <O_RentalList />
         <O_MonthlyBreakdown />
       </div>
       <O_RenderHistory  ownerHistory={props} />
-    </>
+    </ThemeProvider>
   )
 }
 
