@@ -9,11 +9,9 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import NavBar from "../components/navBar";
 import { useSession } from 'next-auth/react';
-import utils from '../lib/crypto.js';
 
-const { data: session } = useSession();
 export default function Home() {
-
+  const { data: session } = useSession();
   console.log(session);
   return (
     <div className={styles.container}>
