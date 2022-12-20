@@ -40,7 +40,7 @@ const options = {
           const { rows } = await client.query(`SELECT * FROM users WHERE email = '${email}'`);
           const user = rows[0];
           console.log('User:', user);
-          if (user && user.is_validated) {
+          if (user && user.is_verified) {
             const authenticated = utils.compareHash(password, user.password, user.salt);
             if (authenticated) {
               console.log('Authenticated');
@@ -74,6 +74,15 @@ const options = {
     signIn: '/login'
   },
   secret: process.env.JWT_SECRET,
+  callbacks: {
+    async session({session}) {
+      const { user } = session;
+      const result = await client.query(`SELECT * FROM users WHERE email = '${user.email}'`);
+      session.user.user_id = result.rows[0].user_id;
+      session.user.bluecheckmark = result.rows[0].bluecheckmark;
+      return session;
+  }
+}
 }
 
 export default NextAuth(options);

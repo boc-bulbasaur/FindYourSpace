@@ -185,7 +185,6 @@ a {
   line-height: 1.235;
   color: green
 }
-=======
 /*NEW RESERVATION STYLES*/
 .newRes h1, .newRes h3, footer {
   text-align: center;
@@ -242,15 +241,9 @@ hr {
   margin-left: 50%;
 }
 
-.details {
-  display: flex;
-  flex-direction: row;
-}
-
-.park-details {
-  text-align: center;
-}
 .search-results::-webkit-scrollbar {
   display: none;
 }
+
+
 
