@@ -1,10 +1,8 @@
-import { Card, CardContent, CardActionArea, ButtonBase, Box, Stack, Button, Typography, TextField, FormControl, InputLabel, Input, FormHelperText } from '@mui/material';
-import { textAlign } from '@mui/system';
+import { Box, Stack, Button, Typography, FormControl } from '@mui/material';
 
 function First({ formData, setFormData }) {
 
   const handleClick = (e) => {
-    console.log(e.target)
     setFormData({
       ...formData,
       type: e.target.name,
@@ -19,6 +17,7 @@ function First({ formData, setFormData }) {
   return (
   <>
     <Typography
+    component={'h1'}
       sx={{
         display: 'flex',
         flexGrow: '1',
@@ -53,8 +52,7 @@ function First({ formData, setFormData }) {
           }}
           onClick={handleClick}
         >
-          <Box
-            component="span"
+          <Typography
             sx={{
               fontSize: '14px',
               paddingBottom: '5px',
@@ -62,16 +60,15 @@ function First({ formData, setFormData }) {
             }}
           >
             Covered Space
-          </Box>
-          <Box
-            component="span"
+          </Typography>
+          <Typography
             sx={{
               fontSize: '10px',
               pointerEvents: 'none'
             }}
           >
             Guests will have access to a covered space.
-          </Box>
+          </Typography>
         </Button>
         <Button
           value="Uncovered"
@@ -128,7 +125,7 @@ function First({ formData, setFormData }) {
               pointerEvents: 'none'
             }}
           >
-            Guests will have access to a reserved space on the street.
+            Guests will have access to a space on the street.
           </Typography>
         </Button>
       </Stack>

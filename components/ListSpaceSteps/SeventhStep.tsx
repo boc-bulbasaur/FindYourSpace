@@ -1,4 +1,4 @@
-import { Box, Grid, Slider, Button, Typography, TextField, FormControl, InputLabel, Input, FormHelperText } from '@mui/material';
+import { Box, Grid, Slider, Typography, Input } from '@mui/material';
 
 function Seventh({ formData, setFormData }) {
 
@@ -17,29 +17,29 @@ function Seventh({ formData, setFormData }) {
   };
 
   const handleShortBlur = () => {
-    if (formData.shortTermRate < 0) {
+    if (formData.short_term_rate < 0) {
       setFormData({
         ...formData,
-        shortTermRate: 0,
+        short_term_rate: 0,
       });
-    } else if (formData.shortTermRate > 100) {
+    } else if (formData.short_term_rate > 100) {
       setFormData({
         ...formData,
-        shortTermRate: 100,
+        short_term_rate: 100,
       });;
     }
   };
 
   const handleLongBlur = () => {
-    if (formData.longTermRate < 0) {
+    if (formData.long_term_rate < 0) {
       setFormData({
         ...formData,
-        longTermRate: 0,
+        long_term_rate: 0,
       });
-    } else if (formData.longTermRate > 100) {
+    } else if (formData.long_term_rate > 100) {
       setFormData({
         ...formData,
-        longTermRate: 100,
+        long_term_rate: 100,
       });;
     }
   };
@@ -84,16 +84,16 @@ function Seventh({ formData, setFormData }) {
           </Grid>
           <Grid item xs>
             <Slider
-              value={typeof formData.shortTermRate === 'number' ? formData.shortTermRate : 0}
+              value={typeof formData.short_term_rate === 'number' ? formData.short_term_rate : 0}
               onChange={handleSliderChange}
               aria-labelledby="input-slider"
-              name="shortTermRate"
+              name="short_term_rate"
             />
           </Grid>
           <Grid item>
             <Input
-              value={formData.shortTermRate}
-              name="shortTermRate"
+              value={formData.short_term_rate}
+              name="short_term_rate"
               sx={{
                 width: '42px'
               }}
@@ -124,21 +124,21 @@ function Seventh({ formData, setFormData }) {
           </Grid>
           <Grid item xs>
             <Slider
-              value={typeof formData.longTermRate === 'number' ? formData.longTermRate : 0}
+              value={typeof formData.long_term_rate === 'number' ? formData.long_term_rate : 0}
               onChange={handleSliderChange}
               aria-labelledby="input-slider"
-              name="longTermRate"
+              name="long_term_rate"
             />
           </Grid>
           <Grid item>
             <Input
-              value={formData.longTermRate}
+              value={formData.long_term_rate}
               sx={{
                 width: '42px'
               }}
               onChange={handleInputChange}
               onBlur={handleLongBlur}
-              name="longTermRate"
+              name="long_term_rate"
               inputProps={{
                 step: 1,
                 min: 0,

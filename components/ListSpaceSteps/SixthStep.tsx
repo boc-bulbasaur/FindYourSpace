@@ -1,10 +1,10 @@
-import { Box, BottomNavigation, BottomNavigationAction, Button, Typography, TextField, FormControl, InputLabel, Input, FormHelperText } from '@mui/material';
+import { Box, Typography, TextField } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers-pro';
 import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
 import { StaticDateRangePicker } from '@mui/x-date-pickers-pro/StaticDateRangePicker';
 
 
-function Sixth( {formData, setFormData }) {
+function Sixth({ formData, setFormData }) {
 
   return (
   <>
@@ -16,7 +16,7 @@ function Sixth( {formData, setFormData }) {
         alignItems: 'center'
       }}
     >
-      To start with, whats your beautiful name?
+      Select dates.
     </Typography>
     <Box
       sx={{

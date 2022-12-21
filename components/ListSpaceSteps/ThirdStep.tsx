@@ -1,4 +1,4 @@
-import { Box, FormControlLabel, FormGroup, Stack, Checkbox, Typography, TextField, FormControl, InputLabel, Input, FormHelperText } from '@mui/material';
+import { Box, FormControlLabel, FormGroup, Stack, Checkbox, Typography, TextField, FormControl } from '@mui/material';
 
 function Third({ formData, setFormData}) {
 
@@ -135,7 +135,7 @@ function Third({ formData, setFormData}) {
             onChange={(e) => {
               setFormData({
                 ...formData,
-                _specialInformation: e.target.value,
+                _special_information: e.target.value,
               });
             }}
           >

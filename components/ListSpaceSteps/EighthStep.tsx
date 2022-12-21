@@ -1,9 +1,10 @@
-import { Box, BottomNavigation, BottomNavigationAction, Button, Typography, TextField, FormControl, InputLabel, Input, FormHelperText } from '@mui/material';
+import { Box, Typography, Stack } from '@mui/material';
 
-function Eighth() {
+function Eighth({ formData }) {
   return (
-    <>
+  <>
     <Typography
+    component={'h1'}
       sx={{
         display: 'flex',
         flexGrow: '1',
@@ -11,25 +12,39 @@ function Eighth() {
         alignItems: 'center'
       }}
     >
-      To start with, whats your beautiful name?
+      Listing Details
     </Typography>
     <Box
       sx={{
         margin: '1rem 0',
       }}
     >
-      <FormControl
-        sx={{
-          marginLeft: '1rem',
-          display: 'flex',
-          justifyContent: 'center',
-          flexGrow: '1'
-        }}
-      >
-        <InputLabel htmlFor="my-input">Email address</InputLabel>
-        <Input id="my-input" aria-describedby="my-helper-text" />
-        <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
-      </FormControl>
+       <Stack spacing={2}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: 'flex-start',
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: '12px',
+              pointerEvents: 'none'
+            }}
+          >
+            Type: {formData.type}
+            Location: {formData._address}
+            Minimum Stay: {formData.min_stay}
+            Maximum Stay: {formData.max_stay}
+            Amenities:
+            Short Term Price: {formData.short_term_rate}
+            Long Term Price: {formData.long_term_rate}
+            Available starting: {formData.availability[0].format('MM/DD/YYYY')}
+            Available until: {formData.availability[1].format('MM/DD/YYYY')}
+          </Typography>
+        </Box>
+      </Stack>
     </Box>
   </>
   );

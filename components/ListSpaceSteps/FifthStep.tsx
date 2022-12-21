@@ -1,4 +1,4 @@
-import { Box, Grid, styled, Slider, Typography, Input, FormHelperText } from '@mui/material';
+import { Box, Grid, Slider, Typography, Input } from '@mui/material';
 
 function Fifth({ formData, setFormData }) {
 
@@ -17,43 +17,43 @@ function Fifth({ formData, setFormData }) {
   };
 
   const handleMinSBlur = () => {
-    if (formData.minStay < 0) {
+    if (formData.min_stay < 0) {
       setFormData({
         ...formData,
-        minStay: 0,
+        min_stay: 0,
       });
-    } else if (formData.minStay > 100) {
+    } else if (formData.min_stay > 100) {
       setFormData({
         ...formData,
-        minStay: 100,
+        min_stay: 100,
       });;
     }
   };
 
   const handleMaxSBlur = () => {
-    if (formData.maxStay < 0) {
+    if (formData.max_stay < 0) {
       setFormData({
         ...formData,
-        maxStay: 0,
+        max_stay: 0,
       });
-    } else if (formData.maxStay > 100) {
+    } else if (formData.max_stay > 100) {
       setFormData({
         ...formData,
-        maxStay: 100,
+        max_stay: 100,
       });;
     }
   };
 
   const handleMinNBlur = () => {
-    if (formData.minNotice < 0) {
+    if (formData.min_notice < 0) {
       setFormData({
         ...formData,
-        minNotice: 0,
+        min_notice: 0,
       });
-    } else if (formData.minNotice > 100) {
+    } else if (formData.min_notice > 100) {
       setFormData({
         ...formData,
-        minNotice: 100,
+        min_notice: 100,
       });;
     }
   };
@@ -98,16 +98,16 @@ function Fifth({ formData, setFormData }) {
           </Grid>
           <Grid item xs>
             <Slider
-              value={typeof formData.minStay === 'number' ? formData.minStay : 0}
+              value={typeof formData.min_stay === 'number' ? formData.min_stay : 0}
               onChange={handleSliderChange}
               aria-labelledby="input-slider"
-              name="minStay"
+              name="min_stay"
             />
           </Grid>
           <Grid item>
             <Input
-              value={formData.minStay}
-              name="minStay"
+              value={formData.min_stay}
+              name="min_stay"
               sx={{
                 width: '42px'
               }}
@@ -138,21 +138,21 @@ function Fifth({ formData, setFormData }) {
           </Grid>
           <Grid item xs>
             <Slider
-              value={typeof formData.maxStay === 'number' ? formData.maxStay : 0}
+              value={typeof formData.max_stay === 'number' ? formData.max_stay : 0}
               onChange={handleSliderChange}
               aria-labelledby="input-slider"
-              name="maxStay"
+              name="max_stay"
             />
           </Grid>
           <Grid item>
             <Input
-              value={formData.maxStay}
+              value={formData.max_stay}
               sx={{
                 width: '42px'
               }}
               onChange={handleInputChange}
               onBlur={handleMaxSBlur}
-              name="maxStay"
+              name="max_stay"
               inputProps={{
                 step: 1,
                 min: 0,
@@ -176,21 +176,21 @@ function Fifth({ formData, setFormData }) {
           </Grid>
           <Grid item xs>
             <Slider
-              value={typeof formData.minNotice === 'number' ? formData.minNotice : 0}
+              value={typeof formData.min_notice === 'number' ? formData.min_notice : 0}
               onChange={handleSliderChange}
               aria-labelledby="input-slider"
-              name="minNotice"
+              name="min_notice"
             />
           </Grid>
           <Grid item>
             <Input
-              value={formData.minNotice}
+              value={formData.min_notice}
               sx={{
                 width: '42px'
               }}
               onChange={handleInputChange}
               onBlur={handleMinNBlur}
-              name="minNotice"
+              name="min_notice"
               inputProps={{
                 step: 1,
                 min: 0,
