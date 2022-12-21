@@ -2,7 +2,7 @@ import React from 'react';
 import HistoryTable from '../components/history/r_historyTable';
 import dynamic from 'next/dynamic'
 import { GridEventListener } from '@mui/x-data-grid';
-import { Card, Typography } from '@mui/material';
+import { Box, Card, Typography } from '@mui/material';
 
 class RenterHistory extends React.Component {
 
@@ -19,6 +19,7 @@ class RenterHistory extends React.Component {
       ],
       userId: 100,
       currentLoc: [40.7128,-74.0060],
+      currentLocStr: '',
       timeRange: '',
       numListings: ''
 
@@ -100,7 +101,9 @@ class RenterHistory extends React.Component {
         <h1>My Rental History</h1>
         <HistoryTable listings={this.state.listings} handleTableClick={this.handleTableClick} />
         {timeRange}
-        <LeafMap position={this.state.currentLoc} />
+        <Box >Current Position: {}
+          <LeafMap position={this.state.currentLoc} />
+        </Box>
       </>
     )
   }

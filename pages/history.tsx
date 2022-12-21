@@ -56,15 +56,18 @@ class History extends React.Component {
       history = <OwnerHistory />
     }
     return (
-      <ThemeProvider theme={theme} >
-        <></>
+      <>
+        <ThemeProvider theme={theme} >
         <NavBar />
-        {/* Note the modular CSS below */}
-        <div className={styles.history}>
-          <HistoryToggle handleToggle={this.handleToggle} sx={{color: 'black'}}/>
-          {history}
-        </div>
-      </ThemeProvider>
+
+
+          {/* Note the modular CSS below */}
+          <div className={styles.history}>
+            <HistoryToggle handleToggle={this.handleToggle} sx={{color: 'black'}}/>
+            {history}
+          </div>
+        </ThemeProvider>
+      </>
     )
   }
 }
