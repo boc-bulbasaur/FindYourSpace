@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import { Autocomplete } from '@react-google-maps/api';
-import{ Flex, InputGroup, InputRightElement, Input } from '@chakra-ui/react';
-import { BiSearch } from 'react-icons/bi';
-import type {} from '@mui/x-date-pickers/themeAugmentation';
-import type {} from '@mui/x-date-pickers-pro/themeAugmentation';
+import{ Flex, InputGroup, Input, Button, Center } from '@chakra-ui/react';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Stack } from '@mui/system';
 import { TextField, TextFieldProps } from '@mui/material';
-import { now } from 'next-auth/client/_utils';
 
 type SearchBarProps = {
   setCoordinates: Function;
@@ -17,9 +13,10 @@ type SearchBarProps = {
   setStartTime: Function;
   endTime:String;
   setEndTime: Function;
+  isLoading: Boolean;
 }
 
-const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTime }: SearchBarProps)=>{
+const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTime, isLoading }: SearchBarProps)=>{
   const [autocomplete, setAuotcomplete] = useState(null)
   const onLoad = (autoC) => setAuotcomplete(autoC);
   const onPlaceChanged = ()=>{
@@ -30,29 +27,33 @@ const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTim
   let now = new Date();
   return (
     <Flex
-    position ={'absolute'}
+    position ={'relative'}
     top={0}
     left={0}
-    width={'full'}
-    height={'full'}
+    width={'80%'}
+    height={'20%'}
     px={4}
     py={2}
     zIndex={101}
+    justifyContent={'center'}
     >
-      <Flex width={'30%'} height={'full'} >
+      <Flex
+        width={'40%'}
+        height={'full'}
+        alignItems={'center'}
+        justifyContent={'right'}
+      >
         <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
           <InputGroup width={'100%'} shadow='lg'>
-            <InputRightElement
-            pointerEvents={'none'}
-            children={<BiSearch color ='gray' fontSize={20} />}
-            />
             <Input
+              width={'31vw'}
+              height={'4vh'}
               type={'text'}
               placeholder ='Search address for available parking...'
               variant = {'filled'}
               fontSize = {18}
               bg = {'white'}
-              color = {'gray.700'}
+              color = {'black'}
               _hover = {{bg:'whiteAlppha.800'}}
               _focus = {{bg: 'whiteAlpha.800'}}
               _placeholder ={{color: 'gray.700'}}
@@ -60,7 +61,11 @@ const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTim
           </InputGroup>
         </Autocomplete>
       </Flex>
-      <Flex>
+      <Flex
+        width={'20%'}
+        justifyContent={'center'}
+        alignItems={'center'}
+      >
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Stack spacing={3}>
             <DateTimePicker
@@ -68,7 +73,7 @@ const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTim
               renderInput={(params: TextFieldProps) => {
                 return <TextField {...params} />;
               }}
-              label="startTime"
+              label="Start Time"
               views={['day', 'hours']}
               value={startTime}
               required={true}
@@ -79,7 +84,11 @@ const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTim
           </Stack>
         </LocalizationProvider>
       </Flex>
-      <Flex>
+      <Flex
+        width={'20%'}
+        alignItems={'center'}
+        justifyContent={'center'}
+      >
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Stack spacing={3}>
             <DateTimePicker
@@ -88,7 +97,7 @@ const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTim
                 return <TextField {...params} />;
               }}
               disabled={startTime===''}
-              label="endTime"
+              label="End Time"
               views={['day', 'hours']}
               value={endTime}
               required={true}
@@ -98,6 +107,22 @@ const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTim
             />
           </Stack>
         </LocalizationProvider>
+      </Flex>
+      <Flex
+        alignItems={'center'}
+        justifyContent={'center'}
+      >
+        <Button
+          isLoading={isLoading}
+          loadingText="Searching"
+          colorScheme="teal"
+          variant="outline"
+          borderRadius={'10px'}
+          height={'4vh'}
+          width={'10vw'}
+        >
+          Find Parking Spot
+        </Button>
       </Flex>
     </Flex>
   )

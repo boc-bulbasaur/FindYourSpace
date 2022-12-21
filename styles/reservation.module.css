@@ -1,0 +1,104 @@
+/*NEW RESERVATION STYLES*/
+.newRes {
+  text-align: center;
+}
+
+.checkout {
+  font-size: 64px;
+  margin: 0;
+}
+
+.back {
+ vertical-align: middle;
+}
+
+.billing {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 40%;
+  margin: auto;
+}
+
+.price {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  width: 45%;
+  margin: auto;
+}
+
+.billingRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.billingCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.col50 {
+  width: 45%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.col33 {
+  width: 30%;
+  margin-left: 3%;
+  margin-right: 3%;
+}
+
+.leftCol {
+  width: 30%;
+  margin-left: 5%;
+}
+
+.rightCol {
+  width: 30%;
+  margin-right: 5%;
+}
+
+.fullCol {
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.parkDetails {
+  width: 45%;
+  margin: auto;
+  text-align: center;
+}
+
+.rightPrice {
+  text-align: right;
+}
+
+.details {
+  display: flex;
+  flex-direction: row;
+}
+
+.cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.horLine {
+  width: 50%;
+  margin-left: 50%;
+}
+
+.label {
+  vertical-align: middle;
+}
+
+.noIcons {
+  margin-bottom: 2px;
+}
