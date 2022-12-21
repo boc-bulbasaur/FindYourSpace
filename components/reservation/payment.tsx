@@ -5,6 +5,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import HomeIcon from '@mui/icons-material/Home';
 import Button from '@mui/material/Button';
 import LockIcon from '@mui/icons-material/Lock';
+import EmailIcon from '@mui/icons-material/Email';
 import styles from '../../styles/reservation.module.css';
 
 class Payment extends React.Component {
@@ -88,6 +89,14 @@ class Payment extends React.Component {
                 <input type="text" defaultValue={this.state.zip} onChange={this.handleChange} name="zip" placeholder="77777"/>
               </div>
             </div>
+            <br />
+            <div className={styles.billingRow}>
+              <div className={`${styles.billingCol} ${styles.fullCol}`}>
+                <label><EmailIcon className={styles.label}></EmailIcon>Email Address</label>
+                <input type="text" defaultValue={this.state.add_2} onChange={this.handleChange} name="email" placeholder="johndoe@gmail.com" />
+                <br/>
+              </div>
+            </div>
           </div>
           <br />
           <div className={styles.billing }>
@@ -139,7 +148,7 @@ class Payment extends React.Component {
           </div>
           <br/>
           {/* <button type="submit">CHECKOUT</button> */}
-          <div className={`${styles.billingCol} ${styles.fullCol}`}>
+          <div className={`${styles.billingCol} ${styles.fullCol} ${styles.bottom}`}>
             <Button color="primary" variant="contained">Checkout</Button>
           </div>
         </div>

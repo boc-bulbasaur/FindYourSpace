@@ -15,10 +15,14 @@ export default function NewReservation() {
         </h2>
       <div className={styles.newRes}>
         <h1 className={styles.checkout}>CHECKOUT</h1>
-        <Booking />
-        <h3>Cancellation Policy</h3>
-        <p className={styles.parkDetails}>To receive a full refund, guests must cancel at least 30 days before check-in. They can also get a full refund within 48 hours of booking if the cancellation occurs at least 14 days before check-in. If they cancel between 7 and 30 days before check-in, you’ll be paid 50% for all nights. If they cancel less than 7 days before check-in, you’ll be paid 100% for all nights.</p>
-        <Payment />
+        <div className={styles.rightHalf}>
+          <Booking />
+          <h3>Cancellation Policy</h3>
+          <p className={styles.cancellation}>To receive a full refund, renters must cancel at least 1 hour before their rental start time. Renters can also get a full refund within 2 hours of booking if the cancellation occurs at least 24 hours before the rental start time. If the renter cancels less than an hour before the rental start time, they will pay the owner 50% for the entire rental duration.</p>
+        </div>
+        <div className={styles.leftHalf}>
+          <Payment />
+        </div>
       </div>
     </div>
   );

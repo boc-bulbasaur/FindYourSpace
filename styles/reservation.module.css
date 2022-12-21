@@ -1,5 +1,7 @@
 /*NEW RESERVATION STYLES*/
 .newRes {
+  display: flex;
+  flex-direction: row;
   text-align: center;
 }
 
@@ -101,4 +103,20 @@
 
 .noIcons {
   margin-bottom: 2px;
+}
+
+.bottom {
+  margin-bottom: 5%;
+}
+
+.parkIcons {
+  display: inline;
+  text-align: left;
+  margin-left: 5%;
+}
+
+.cancellation {
+  width: 50%;
+  margin: auto;
+  text-align: left;
 }
