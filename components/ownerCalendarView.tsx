@@ -7,6 +7,7 @@ import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 import Badge from '@mui/material/Badge';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import styles from '../styles/ownerHistoryDash.module.css';
 
 const isWeekend = (date) => {
@@ -22,7 +23,7 @@ export default function DatePicker() {
 
   return (
     <div>
-      <LocalizationProvider className="owner-calendar-view" dateAdapter={AdapterDayjs}>
+      <LocalizationProvider className={styles.owner_calendar_view} dateAdapter={AdapterDayjs}>
         <StaticDatePicker
           orientation="portrait"
           openTo="day"
@@ -40,7 +41,7 @@ export default function DatePicker() {
               <Badge
                 key={day.toString()}
                 overlap="circular"
-                badgeContent={isSelected ? <RocketLaunchIcon sx={{ color: '#0266F9' }} /> : undefined}
+                badgeContent={isSelected ? <FiberManualRecordIcon sx={{ color: '#0266F9' }} /> : undefined}
               >
                 <PickersDay {...DayComponentProps} />
               </Badge>

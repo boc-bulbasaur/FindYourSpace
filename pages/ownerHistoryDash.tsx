@@ -32,7 +32,7 @@ export default function OwnerHistory( props ) {
   return (
     <ThemeProvider theme={theme}>
       <NavBar />
-      <div className={styles.calendar_list_view}>
+      <div className={styles.owner_top_container}>
         <DatePicker />
         <O_RentalList />
         <O_MonthlyBreakdown />

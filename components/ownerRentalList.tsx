@@ -31,21 +31,37 @@ export default function O_RentalList() {
   const [secondary, setSecondary] = React.useState(false);
 
   return (
-    <Box className="owner-history-table" sx={{ flexGrow: 1, maxWidth: 752 }}>
+    <Box className={styles.owner_history_table}>
       <FormGroup row>
       </FormGroup>
 
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
-          <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
+      <Grid>
+        <Grid>
+          <Typography sx={{
+            color: 'white',
+            backgroundColor: '#1b2139',
+            padding: '1rem',
+            textAlign: 'center',
+            borderRadius: '10px',
+
+            }} variant="h6" component="div">
             Scheduled Rentals
           </Typography>
           <Demo>
-            <List>
+            <List sx={{
+                  borderRadius: '10px',
+                }}>
               {generate(
-                <ListItem>
+                <ListItem sx={{
+                  backgroundColor: '#F5F5F5',
+                  borderRadius: '10px',
+                  margin: '15px 0px 10px 0px',
+                }}>
                   <ListItemAvatar>
-                    <AccountCircleRoundedIcon fontSize="large">
+                    <AccountCircleRoundedIcon fontSize="large" sx={{
+                      height: '50px',
+                      width: '50px'
+                    }}>
                       <FolderIcon />
                     </AccountCircleRoundedIcon>
                   </ListItemAvatar>

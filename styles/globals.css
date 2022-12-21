@@ -32,3 +32,19 @@ a {
 .leaflet-container {
   margin: 20px 60px 20px 60px;
 }
+
+/* //////OWNER HISTORY CSS////// */
+
+/* Disables unwanted calendar features */
+.css-hlj6pa-MuiDialogActions-root, .css-z3au5x-MuiButtonBase-root-MuiIconButton-root-MuiPickersToolbar-penIconButton,
+.css-1hbyad5-MuiTypography-root, .css-sgf601-MuiTypography-root {
+  display: none !important
+}
+
+.css-58prr7-MuiTypography-root-MuiDatePickerToolbar-title {
+  width: 25rem;
+  border-radius: 10px;
+  padding: .5rem;
+  background-color: #1b2139;
+  color: white;
+}
