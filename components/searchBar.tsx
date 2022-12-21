@@ -31,7 +31,7 @@ const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTim
     top={0}
     left={0}
     width={'80%'}
-    height={'20%'}
+    height={'100%'}
     px={4}
     py={2}
     zIndex={101}
@@ -47,7 +47,7 @@ const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTim
           <InputGroup width={'100%'} shadow='lg'>
             <Input
               width={'31vw'}
-              height={'4vh'}
+              height={'7vh'}
               type={'text'}
               placeholder ='Search address for available parking...'
               variant = {'filled'}
@@ -121,7 +121,7 @@ const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTim
           height={'4vh'}
           width={'10vw'}
         >
-          Find Parking Spot
+          Search
         </Button>
       </Flex>
     </Flex>
