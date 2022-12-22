@@ -25,9 +25,9 @@ export default async function handler(
     } else {
       const token = await utils.createRandom32String();
       const token_expires = new Date(new Date().getTime() + 1000 * 60 * 60 * 24);
-      const values = [email, token_expires, token, true];
+      const values = [token_expires, token, true, email];
       const { rows } = await client.query(`UPDATE users SET
-        email = $1, token_expires = $2, token = $3, is_verified = $4 RETURNING *`,
+        token_expires = $1, token = $2, is_verified = $3 WHERE email = $4 RETURNING *`,
         values);
       const returnedUser = rows[0];
       console.log('returnedUser:', returnedUser);
