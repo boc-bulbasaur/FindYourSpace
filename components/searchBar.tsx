@@ -11,12 +11,13 @@ type SearchBarProps = {
   setCoordinates: Function;
   startTime: String;
   setStartTime: Function;
-  endTime:String;
+  endTime: String;
   setEndTime: Function;
   isLoading: Boolean;
+  handleSearch: Function;
 }
 
-const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTime, isLoading }: SearchBarProps)=>{
+const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTime, isLoading, handleSearch }: SearchBarProps)=>{
   const [autocomplete, setAuotcomplete] = useState(null)
   const onLoad = (autoC) => setAuotcomplete(autoC);
   const onPlaceChanged = ()=>{
@@ -120,6 +121,7 @@ const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTim
           borderRadius={'10px'}
           height={'4vh'}
           width={'10vw'}
+          onClick={handleSearch}
         >
           Search
         </Button>
