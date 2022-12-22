@@ -4,18 +4,24 @@ import Map from '../components/map';
 import Script from 'next/script';
 import { Flex } from '@chakra-ui/react'
 import SearchResults from '../components/searchResults';
+import NavBar from '../components/navBar';
+import { mockComponent } from 'react-dom/test-utils';
+import { EmailAddress } from '@sendgrid/helpers/classes';
 
 
 type SearchProps = {
-  address: String;
   startTime: String;
   endTime: String;
+  coordinates: {
+    lat: Number;
+    lng: Number;
+  };
 }
 
 export default function Search(props: SearchProps) {
 
   const [results, setResults] = useState([]);
-  const [coordinates, setCoordinates] = useState({lat: 29.76116, lng: -95.37419})
+  const [coordinates, setCoordinates] = useState(props.coordinates || {lat: 29.76116, lng: -95.37419})
   const [isLoading, setIsLoading] = useState(false)
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
@@ -27,6 +33,31 @@ export default function Search(props: SearchProps) {
       setCoordinates({lat: latitude, lng: longitude})
     })
   },[]);
+
+  const handleSearch = async (e) => {
+    console.log("search button clicked");
+    if (startTime !== '' && endTime !== '' && coordinates.lat && coordinates.lng) {
+      // setIsLoading(true);
+      console.log('start search');
+      console.log(startTime, endTime, coordinates.lat, coordinates.lng);
+      const info = {startTime, endTime, coordinates};
+      try {
+        fetch('api/search', {
+          method: 'POST',
+          body: JSON.stringify(info)
+        })
+        .then(async (response) => {
+          let data = await response.json();
+          console.log(data);
+          setResults(data);
+          setIsLoading(false);
+        })
+      }
+      catch (err) {
+        console.log(err);
+      }
+    }
+  }
 
   const mokeResults = [
     {address: "some 1 places",
@@ -213,6 +244,13 @@ export default function Search(props: SearchProps) {
 
   const scriptURL = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_API_KEY}&libraries=places&callback=initMap`
 
+  let locations;
+  if (results.length === 0) {
+    locations = mokeResults;
+  } else {
+    locations = results;
+  }
+
   return (
     <>
       <Script id="google-map-script" src={scriptURL} strategy="beforeInteractive" />
@@ -228,6 +266,9 @@ export default function Search(props: SearchProps) {
         flexDirection = {'column'}
       >
         <Flex width={'100%'} height={'10%'} position = {'relative'} margin={'0'} alignItems={'center'}>
+          <NavBar />
+        </Flex>
+        <Flex width={'100%'} height={'10%'} position = {'relative'} margin={'0'} alignItems={'center'}>
           <SearchBar
             setCoordinates={setCoordinates}
             startTime={startTime}
@@ -235,11 +276,12 @@ export default function Search(props: SearchProps) {
             endTime={endTime}
             setEndTime={setEndTime}
             isLoading={isLoading}
+            handleSearch={handleSearch}
           />
         </Flex>
         <Flex width={'100%'} height={'70%'} position = {'relative'}>
-          <SearchResults results={mokeResults} isLoading ={isLoading}/>
-          <Map setCoordinates = {setCoordinates} coordinates = {coordinates} results={mokeResults}/>
+          <SearchResults results={locations} isLoading ={isLoading} />
+          <Map setCoordinates = {setCoordinates} coordinates = {coordinates} results={locations}/>
         </Flex>
         {/* <ParkingSpotDetail /> */}
       </Flex>

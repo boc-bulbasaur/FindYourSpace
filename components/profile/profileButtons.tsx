@@ -55,7 +55,7 @@ class ProfileButtons extends React.Component {
   render() {
     return (
       <>
-        <Button variant="contained" onClick={this.handleSubmit} name="favorite" children={this.state.favLabel}></Button>
+        <Button variant="contained" onClick={this.handleSubmit} name="favorite" children={this.state.favLabel} sx={{margin: 1}}></Button>
         <Button variant="contained" onClick={this.handleSubmit} name="block" children={this.state.blockLabel}></Button>
       </>
     )
