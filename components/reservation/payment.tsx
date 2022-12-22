@@ -27,6 +27,7 @@ class Payment extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.onReCAPTCHAChange = this.onReCAPTCHAChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -47,6 +48,14 @@ class Payment extends React.Component {
     });
   }
 
+
+  handleSubmit(event) {
+    event.preventDefault();
+    // Execute the reCAPTCHA when the form is submitted
+    const recaptchaRef = React.useRef(null);
+    recaptchaRef.current.execute();
+  };
+
   async onReCAPTCHAChange(captchaCode) {
     // If the reCAPTCHA code is null or undefined indicating that
     // the reCAPTCHA was expired then return early
@@ -63,10 +72,9 @@ class Payment extends React.Component {
       });
       if (response.ok) {
         // If the response is ok than show the success alert
-        alert("reCAPTCHA verification success");
+        // alert("successful reCAPTCHA verification");
+        console.log("successful reCAPTCHA verification");
       } else {
-        // Else throw an error with the message returned
-        // from the API
         const error = await response.json();
         throw new Error(error.message)
       }
@@ -168,24 +176,16 @@ class Payment extends React.Component {
             </div>
           </div>
           <br/>
-          {/* <button type="submit">CHECKOUT</button> */}
-          <form
-            method='post'
-            action='/api/reCaptcha'
-            encType='multipart/form-data'
-            onSubmit={event => {
-              if (grecaptcha.getResponse() === '') {
-                event.preventDefault()
-                alert("Please click <I'm not a robot> before sending the job")
-              }
-            }}
-          >
-            <div>Testing Area for reCAPTCHA</div>
-            <ReCAPTCHA size="normal"
-            sitekey="6LcXyJ0jAAAAALIFfxwjIGk0XklRJf5zFFuCcxPt"
-            onChange={this.onReCAPTCHAChange}/>
+
+          <form onSubmit={this.handleSubmit}>
+            <ReCAPTCHA
+              size="normal"
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+              onChange={this.onReCAPTCHAChange}
+            />
           </form>
 
+          {/* <button type="submit">CHECKOUT</button> */}
           <div className={`${styles.billingCol} ${styles.fullCol}`}>
             <Button color="primary" variant="contained">Checkout</Button>
           </div>
