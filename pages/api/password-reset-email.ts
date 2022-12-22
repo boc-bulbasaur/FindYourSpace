@@ -27,7 +27,7 @@ export default async function handler(
       const token_expires = new Date(new Date().getTime() + 1000 * 60 * 60 * 24);
       const values = [email, token_expires, token, true];
       const { rows } = await client.query(`UPDATE users SET
-        email = $1, token_expires = $2, token = $3, is_validated = $4 RETURNING *`,
+        email = $1, token_expires = $2, token = $3, is_verified = $4 RETURNING *`,
         values);
       const returnedUser = rows[0];
       console.log('returnedUser:', returnedUser);
