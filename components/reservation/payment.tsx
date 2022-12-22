@@ -139,6 +139,8 @@ class Payment extends React.Component {
           </div>
           <br/>
           {/* <button type="submit">CHECKOUT</button> */}
+          <div>Testing Area for reCAPTCHA</div>
+
           <div className={`${styles.billingCol} ${styles.fullCol}`}>
             <Button color="primary" variant="contained">Checkout</Button>
           </div>
