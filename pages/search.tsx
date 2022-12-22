@@ -4,6 +4,7 @@ import Map from '../components/map';
 import Script from 'next/script';
 import { Flex } from '@chakra-ui/react'
 import SearchResults from '../components/searchResults';
+import NavBar from '../components/navBar';
 
 
 type SearchProps = {
@@ -227,6 +228,9 @@ export default function Search(props: SearchProps) {
         position = {'relative'}
         flexDirection = {'column'}
       >
+        <Flex width={'100%'} height={'10%'} position = {'relative'} margin={'0'} alignItems={'center'}>
+          <NavBar />
+        </Flex>
         <Flex width={'100%'} height={'10%'} position = {'relative'} margin={'0'} alignItems={'center'}>
           <SearchBar
             setCoordinates={setCoordinates}
