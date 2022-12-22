@@ -3,6 +3,7 @@ import {Box} from '@chakra-ui/react'
 import GoogleMapReact from 'google-map-react'
 import { IoLocation } from "react-icons/io5";
 import { FunctionLikeDeclaration } from 'typescript';
+import { IconContext } from "react-icons";
 
 type MapProps = {
   coordinates: {
@@ -31,7 +32,14 @@ const Map = ({coordinates, setCoordinates, results}: MapProps) =>{
         position={'relative'}
         cursor = 'poniter'
        >
-        <IoLocation color = 'red' fontSize={40}/>
+
+      {/* <link href="http://code.ionicframework.com/1.3.0/css/ionic.min.css" rel="stylesheet"/> */}
+        <div className="post-info">
+          <span className="charity">
+            <i className="ion-ios-heart-outline" ></i>
+          </span>
+        </div>
+
       </Box>
       {results && results.map((location):JSX.Element => {
         const { coordinates, price, id } = location;
@@ -45,7 +53,7 @@ const Map = ({coordinates, setCoordinates, results}: MapProps) =>{
           cursor = 'poniter'
           text={price}
          >
-          <IoLocation color = 'blue' fontSize={40} />
+          <IoLocation color = 'black' fontSize={40} />
         </Box>)
       })}
     </GoogleMapReact>

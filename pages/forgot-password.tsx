@@ -11,13 +11,11 @@ import {
 import { Button, TextField, Typography, } from '@mui/material';
 import { PasswordOutlined } from "@mui/icons-material";
 
-export default function LogIn() {
+export default function ForgotPassword() {
   const { data: session } = useSession();
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [emailHelper, setEmailHelper] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
   const [message, setMessage] = useState('');
   const [disabledButton, setDisabledButton ] = useState(true);
 
@@ -26,7 +24,7 @@ export default function LogIn() {
       setEmailError(false);
     }
     setEmail(e.target.value);
-    if (password.length && email.length && email.indexOf('@') !== -1) {
+    if (email.length && email.indexOf('@') !== -1) {
       setDisabledButton(false);
       setEmailHelper('');
       setEmailError(false);
@@ -46,30 +44,21 @@ export default function LogIn() {
       setEmailError(false);
     }
   };
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-    if (passwordError) {
-      setPasswordError(false);
-    }
-    if (e.target.value.length && email.length) {
-      setDisabledButton(false);
-    } else {
-      setDisabledButton(true);
-    }
-  };
-  const handleCredentialsSubmit = async () => {
-    signIn('credentials', { email, password, redirect: false})
-      .then(({ error }) => {
-        if (error) {
-          setEmail('');
-          setEmailError(true);
-          setPassword('');
-          setPasswordError(true);
-          setMessage('You have either entered invalid credentials or your email has not been validated.');
-        } else {
-          router.push('/');
-        }
+  const handleResetPassword = async () => {
+    if (email.indexOf('@') !== -1) {
+      await fetch('/api/password-reset-email', {
+        method: 'POST',
+        body: email,
       })
+      .then((response) => {
+        setMessage('Please check your email for the reset password link.');
+        setEmail('');
+      })
+      .catch((error) => {
+        setMessage('An error has occurred. If the problem persists, please contact us.')
+        console.error('Error:', error);
+      });
+    }
   }
 
   return (
@@ -77,7 +66,7 @@ export default function LogIn() {
       <NavBar session={session}/>
       <Container maxW="xl" centerContent>
         <Heading as="h1" textAlign="center" marginTop={50}>
-          Log in to your account
+          Let&apos;s reset your password.
         </Heading>
         <Box
           alignContent="center"
@@ -87,10 +76,6 @@ export default function LogIn() {
           sx={{ p: 30, width: 400 }}
         >
           <Box margin={8} display={'flex'} flexDirection={'column'} justifyContent={'space-evenly'} alignItems={'stretch'}>
-            <Button variant="contained" onClick={() => signIn('google', { callbackUrl: 'http://localhost:3000/'})}>
-            Continue with Google
-            </Button>
-            <Typography color={'black'} textAlign="center" margin={2}>or</Typography>
             <TextField
               id="email"
               label="Email"
@@ -103,48 +88,20 @@ export default function LogIn() {
               sx={{ p: 1.5 }}
               onChange={handleEmailChange}
             />
-            <TextField
-              id="password"
-              label="Password"
-              type="password"
-              variant="outlined"
-              value={password}
-              required={true}
-              error={passwordError}
-              helperText={''}
-              autoComplete="current-password"
-              sx={{ p: 1.5 }}
-              onChange={handlePasswordChange}
-            />
             <Typography color={'error'} textAlign="center" sx={{ m: 1.2 }}>{message}</Typography>
             <Button
               type="submit"
               variant="contained"
               sx={{ p: 1, m: 1 }}
-              onClick={handleCredentialsSubmit}
+              onClick={handleResetPassword}
               disabled={disabledButton}
             >
-              Log In
+              Send Password Reset Link
             </Button>
-            <Typography color={'primary'} textAlign="center" marginTop={3}><Link href='/forgot-password'>Forgot password?</Link></Typography>
-            <Typography color={'primary'} textAlign="center" margin={1}><Link href='/signup'>Create an account</Link></Typography>
+            <Typography color={'primary'} textAlign="center" margin={1}><Link href='/login'>Go back to log in</Link></Typography>
           </Box>
         </Box>
       </Container>
     </>
   );
 }
-
-LogIn.getInitialProps = async ({ req, res }) => {
-  const session = await getSession({ req });
-  if (session) {
-    res.writeHead(301, {
-      Location: '/',
-    });
-    res.end();
-    return;
-  }
-  return {
-    session: undefined,
-  };
-};

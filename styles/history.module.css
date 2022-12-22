@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Sono:wght@400;500;700&display=swap');
+
+.history {
+  font-family: 'Sono', sans-serif;
+  margin:2em;
+}
+
+.css-1vgdxna-MuiDataGrid-root .MuiDataGrid-columnSeparator--sideRight {
+  background-color: 'black';
+}
