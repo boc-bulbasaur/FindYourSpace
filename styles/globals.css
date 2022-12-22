@@ -82,6 +82,7 @@ a {
 /* set color of top row */
 .css-gl260s-MuiDataGrid-columnHeadersInner {
   background-color: #1b2139;
+  /* background-color: red; */
 }
 
 /* adjust color of table row names */

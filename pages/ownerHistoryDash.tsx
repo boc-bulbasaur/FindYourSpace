@@ -9,7 +9,6 @@ import O_RentalList from "../components/ownerRentalList"
 export default function OwnerHistory() {
   return (
     <>
-      <NavBar />
       <div className="calendar-list-view">
         <DatePicker />
         <O_RentalList />
