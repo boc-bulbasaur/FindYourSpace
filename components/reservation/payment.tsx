@@ -6,6 +6,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import Button from '@mui/material/Button';
 import LockIcon from '@mui/icons-material/Lock';
 import styles from '../../styles/reservation.module.css';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 class Payment extends React.Component {
   constructor (props) {
@@ -25,6 +26,7 @@ class Payment extends React.Component {
     }
 
     this.handleChange = this.handleChange.bind(this);
+    this.onReCAPTCHAChange = this.onReCAPTCHAChange.bind(this);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -44,6 +46,34 @@ class Payment extends React.Component {
       [name]: value
     });
   }
+
+  async onReCAPTCHAChange(captchaCode) {
+    // If the reCAPTCHA code is null or undefined indicating that
+    // the reCAPTCHA was expired then return early
+    if (!captchaCode) {
+      return;
+    }
+    try {
+      const response = await fetch("/api/reCaptcha", {
+        method: "POST",
+        body: JSON.stringify({ captcha: captchaCode }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        // If the response is ok than show the success alert
+        alert("reCAPTCHA verification success");
+      } else {
+        // Else throw an error with the message returned
+        // from the API
+        const error = await response.json();
+        throw new Error(error.message)
+      }
+    } catch (error) {
+      alert("Something went wrong");
+    }
+  };
 
   render () {
     return (
@@ -139,7 +169,22 @@ class Payment extends React.Component {
           </div>
           <br/>
           {/* <button type="submit">CHECKOUT</button> */}
-          <div>Testing Area for reCAPTCHA</div>
+          <form
+            method='post'
+            action='/api/reCaptcha'
+            encType='multipart/form-data'
+            onSubmit={event => {
+              if (grecaptcha.getResponse() === '') {
+                event.preventDefault()
+                alert("Please click <I'm not a robot> before sending the job")
+              }
+            }}
+          >
+            <div>Testing Area for reCAPTCHA</div>
+            <ReCAPTCHA size="normal"
+            sitekey="6LcXyJ0jAAAAALIFfxwjIGk0XklRJf5zFFuCcxPt"
+            onChange={this.onReCAPTCHAChange}/>
+          </form>
 
           <div className={`${styles.billingCol} ${styles.fullCol}`}>
             <Button color="primary" variant="contained">Checkout</Button>
