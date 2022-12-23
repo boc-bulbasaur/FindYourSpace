@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 const mail = require('@sendgrid/mail')
-import CreateJob from '../../components/schedulemail'
 
 type Data = {
   name: string
@@ -37,7 +36,6 @@ export default function handler(
               </table>
             `,
   }
-  CreateJob(time)
   res.status(200).end('success')
   // mail.send(data)
   // .then(()=>{
