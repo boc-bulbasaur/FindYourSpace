@@ -5,16 +5,15 @@ import Script from 'next/script';
 import { Flex } from '@chakra-ui/react'
 import SearchResults from '../components/searchResults';
 import NavBar from '../components/navBar';
-import { mockComponent } from 'react-dom/test-utils';
-import { EmailAddress } from '@sendgrid/helpers/classes';
+import { useSession } from 'next-auth/react';
 
 
 type SearchProps = {
   startTime: String;
   endTime: String;
   coordinates: {
-    lat: Number;
-    lng: Number;
+    lat: number;
+    lng: number;
   };
 }
 
@@ -22,10 +21,13 @@ export default function Search(props: SearchProps) {
 
   const [results, setResults] = useState([]);
   const [coordinates, setCoordinates] = useState(props.coordinates || {lat: 29.76116, lng: -95.37419})
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
+  const [sortBy, setSortBy] = useState('lat')
 
+  const { data: session } = useSession();
+  console.log(session);
 
   useEffect(()=>{
     navigator.geolocation.getCurrentPosition(({coords: {latitude, longitude}}) => {
@@ -33,6 +35,10 @@ export default function Search(props: SearchProps) {
       setCoordinates({lat: latitude, lng: longitude})
     })
   },[]);
+
+  useEffect(() => {
+    setResults(results.sort((a, b) => a[sortBy] - b[sortBy]));
+  }, [results, sortBy]);
 
   const handleSearch = async (e) => {
     console.log("search button clicked");
@@ -244,13 +250,6 @@ export default function Search(props: SearchProps) {
 
   const scriptURL = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_API_KEY}&libraries=places&callback=initMap`
 
-  let locations;
-  if (results.length === 0) {
-    locations = mokeResults;
-  } else {
-    locations = results;
-  }
-
   return (
     <>
       <Script id="google-map-script" src={scriptURL} strategy="beforeInteractive" />
@@ -266,7 +265,7 @@ export default function Search(props: SearchProps) {
         flexDirection = {'column'}
       >
         <Flex width={'100%'} height={'10%'} position = {'relative'} margin={'0'} alignItems={'center'}>
-          <NavBar />
+          <NavBar session={session}/>
         </Flex>
         <Flex width={'100%'} height={'10%'} position = {'relative'} margin={'0'} alignItems={'center'}>
           <SearchBar
@@ -279,9 +278,9 @@ export default function Search(props: SearchProps) {
             handleSearch={handleSearch}
           />
         </Flex>
-        <Flex width={'100%'} height={'70%'} position = {'relative'}>
-          <SearchResults results={locations} isLoading ={isLoading} />
-          <Map setCoordinates = {setCoordinates} coordinates = {coordinates} results={locations}/>
+        <Flex width={'100%'} height={'70%'} position={'relative'}>
+          <SearchResults results={results} isLoading={isLoading} sortBy={sortBy} setSortBy={setSortBy} />
+          <Map coordinates={coordinates} results={results}/>
         </Flex>
       </Flex>
     </>
