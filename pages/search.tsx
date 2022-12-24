@@ -22,7 +22,7 @@ export default function Search(props: SearchProps) {
 
   const [results, setResults] = useState([]);
   const [coordinates, setCoordinates] = useState(props.coordinates || {lat: 29.76116, lng: -95.37419})
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
 
@@ -283,7 +283,6 @@ export default function Search(props: SearchProps) {
           <SearchResults results={locations} isLoading ={isLoading} />
           <Map setCoordinates = {setCoordinates} coordinates = {coordinates} results={locations}/>
         </Flex>
-        {/* <ParkingSpotDetail /> */}
       </Flex>
     </>
   );
