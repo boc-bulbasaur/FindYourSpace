@@ -1,14 +1,22 @@
 import React from 'react'
-import { Box, Flex,SkeletonCircle, SkeletonText } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import SearchResult from './searchResult'
 import { Skeleton, Stack, ToggleButton, ToggleButtonGroup } from '@mui/material';
 
 type SearchResultsProps = {
   results: {}[];
   isLoading: boolean;
+  sortBy: string;
+  setSortBy: Function;
 }
 
-const SearchResults = ({results, isLoading}: SearchResultsProps) =>{
+const SearchResults = ({results, isLoading, sortBy, setSortBy}: SearchResultsProps) =>{
+  const handleChange = (e: React.MouseEvent<HTMLElement>, newSortBy: String) => {
+    if (newSortBy !== null) {
+      setSortBy(newSortBy);
+    }
+  }
+
   if (isLoading) return (
     <Flex
       direction={'column'}
@@ -76,21 +84,24 @@ const SearchResults = ({results, isLoading}: SearchResultsProps) =>{
         >
           <ToggleButtonGroup
             color="primary"
-            value={'sort'}
+            value={sortBy}
             exclusive
             aria-label="sortBy"
+            onChange={handleChange}
           >
-            <ToggleButton value="distance">Distance</ToggleButton>
-            <ToggleButton value="price">Price</ToggleButton>
+            <ToggleButton value="lat">Distance</ToggleButton>
+            <ToggleButton value="distance">Price</ToggleButton>
           </ToggleButtonGroup>
         </Flex>
       </Flex>
       <Flex flex={1} overflowY={'scroll'} mt ={16} direction={'column'} className='search-results'>
         {
-          results && results.map((parking: Object): JSX.Element => {
-            const {id, price, address, description } = parking;
-            return <SearchResult address={address} id={id} price={price} description={description} />
+          results.length !== 0 && results.map((location: Object): JSX.Element => {
+            return <SearchResult location={location} />
           })
+        }
+        {
+          results.length === 0 && <div>No available results</div>
         }
       </Flex>
     </Flex>
