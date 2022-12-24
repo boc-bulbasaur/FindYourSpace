@@ -9,12 +9,12 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const {renter_email, renter_name, owner_email, owner_name, order, location, time} = req.query
+  const {renter_email, renter_name, owner_email, owner_name, orderNumber, location, bookTime} = req.query
   const renter = {
     to : `${renter_email}`,
     from : 'noreply@findyourspace.app',
     subject: 'Order Canacelled',
-    html: ` <h1>Find you space</h1> <p>Order#${order}</p>
+    html: ` <h1>Find you space</h1> <p>Order#${orderNumber}</p>
             <h2>Hi ${renter_name}, Your order has been successfully cancelled!</h2>
             <div>Order Summary</div>
             `,
@@ -23,7 +23,7 @@ export default function handler(
     to : `${owner_email}`,
     from : 'noreply@findyourspace.app',
     subject: 'Order Canacelled',
-    html: ` <h1>Find you space</h1> <p>Order#${order}</p>
+    html: ` <h1>Find you space</h1> <p>Order#${orderNumber}</p>
             <h2>Hi ${owner_name}, Parking Spot at ${location} </h2>
             <div>Order Summary</div>
             `,
@@ -31,7 +31,7 @@ export default function handler(
   mail.send(renter)
   .then(()=>{
     res.status(200).end('success')
-    console.log('Mail sent successfully')
+    console.log('renterMail sent successfully')
     // Promise.resolve()
   })
   .catch((error: any)=>{
@@ -41,7 +41,7 @@ export default function handler(
   mail.send(owner)
   .then(()=>{
     res.status(200).end('success')
-    console.log('Mail sent successfully')
+    console.log('onwerMail sent successfully')
     // Promise.resolve()
   })
   .catch((error: any)=>{

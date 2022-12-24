@@ -1,7 +1,7 @@
 import React from 'react'
-import { Box, Flex, Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
+import { Box, Flex,SkeletonCircle, SkeletonText } from '@chakra-ui/react'
 import SearchResult from './searchResult'
-import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { Skeleton, Stack, ToggleButton, ToggleButtonGroup } from '@mui/material';
 
 type SearchResultsProps = {
   results: {}[];
@@ -22,42 +22,29 @@ const SearchResults = ({results, isLoading}: SearchResultsProps) =>{
       overflow='hidden'
       px={2}
     >
-      <Box padding = '6' boxShadow='lg' bg='white' mt={16}>
-        <SkeletonCircle size='10' />
-        <SkeletonText mt='4' noOfLines ={4} spacing = '4' />
-      </Box>
-      <Box padding = '6' boxShadow='lg' bg='white' mt={3}>
-        <SkeletonCircle size='10' />
-        <SkeletonText mt='4' noOfLines ={4} spacing = '4' />
-      </Box>
-      <Box padding = '6' boxShadow='lg' bg='white' mt={3}>
-        <SkeletonCircle size='10' />
-        <SkeletonText mt='4' noOfLines ={4} spacing = '4' />
-      </Box>
-      <Box padding = '6' boxShadow='lg' bg='white' mt={3}>
-        <SkeletonCircle size='10' />
-        <SkeletonText mt='4' noOfLines ={4} spacing = '4' />
-      </Box>
-      <Box padding = '6' boxShadow='lg' bg='white' mt={3}>
-        <SkeletonCircle size='10' />
-        <SkeletonText mt='4' noOfLines ={4} spacing = '4' />
-      </Box>
-      <Box padding = '6' boxShadow='lg' bg='white' mt={3}>
-        <SkeletonCircle size='10' />
-        <SkeletonText mt='4' noOfLines ={4} spacing = '4' />
-      </Box>
-      <Box padding = '6' boxShadow='lg' bg='white' mt={3}>
-        <SkeletonCircle size='10' />
-        <SkeletonText mt='4' noOfLines ={4} spacing = '4' />
-      </Box>
-      <Box padding = '6' boxShadow='lg' bg='white' mt={3}>
-        <SkeletonCircle size='10' />
-        <SkeletonText mt='4' noOfLines ={4} spacing = '4' />
-      </Box>
-      <Box padding = '6' boxShadow='lg' bg='white' mt={3}>
-        <SkeletonCircle size='10' />
-        <SkeletonText mt='4' noOfLines ={4} spacing = '4' />
-      </Box>
+      <Stack>
+        <br></br>
+        <Skeleton height='50px' />
+        <br></br>
+        <Skeleton height='50px' />
+        <br></br>
+        <Skeleton height='50px' />
+        <br></br>
+        <Skeleton height='50px' />
+        <br></br>
+        <Skeleton height='50px' />
+        <br></br>
+        <Skeleton height='50px' />
+        <br></br>
+        <Skeleton height='50px' />
+        <br></br>
+        <Skeleton height='50px' />
+        <br></br>
+        <Skeleton height='50px' />
+        <br></br>
+        <Skeleton height='50px' />
+        {/* <SkeletonText mt='4' noOfLines={4} spacing='4' skeletonHeight='2' /> */}
+      </Stack>
     </Flex>
   )
   return (
