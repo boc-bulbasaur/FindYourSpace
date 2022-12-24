@@ -32,25 +32,24 @@ const CronStart=(type)=>{
   const job = new CronJob(
     `* * * * *`,
     async function() {
-      const res = await client.query(`select *, ${type}_time, EXTRACT(EPOCH FROM (now() - ${type}_time)) > 900 AS difference from bookings`)
+      const res = await client.query(`select *, ${type}_time, EXTRACT(EPOCH FROM (now() - ${type}_time)) < 900 AS difference from bookings`)
       if(res.rows.length > 0){
         res.rows.map((row)=>{
           // console.log(row)
           if (row.difference) {
             client.query(`SELECT users.name, users.email, locations.address, bookings.${type}_time
-            from users
+            from bookings
             JOIN locations
-            on locations.id = users.user_id
-            JOIN bookings
-            on bookings.address_id = locations.id  where locations.id =${row.address_id}`, (err, res2) => {
-            // client.query(`SELECT address from locations where id = ${row.address_id}`, (err, res2) => {
+            on bookings.address_id = locations.id
+            JOIN users
+            on bookings.userid = users.user_id  where locations.id =${row.address_id}`, (err, res2) => {
               if(err){
                 console.log(err)
               } else{
                  name = res2.rows[0].name
                  add = res2.rows[0].address
-                 email = res2.rows[0].email
-                 let type_time = `${type}_time`
+                //  email = res2.rows[0].email
+                 email = 'shzf13@gmail.com'
                  currentdate = new Date(res2.rows[0][`${type}_time`]);
                  var time = currentdate.getDate() + "/"
                            + (currentdate.getMonth()+1)  + "/"
