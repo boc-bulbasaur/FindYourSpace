@@ -5,14 +5,16 @@ import NavBar from "../components/navBar";
 import Payment from '../components/reservation/payment';
 import Booking from '../components/reservation/booking';
 import styles from '../styles/reservation.module.css';
+import Timer from '../components/reservation/countdownTimer';
 
 export default function NewReservation() {
   return (
     <div>
       <NavBar/>
-        <h2>
+        <h2 className={styles.back}>
           <Link href="/"><ArrowBackIosNewIcon className={styles.back}></ArrowBackIosNewIcon>Back to Search</Link>
         </h2>
+      <Timer />
       <h1 className={styles.checkout}>CHECKOUT</h1>
       <div className={styles.newRes}>
         <div className={styles.rightHalf}>

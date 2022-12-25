@@ -7,6 +7,13 @@
   margin-bottom: 5%;
 }
 
+.timer {
+  text-align: right;
+  margin-bottom: 0;
+  margin-top: 0;
+  margin-right: 5%;
+}
+
 .rightHalf, .leftHalf {
   width: 50%;
 }
@@ -14,10 +21,12 @@
 .checkout {
   font-size: 64px;
   text-align: center;
+  margin-top: 0;
 }
 
 .back {
  vertical-align: middle;
+ margin-bottom: 0;
 }
 
 .billing {
