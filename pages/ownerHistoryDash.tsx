@@ -1,4 +1,6 @@
 import { format, formatDistance, formatRelative, subDays } from 'date-fns'
+import * as React from 'react';
+import {useState} from 'react';
 
 import NavBar from "../components/navBar"
 import { ThemeProvider, createTheme } from "@mui/material";
@@ -35,7 +37,7 @@ export default function OwnerHistory( props ) {
       <div className={styles.owner_top_container}>
         <DatePicker />
         <O_RentalList />
-        <O_MonthlyBreakdown />
+        <O_MonthlyBreakdown total={props.total}/>
       </div>
       <O_RenderHistory  ownerHistory={props} />
     </ThemeProvider>
@@ -43,6 +45,10 @@ export default function OwnerHistory( props ) {
 }
 
 export async function getServerSideProps() {
+
+  //ServerSideProps will return: total rental listings
+
+  let total = 0;
 
   const rows = [
     { id: '0AE7C96D', fullName: 'Justo Marquez', startDateTime: '2022-04-20 8:00', endDateTime: '2022-04-20 12:00', duration: null, location: '1234 Example st', total: '$32.00', block: true },
@@ -55,9 +61,15 @@ export async function getServerSideProps() {
     { id: '49B6F40D', fullName: 'JT Liu', startDateTime: '2022-04-25 8:00', endDateTime: '2022-04-25 12:00', duration: null, location: '1234 Example st', total: '$25.00', block: null },
   ];
 
+  rows.forEach((entry) => {
+    let rentalValue = entry.total.slice(1)
+    total += Number(rentalValue)
+  })
+
   return {
     props: {
       userHistory: rows,
+      total
     },
   }
 }
