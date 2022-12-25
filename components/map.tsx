@@ -2,18 +2,16 @@ import React from 'react'
 import {Box} from '@chakra-ui/react'
 import GoogleMapReact from 'google-map-react'
 import { IoLocation } from "react-icons/io5";
-import { FunctionLikeDeclaration } from 'typescript';
 
 type MapProps = {
   coordinates: {
     lat: number;
     lng: number;
   };
-  setCoordinates: Function;
   results: {}[];
 }
 
-const Map = ({coordinates, setCoordinates, results}: MapProps) =>{
+const Map = ({coordinates, results}: MapProps) =>{
   return (
   <Box position={'absolute'} right={0} width={'60%'} height = {'95%'}>
     <GoogleMapReact
@@ -31,11 +29,10 @@ const Map = ({coordinates, setCoordinates, results}: MapProps) =>{
         position={'relative'}
         cursor = 'poniter'
        >
-        <IoLocation color = 'red' fontSize={40}/>
+          <IoLocation color = 'red' fontSize={40} />
       </Box>
       {results && results.map((location):JSX.Element => {
-        const { coordinates, price, id } = location;
-        const { lat, lng } = coordinates;
+        const { lat, lng, price, id } = location;
         return (
         <Box
           key={id}
@@ -45,7 +42,7 @@ const Map = ({coordinates, setCoordinates, results}: MapProps) =>{
           cursor = 'poniter'
           text={price}
          >
-          <IoLocation color = 'blue' fontSize={40} />
+          <IoLocation color = 'black' fontSize={40} />
         </Box>)
       })}
     </GoogleMapReact>

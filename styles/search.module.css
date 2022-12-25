@@ -1,0 +1,22 @@
+.charity span {
+  font-size: 13px
+}
+
+i {
+  display: inline-block;
+  position: relative;
+  font-size: 300vmax
+}
+
+i:after {
+  content: '45';
+  display: inline-block;
+  position: absolute;
+  top:25%;
+  left:35%;
+  font-size: 10px;
+}
+
+.search-results::-webkit-scrollbar {
+  display: none;
+}

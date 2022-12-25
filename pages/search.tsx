@@ -4,22 +4,30 @@ import Map from '../components/map';
 import Script from 'next/script';
 import { Flex } from '@chakra-ui/react'
 import SearchResults from '../components/searchResults';
+import NavBar from '../components/navBar';
+import { useSession } from 'next-auth/react';
 
 
 type SearchProps = {
-  address: String;
   startTime: String;
   endTime: String;
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
 }
 
 export default function Search(props: SearchProps) {
 
   const [results, setResults] = useState([]);
-  const [coordinates, setCoordinates] = useState({lat: 29.76116, lng: -95.37419})
+  const [coordinates, setCoordinates] = useState(props.coordinates || {lat: 29.76116, lng: -95.37419})
   const [isLoading, setIsLoading] = useState(false)
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
+  const [sortBy, setSortBy] = useState('lat')
 
+  const { data: session } = useSession();
+  console.log(session);
 
   useEffect(()=>{
     navigator.geolocation.getCurrentPosition(({coords: {latitude, longitude}}) => {
@@ -27,6 +35,35 @@ export default function Search(props: SearchProps) {
       setCoordinates({lat: latitude, lng: longitude})
     })
   },[]);
+
+  useEffect(() => {
+    setResults(results.sort((a, b) => a[sortBy] - b[sortBy]));
+  }, [results, sortBy]);
+
+  const handleSearch = async (e) => {
+    console.log("search button clicked");
+    if (startTime !== '' && endTime !== '' && coordinates.lat && coordinates.lng) {
+      // setIsLoading(true);
+      console.log('start search');
+      console.log(startTime, endTime, coordinates.lat, coordinates.lng);
+      const info = {startTime, endTime, coordinates};
+      try {
+        fetch('api/search', {
+          method: 'POST',
+          body: JSON.stringify(info)
+        })
+        .then(async (response) => {
+          let data = await response.json();
+          console.log(data);
+          setResults(data);
+          setIsLoading(false);
+        })
+      }
+      catch (err) {
+        console.log(err);
+      }
+    }
+  }
 
   const mokeResults = [
     {address: "some 1 places",
@@ -228,6 +265,9 @@ export default function Search(props: SearchProps) {
         flexDirection = {'column'}
       >
         <Flex width={'100%'} height={'10%'} position = {'relative'} margin={'0'} alignItems={'center'}>
+          <NavBar session={session}/>
+        </Flex>
+        <Flex width={'100%'} height={'10%'} position = {'relative'} margin={'0'} alignItems={'center'}>
           <SearchBar
             setCoordinates={setCoordinates}
             startTime={startTime}
@@ -235,13 +275,13 @@ export default function Search(props: SearchProps) {
             endTime={endTime}
             setEndTime={setEndTime}
             isLoading={isLoading}
+            handleSearch={handleSearch}
           />
         </Flex>
-        <Flex width={'100%'} height={'70%'} position = {'relative'}>
-          <SearchResults results={mokeResults} isLoading ={isLoading}/>
-          <Map setCoordinates = {setCoordinates} coordinates = {coordinates} results={mokeResults}/>
+        <Flex width={'100%'} height={'70%'} position={'relative'}>
+          <SearchResults results={results} isLoading={isLoading} sortBy={sortBy} setSortBy={setSortBy} />
+          <Map coordinates={coordinates} results={results}/>
         </Flex>
-        {/* <ParkingSpotDetail /> */}
       </Flex>
     </>
   );
