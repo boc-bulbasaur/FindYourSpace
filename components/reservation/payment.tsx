@@ -48,7 +48,13 @@ class Payment extends React.Component {
 
   render () {
     return (
-      <div className={styles.newRes}>
+      <div>
+        <div className={styles.price}>
+          <h4 className="right-price">$8.00 / hr X 4 Hours</h4>
+          <hr className={styles.horLine}/>
+          <h4 className="right-price">Total Price: $32.00</h4>
+        </div>
+
         <h3>Billing Address</h3>
         <form /*onSubmit={onSubmit}*/>
           <div className={styles.billing}>

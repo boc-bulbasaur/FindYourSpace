@@ -54,9 +54,7 @@ class Booking extends React.Component {
             </div>
           </div>
           <p className={styles.parkDetails}>Extra details provided by the owner</p>
-          <h4 className="right-price">$8.00 / hr X 4 Hours</h4>
-          <hr className={styles.horLine}/>
-          <h4 className="right-price">Total Price: $32.00</h4>
+
         </div>
       </div>
     )

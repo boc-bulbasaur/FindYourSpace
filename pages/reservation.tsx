@@ -13,8 +13,8 @@ export default function NewReservation() {
         <h2>
           <Link href="/"><ArrowBackIosNewIcon className={styles.back}></ArrowBackIosNewIcon>Back to Search</Link>
         </h2>
+      <h1 className={styles.checkout}>CHECKOUT</h1>
       <div className={styles.newRes}>
-        <h1 className={styles.checkout}>CHECKOUT</h1>
         <div className={styles.rightHalf}>
           <Booking />
           <h3>Cancellation Policy</h3>
