@@ -19,12 +19,15 @@ export default async function handler(
     console.log(`Retrieving bookings for user ${user_id}`);
     const { rows } = await client.query(`
       SELECT
-        bookings.conf_code,
+        bookings.conf_code as id,
         users.name,
         locations.lat,
         locations.lng,
         locations.address,
-        listings.description
+        listings.description,
+        bookings.start_time,
+        bookings.end_time,
+        bookings.duration
       FROM bookings
       JOIN users
         ON bookings.userid = users.user_id
@@ -32,7 +35,7 @@ export default async function handler(
         ON bookings.address_id = locations.id
       JOIN listings
         ON bookings.listing_id = listings.id
-      WHERE userid = ${user_id}`);
+      WHERE bookings.userid = ${user_id}`);
     if (rows[0] === undefined) {
       res.status(200).json({ warning: `No bookings found for user ${user_id}`});
     } else {
