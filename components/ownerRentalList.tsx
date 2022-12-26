@@ -67,7 +67,7 @@ export default function O_RentalList() {
                   </ListItemAvatar>
                   <ListItemText
                     primary="Full Name | $25.00"
-                    secondary="Cancel Reservation"
+                    secondary= {<button onClick={() => {console.log('Clicked')}}>Cancel Reservation</button>}
                   />
                 </ListItem>,
               )}
