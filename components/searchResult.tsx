@@ -1,18 +1,22 @@
 import React from 'react';
 
 type SearchResultProps = {
-  id: number;
-  address: String;
-  price: number;
-  description: String;
+  location: {
+    address: string;
+    id: number;
+    lat: number;
+    lng: number;
+  };
 }
 
-const SearchResult = ({id, address, price, description}: SearchResultProps): JSX.Element => {
+const SearchResult = ({location}: SearchResultProps): JSX.Element => {
+  const { address, id, lat, lng, distance } = location;
   return (
     <div key={id}>
       <h3>Address: {address}</h3>
-      <span>Price per hour: ${price}</span>
-      <div>Description: <span>{description}</span></div>
+      <div>lat: {lat}</div>
+      <div>lng: {lng}</div>
+      <div>Distance: {distance}</div>
     </div>
   );
 }

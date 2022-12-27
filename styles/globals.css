@@ -46,5 +46,172 @@ a {
   border-radius: 10px;
   padding: .5rem;
   background-color: #1b2139;
+<<<<<<< HEAD
   color: white;
 }
+=======
+  /* background-color: red; */
+}
+
+/* adjust color of table row names */
+.MuiDataGrid-columnHeaderTitleContainerContent {
+  color: white;
+  background-color: #1b2139;
+}
+
+.css-1a40jv2-MuiTypography-root {
+  margin: 0;
+  color: white;
+  background-color: #2196f3;;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 2.125rem;
+  line-height: 1.235;
+  letter-spacing: 0.00735em;
+  text-align: center;
+  width: 425px;
+  height: 82px;
+}
+
+/* rounds rental history and calendar components */
+.css-399ykn, .owner-rental-list, .css-1a40jv2-MuiTypography-root,
+.css-u0soqy-MuiPickerStaticWrapper-root, .css-xelq0e-MuiPickerStaticWrapper-content {
+  border-radius: 10px;
+}
+
+/* rounds history table */
+.owner-history-table, .css-1e2bxag-MuiDataGrid-root, .css-f3jnds-MuiDataGrid-columnHeaders {
+  border-radius: 10px;
+}
+
+/* //////RENTAL LIST COMPONENT////// */
+
+.css-1p823my-MuiListItem-root {
+  width: 400px;
+}
+
+/* adjust styling of rental list box */
+.css-399ykn {
+  margin: 20px 0px 20px 60px;
+  max-width: 425px;
+  height: 425px;
+  width: 210px;
+  box-shadow: 3px 2px 10px 5px #888888 !important;
+}
+
+/* adjusting profile picture size */
+.css-tzssek-MuiSvgIcon-root {
+  height: 50px;
+  width: 50px;
+}
+
+.monthly-breakdown-container {
+  margin: 20px 0px 20px 60px;
+  max-width: 425px;
+  height: 425px;
+  width: 300px;
+  /* box-shadow: 3px 2px 10px 5px #888888 !important; */
+}
+
+.mb-annual-revenue-container {
+  margin: 20px 0px 20px 20px;
+  max-width: 180px;
+  height: 180px;
+  width: 300px;
+  box-shadow: 3px 2px 10px 5px #888888 !important;
+  border-radius: 10px;
+}
+
+.mb-occupancy-percentage-container {
+  margin: 20px 20px 20px 20px;
+  max-width: 180px;
+  height: 180px;
+  width: 300px;
+  box-shadow: 3px 2px 10px 5px #888888 !important;
+  border-radius: 10px;
+}
+
+.mb-ar-title, .mb-op-title {
+  margin: 0;
+  color: white;
+  background-color: #2196f3;;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+  line-height: 1.235;
+  letter-spacing: 0.00735em;
+  text-align: center;
+  width: 100%;
+  height: 45px;
+  border-radius: 10px;
+}
+
+.mb-ar-data, .mb-op-data {
+  margin: 32.5px 12.5px 32.5px 12.5px;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 1.235;
+  color: green
+}
+/*NEW RESERVATION STYLES*/
+.newRes h1, .newRes h3, footer {
+  text-align: center;
+}
+
+.billing {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 40%;
+  margin: auto;
+}
+
+.price {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  width: 40%;
+  margin: auto;
+}
+
+.billing-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.billing-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.col-50 {
+  width: 50%;
+}
+
+.col-33 {
+  width: 33%;
+}
+
+p {
+  /* width: 40%; */
+  margin: auto;
+}
+
+.right-price {
+  text-align: right;
+}
+
+hr {
+  width: 50%;
+  margin-left: 50%;
+}
+
+
+
+
+
+>>>>>>> main
