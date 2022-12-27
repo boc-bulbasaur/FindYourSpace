@@ -32,8 +32,8 @@ export default function OwnerHistory( props ) {
   });
 
   return (
-    <>
-      <div className="calendar-list-view">
+    <ThemeProvider theme={theme}>
+      <div className={styles.owner_top_container}>
         <DatePicker />
         <O_RentalList />
         <O_MonthlyBreakdown total={props.total}/>
