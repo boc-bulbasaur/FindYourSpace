@@ -6,6 +6,7 @@ import { Flex } from '@chakra-ui/react'
 import SearchResults from '../components/searchResults';
 import NavBar from '../components/navBar';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link'
 
 
 type SearchProps = {
@@ -40,10 +41,11 @@ export default function Search(props: SearchProps) {
     setResults(results.sort((a, b) => a[sortBy] - b[sortBy]));
   }, [results, sortBy]);
 
+
   const handleSearch = async (e) => {
     console.log("search button clicked");
     if (startTime !== '' && endTime !== '' && coordinates.lat && coordinates.lng) {
-      // setIsLoading(true);
+      setIsLoading(true);
       console.log('start search');
       console.log(startTime, endTime, coordinates.lat, coordinates.lng);
       const info = {startTime, endTime, coordinates};
@@ -279,7 +281,7 @@ export default function Search(props: SearchProps) {
           />
         </Flex>
         <Flex width={'100%'} height={'70%'} position={'relative'}>
-          <SearchResults results={results} isLoading={isLoading} sortBy={sortBy} setSortBy={setSortBy} />
+          <SearchResults startTime={startTime} endTime={endTime} results={results} isLoading={isLoading} sortBy={sortBy} setSortBy={setSortBy} />
           <Map coordinates={coordinates} results={results}/>
         </Flex>
       </Flex>
