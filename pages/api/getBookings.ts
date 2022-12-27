@@ -29,12 +29,12 @@ export default async function handler(
         bookings.end_time,
         bookings.duration
       FROM bookings
-      JOIN users
-        ON bookings.userid = users.user_id
-      JOIN locations
-        ON bookings.address_id = locations.id
       JOIN listings
         ON bookings.listing_id = listings.id
+	    JOIN locations
+        ON bookings.address_id = locations.id
+      JOIN users
+        ON listings.user_id = users.user_id
       WHERE bookings.userid = ${user_id}`);
     if (rows[0] === undefined) {
       res.status(200).json({ warning: `No bookings found for user ${user_id}`});

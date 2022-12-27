@@ -10,7 +10,6 @@ class RenterHistory extends React.Component {
     super(props);
     this.state = {
       listings: [],
-      user_id: '',
       currentLoc: [40.7128,-74.0060], //default to NYC
       timeRange: '',
       numListings: ''
@@ -23,30 +22,7 @@ class RenterHistory extends React.Component {
   componentDidMount(): void {
     console.log("!!!RENTER HISTORY MOUNT!!!");
     if (this.props.session !== undefined) {
-      this.setState({user_id: this.props.session.user.user_id});
-    }
-
-    if (this.props.session !== undefined) {
-      const getBookings = async () => {
-        // const user_id = 3;
-        await fetch(`/api/getBookings?user_id=${this.props.session.user.user_id}`, {
-          method: 'GET'
-        })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log('data', data);
-          if (data.warning === undefined) {
-            this.setState({
-              listings: data,
-              currentLoc: [data[0].lat, data[0].lng]
-            });
-          }
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
-      }
-      getBookings();
+      this.getBookings(this.props.session.user.user_id);
     } else {
       this.setState({listings:
         [
@@ -59,67 +35,64 @@ class RenterHistory extends React.Component {
         ]
       });
     }
-    if (this.state.listings.length > 0) {
-      const firstLoc = this.state.listings[0];
-      this.setState({currentLoc: [firstLoc.lat, firstLoc.lng]});
-      this.calculateTimeRange();
-    }
   }
 
   componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<{}>, snapshot?: any): void {
-    if (this.state.user_id !== '' && prevState.count !== this.state.counta) {
-      console.log('!!!UPDATE!!!');
-      const getBookings = async () => {
-        // const user_id = 3;
-        await fetch(`/api/getBookings?user_id=${this.state.user_id}`, {
-          method: 'GET'
-        })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log('data', data);
-          if (data.warning === undefined) {
-            this.setState({
-              listings: data,
-              currentLoc: [data[0].lat, data[0].lng]
-            });
-          }
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
-      }
-      getBookings();
-      if (this.state.listings.length > 0) {
-        const firstLoc = this.state.listings[0];
-        this.setState({currentLoc: [firstLoc.lat, firstLoc.lng]});
-        this.calculateTimeRange();
-      }
-    }
+    // if (this.state.user_id !== '' && prevState.count !== this.state.count) {
+    //   console.log('!!!UPDATE!!!');
+    //   this.getBookings();
+    //   if (this.state.listings.length > 0) {
+    //     const firstLoc = this.state.listings[0];
+    //     this.setState({currentLoc: [firstLoc.lat, firstLoc.lng]});
+    //     this.calculateTimeRange();
+    //   }
+    // }
   }
 
-  calculateTimeRange() {
-    if (this.state.listings.length === 0) {
+  getBookings = async (user_id) => {
+    // const user_id = 3;
+    console.log(`GETBOOKINGS FOR USER ${user_id}`);
+    await fetch(`/api/getBookings?user_id=${user_id}`, {
+      method: 'GET'
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.warning === undefined) {
+        this.setState({
+          listings: data,
+          numListings: data.length,
+          currentLoc: [data[0].lat, data[0].lng]
+        });
+        this.calculateTimeRange(data);
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  }
+
+  calculateTimeRange(data: any) {
+    console.log('CALCULATING TIME RANGE');
+    if (data.length === 0) {
       return;
     }
-    this.setState({numListings: this.state.listings.length});
     let earliestDT: Date, latestDT: Date;
-    if (this.state.listings.length !== undefined) {
-      this.state.listings.forEach((e, idx) => {
-        if (idx === 0) {
-          earliestDT = new Date(e.timeRangeStart);
-          latestDT = new Date(e.timeRangeEnd);
-        } else {
-          const currStartDT = new Date(e.timeRangeStart);
-          const currEndDT = new Date(e.timeRangeEnd);
-          if (currStartDT < earliestDT) {
-            earliestDT = currStartDT;
-          }
-          if (currEndDT > latestDT) {
-            latestDT = currEndDT;
-          }
+    data.forEach((e, idx) => {
+      if (idx === 0) {
+        earliestDT = new Date(e.start_time);
+        latestDT = new Date(e.end_time);
+      } else {
+        const currStartDT = new Date(e.start_time);
+        const currEndDT = new Date(e.end_time);
+        if (currStartDT < earliestDT) {
+          earliestDT = currStartDT;
         }
-      });
-    }
+        if (currEndDT > latestDT) {
+          latestDT = currEndDT;
+        }
+      }
+    });
+
     //Calculate and return difference in hours
     var diff = (latestDT.getTime() - earliestDT.getTime()) / 1000;
     diff /= (60 * 60);
