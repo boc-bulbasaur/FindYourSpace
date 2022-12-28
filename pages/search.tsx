@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import SearchBar from '../components/searchBar';
 import Map from '../components/map';
 import Script from 'next/script';
-import { Flex } from '@chakra-ui/react'
 import SearchResults from '../components/searchResults';
 import NavBar from '../components/navBar';
 import { useSession } from 'next-auth/react';
-import Link from 'next/link'
+import Box from '@mui/material/Box';
 
 
 type SearchProps = {
@@ -25,7 +24,7 @@ export default function Search(props: SearchProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
-  const [sortBy, setSortBy] = useState('lat')
+  const [sortBy, setSortBy] = useState('distance')
 
   const { data: session } = useSession();
   console.log(session);
@@ -38,7 +37,8 @@ export default function Search(props: SearchProps) {
   },[]);
 
   useEffect(() => {
-    setResults(results.sort((a, b) => a[sortBy] - b[sortBy]));
+    let newResults = [...results];
+    setResults(newResults.sort((a, b) => a[sortBy] - b[sortBy]));
   }, [results, sortBy]);
 
 
@@ -57,6 +57,7 @@ export default function Search(props: SearchProps) {
         .then(async (response) => {
           let data = await response.json();
           console.log(data);
+          setSortBy('distance');
           setResults(data);
           setIsLoading(false);
         })
@@ -255,21 +256,27 @@ export default function Search(props: SearchProps) {
   return (
     <>
       <Script id="google-map-script" src={scriptURL} strategy="beforeInteractive" />
-      <Flex
-        justifyContent= {'center'}
-        alignItems = {'center'}
-        width = {'90vw'}
-        height = { '90vw'}
-        maxWidth = {'100vw'}
-        maxHeight = {'100vh'}
-        margin = {'0 auto'}
-        position = {'relative'}
-        flexDirection = {'column'}
-      >
-        <Flex width={'100%'} height={'10%'} position = {'relative'} margin={'0'} alignItems={'center'}>
-          <NavBar session={session}/>
-        </Flex>
-        <Flex width={'100%'} height={'10%'} position = {'relative'} margin={'0'} alignItems={'center'}>
+      <Box sx={{
+        width: '100%',
+        height: '10%',
+        position: 'relative',
+        margin: '0',
+        alignItems: 'center'
+        }} >
+        <NavBar session={session}/>
+      </Box>
+      <Box sx={{
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '90vw',
+        height: '90vh',
+        maxWidth: '100vw',
+        maxHeight: '90vh',
+        margin: '0 auto',
+        position: 'relative',
+        flexDirection: 'column'
+      }} >
+        <Box width={'100%'} height={'10%'} position = {'relative'} marginTop={'10px'} alignItems={'center'}>
           <SearchBar
             setCoordinates={setCoordinates}
             startTime={startTime}
@@ -279,12 +286,12 @@ export default function Search(props: SearchProps) {
             isLoading={isLoading}
             handleSearch={handleSearch}
           />
-        </Flex>
-        <Flex width={'100%'} height={'70%'} position={'relative'}>
-          <SearchResults startTime={startTime} endTime={endTime} results={results} isLoading={isLoading} sortBy={sortBy} setSortBy={setSortBy} />
+        </Box>
+        <Box width={'100%'} height={'85%'} position={'relative'} marginTop={'10px'}>
+          <SearchResults results={results} isLoading={isLoading} sortBy={sortBy} setSortBy={setSortBy} />
           <Map coordinates={coordinates} results={results}/>
-        </Flex>
-      </Flex>
+        </Box>
+      </Box>
     </>
   );
 }
