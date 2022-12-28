@@ -9,15 +9,14 @@ import {useRouter} from 'next/router'
 
 export default function NewReservation() {
   const router = useRouter()
-  const {query: {startTime, endTime, address}, } = router
+  const {query: {startTime, endTime }} = router
   const props = {
     startTime,
     endTime,
-    address
+    // address
   }
   return (
     <div>
-      {startTime}, {endTime} {address}
       <NavBar/>
         <h2>
           <Link href="/search"><ArrowBackIosNewIcon className={styles.back}></ArrowBackIosNewIcon>Back to Search</Link>

@@ -1,6 +1,7 @@
 import React from 'react'
-import SearchResult from './searchResult'
 import { Box, Grid, Skeleton, Stack, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import SearchResult from './searchResult';
+import SearchResultZoom from './searchResultZoom';
 import styles from '../styles/search.module.css';
 
 
@@ -9,12 +10,24 @@ type SearchResultsProps = {
   isLoading: boolean;
   sortBy: string;
   setSortBy: Function;
+  startTime: string;
+  endTime: string;
+  selected: number;
+  setSelected: Function;
 }
 
-const SearchResults = ({results, isLoading, sortBy, setSortBy}: SearchResultsProps) =>{
+const SearchResults = ({results, isLoading, sortBy, setSortBy, startTime, endTime, selected, setSelected }: SearchResultsProps) =>{
   const handleChange = (e: React.MouseEvent<HTMLElement>) => {
     if (e.target.value !== null) {
       setSortBy(e.target.value);
+    }
+  }
+
+  const handleClick = (e: React.MouseEvent<HTMLElement>, id: number) => {
+    if (selected !== id) {
+      setSelected(id);
+    } else {
+      setSelected(null);
     }
   }
 
@@ -64,7 +77,7 @@ const SearchResults = ({results, isLoading, sortBy, setSortBy}: SearchResultsPro
       position: 'absolute',
       left: 0,
       top: 0,
-      zIndex: 1,
+      zindex: 1,
       overflow: 'scroll',
       px: 2,
     }} className={styles.searchresults} >
@@ -87,18 +100,27 @@ const SearchResults = ({results, isLoading, sortBy, setSortBy}: SearchResultsPro
             onChange={handleChange}
           >
             <ToggleButton value="distance">Distance</ToggleButton>
-            <ToggleButton value="price">Price</ToggleButton>
+            <ToggleButton value="lat">Price</ToggleButton>
           </ToggleButtonGroup>
         </Grid>
       </Grid>
       <Grid container direction={'column'} columnSpacing={2} >
         {
           results.length !== 0 && results.map((location: Object): JSX.Element => {
-            return (
-              <Grid key={location.id}>
-                <SearchResult location={location} />
-              </Grid>
-            )
+            const id = location.id;
+            if (id === selected) {
+              return (
+                <Grid key={id} onClick={(e) => { handleClick(e, id) }} >
+                  <SearchResultZoom location={location} startTime={startTime} endTime={endTime} />
+                </Grid>
+              )
+            } else {
+              return (
+                <Grid key={id} onClick={(e) => { handleClick(e, id) }} >
+                  <SearchResult location={location} />
+                </Grid>
+              )
+            }
           })
         }
         {
