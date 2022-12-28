@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box} from '@chakra-ui/react'
+import Box from '@mui/material/Box';
 import GoogleMapReact from 'google-map-react'
 import { IoLocation } from "react-icons/io5";
 
@@ -13,7 +13,7 @@ type MapProps = {
 
 const Map = ({coordinates, results}: MapProps) =>{
   return (
-  <Box position={'absolute'} right={0} width={'60%'} height = {'95%'}>
+  <Box position={'absolute'} right={0} width={'60%'} height = {'100%'}>
     <GoogleMapReact
           bootstrapURLKeys = {{key: process.env.GOOGLE_MAP_API_KEY}}
           center = {coordinates}
@@ -23,27 +23,28 @@ const Map = ({coordinates, results}: MapProps) =>{
           onchange = {()=>{}}
           onChildClick = {()=>{}}
     >
-      <Box
+      <div
         lat = {coordinates.lat}
         lng = {coordinates.lng}
         position={'relative'}
-        cursor = 'poniter'
+        cursor = {'poniter'}
+        zIndex={100}
        >
           <IoLocation color = 'red' fontSize={40} />
-      </Box>
+      </div>
       {results && results.map((location):JSX.Element => {
         const { lat, lng, price, id } = location;
         return (
-        <Box
+        <div
           key={id}
           lat = {lat}
           lng = {lng}
           position={'relative'}
           cursor = 'poniter'
-          text={price}
+          text={lat}
          >
           <IoLocation color = 'black' fontSize={40} />
-        </Box>)
+        </div>)
       })}
     </GoogleMapReact>
   </Box>)
