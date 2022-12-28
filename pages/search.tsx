@@ -96,7 +96,7 @@ export default function Search(props: SearchProps) {
         position: 'relative',
         flexDirection: 'column'
       }} >
-        <Box width={'100%'} height={'10%'} position = {'relative'} marginTop={'10px'} alignItems={'center'}>
+        <Box width={'100%'} height={'10%'} position={'relative'} marginTop={'20px'} justifyContent={'center'} alignItems={'center'}>
           <SearchBar
             setCoordinates={setCoordinates}
             startTime={startTime}
@@ -110,7 +110,7 @@ export default function Search(props: SearchProps) {
         <Box width={'100%'} height={'85%'} position={'relative'} marginTop={'10px'}>
           <SearchResults results={results} isLoading={isLoading} sortBy={sortBy} setSortBy={setSortBy}
             startTime={startTime} endTime={endTime} selected={selected} setSelected={setSelected} />
-          <Map coordinates={coordinates} results={results}/>
+          <Map coordinates={coordinates} results={results} selected={selected} />
         </Box>
       </Box>
     </>

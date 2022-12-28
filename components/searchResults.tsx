@@ -104,7 +104,7 @@ const SearchResults = ({results, isLoading, sortBy, setSortBy, startTime, endTim
           </ToggleButtonGroup>
         </Grid>
       </Grid>
-      <Grid container direction={'column'} columnSpacing={2} >
+      <Grid container direction={'column'} columnSpacing={1}>
         {
           results.length !== 0 && results.map((location: Object): JSX.Element => {
             const id = location.id;
