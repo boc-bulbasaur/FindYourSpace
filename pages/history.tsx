@@ -32,12 +32,27 @@ export default function History() {
         main: '#000000',
       },
       background: {
-        default: '#fbfbfb',
+        default: '#f1f1f3',
       },
     },
     typography: {
       fontFamily: ['Sono','sans-serif'].join(',')
     },
+    // palette: {
+    //   mode: 'dark',
+    //   primary: {
+    //     main: '#000000',
+    //   },
+    //   secondary: {
+    //     main: '#1b2139',
+    //   },
+    //   background: {
+    //     default: '#fbfbfb',
+    //   },
+    // },
+    // typography: {
+    //   fontFamily: ['Sono','sans-serif'].join(',')
+    // },
   });
   let history;
   if (!owner) {
@@ -48,12 +63,11 @@ export default function History() {
   return (
     <ThemeProvider theme={theme} >
       <NavBar session={session}/>
-        {/* Note the modular CSS below */}
-        <div className={styles.history}>
+        <div className={styles.main}>
           <HistoryToggle handleToggle={handleToggle} sx={{color: 'black'}}/>
           {history}
         </div>
-      </ThemeProvider>
+    </ThemeProvider>
   );
 
 }
