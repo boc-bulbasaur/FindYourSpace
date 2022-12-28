@@ -15,6 +15,7 @@ type SearchResultProps = {
   };
 }
 
+
 const SearchResult = ({location}: SearchResultProps): JSX.Element => {
   const { address, id, distance, price, url } = location;
   return (
@@ -33,6 +34,7 @@ const SearchResult = ({location}: SearchResultProps): JSX.Element => {
         </Grid>
       </Grid>
     </Box>
+
   );
 }
 
