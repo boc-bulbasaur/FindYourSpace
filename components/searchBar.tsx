@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Autocomplete } from '@react-google-maps/api';
-import{ Flex, InputGroup, Input, Button, Center } from '@chakra-ui/react';
+import { Flex, InputGroup, Input, Button } from '@chakra-ui/react';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -119,8 +119,9 @@ const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTim
           colorScheme="teal"
           variant="outline"
           borderRadius={'10px'}
-          height={'4vh'}
+          height={'56px'}
           width={'10vw'}
+          fontSize={'15px'}
           onClick={handleSearch}
         >
           Search

@@ -1,22 +1,19 @@
 import React from 'react'
-import {Box} from '@chakra-ui/react'
+import Box from '@mui/material/Box';
 import GoogleMapReact from 'google-map-react'
 import { IoLocation } from "react-icons/io5";
-import { FunctionLikeDeclaration } from 'typescript';
-import { IconContext } from "react-icons";
 
 type MapProps = {
   coordinates: {
     lat: number;
     lng: number;
   };
-  setCoordinates: Function;
   results: {}[];
 }
 
-const Map = ({coordinates, setCoordinates, results}: MapProps) =>{
+const Map = ({coordinates, results}: MapProps) =>{
   return (
-  <Box position={'absolute'} right={0} width={'60%'} height = {'95%'}>
+  <Box position={'absolute'} right={0} width={'60%'} height = {'100%'}>
     <GoogleMapReact
           bootstrapURLKeys = {{key: process.env.GOOGLE_MAP_API_KEY}}
           center = {coordinates}
@@ -26,35 +23,28 @@ const Map = ({coordinates, setCoordinates, results}: MapProps) =>{
           onchange = {()=>{}}
           onChildClick = {()=>{}}
     >
-      <Box
+      <div
         lat = {coordinates.lat}
         lng = {coordinates.lng}
         position={'relative'}
-        cursor = 'poniter'
+        cursor = {'poniter'}
+        zIndex={100}
        >
-
-      {/* <link href="http://code.ionicframework.com/1.3.0/css/ionic.min.css" rel="stylesheet"/> */}
-        <div className="post-info">
-          <span className="charity">
-            <i className="ion-ios-heart-outline" ></i>
-          </span>
-        </div>
-
-      </Box>
+          <IoLocation color = 'red' fontSize={40} />
+      </div>
       {results && results.map((location):JSX.Element => {
-        const { coordinates, price, id } = location;
-        const { lat, lng } = coordinates;
+        const { lat, lng, price, id } = location;
         return (
-        <Box
+        <div
           key={id}
           lat = {lat}
           lng = {lng}
           position={'relative'}
           cursor = 'poniter'
-          text={price}
+          text={lat}
          >
           <IoLocation color = 'black' fontSize={40} />
-        </Box>)
+        </div>)
       })}
     </GoogleMapReact>
   </Box>)

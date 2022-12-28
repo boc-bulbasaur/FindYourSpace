@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 const mail = require('@sendgrid/mail')
-import CreateJob from '../../components/schedulemail'
 
 type Data = {
   name: string
@@ -10,13 +9,13 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const {email, name, order, price, time} = req.query
+  const {email, name, orderNumber, price, booktime} = req.query
   const data = {
     to : `${email}`,
     from : 'noreply@findyourspace.app',
     subject: 'Confirmation',
-    html: ` <h1>Find you space</h1> <p>Order#${order}</p>
-            <h2>Hi ${name}, Thank you for your purchase!</h2>
+    html: ` <h1>Find you space</h1> <p>Order#${orderNumber}</p>
+            <h2>Hi ${name}, Thank you for booking parking spot at !</h2>
             <div>Order Summary</div>
               <table>
               <tr>
@@ -37,16 +36,14 @@ export default function handler(
               </table>
             `,
   }
-  CreateJob(time)
-  res.status(200).end('success')
-  // mail.send(data)
-  // .then(()=>{
-  //   res.status(200).end('success')
-  //   console.log('Mail sent successfully')
-  //   // Promise.resolve()
-  // })
-  // .catch((error: any)=>{
-  //   res.status(500).end(error)
-  //   return Promise.resolve(error)
-  // })
+  mail.send(data)
+  .then(()=>{
+    res.status(200).end('success')
+    console.log('Mail sent successfully')
+    // Promise.resolve()
+  })
+  .catch((error: any)=>{
+    res.status(500).end(error)
+    return Promise.resolve(error)
+  })
 }

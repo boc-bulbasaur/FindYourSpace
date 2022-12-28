@@ -47,13 +47,13 @@ export default async function handler(
   }
   try {
     console.log('inputs', startTime, endTime, lat, lng);
-    // const { rows } = await client.query(`SELECT address, lat, lng,
-    //   ST_Distance(a.coordinates, ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326)) as distance
-    // FROM locations a
-    // where ST_Distance(a.coordinates, ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326)) < 8000000
-    // order by distance;`);
-    // console.log(rows);
-    res.status(200).send(mokeResults);
+    const { rows } = await client.query(`SELECT id, address, lat, lng,
+      ST_Distance(a.coordinates, ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326)) AS distance
+    FROM locations a
+    WHERE ST_Distance(a.coordinates, ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326)) < 10000
+    ORDER BY distance;`);
+    console.log(rows);
+    res.status(200).send(rows);
   } catch (err) {
     console.log(err);
     res.status(500).send(err);

@@ -122,13 +122,13 @@ const columns: GridColDef[] = [
   { field: 'name', headerName: 'Name', width: 150, renderCell: renderCellExpand },
   { field: 'address', headerName: 'Address', width: 180, renderCell: renderCellExpand },
   { field: 'detail', headerName: 'Detail', width: 150, renderCell: renderCellExpand },
-  { field: 'city', headerName: 'City', width: 120 },
+  // { field: 'city', headerName: 'City', width: 120 },
   // { field: 'state', headerName: 'State', width: 70 },
   // { field: 'zip', headerName: 'ZIP', width: 70 },
   { field: 'startDateTime', type: 'dateTime', headerName: 'Start DateTime', width: 220 },
   { field: 'endDateTime', type: 'dateTime', headerName: 'End DateTime', width: 220 },
   { field: 'duration', type: 'number', headerName: 'Duration', width: 100 },
-  { field: 'rebook', headerName: 'Rebook', width: 100, renderCell: (params) => <Link href={'/reservation'}><Button variant="outlined" component="a">Rebook</Button></Link>
+  { field: 'rebook', headerName: 'Rebook', width: 100, renderCell: (params) => <Link href={'/reservation'}><Button variant="outlined">Rebook</Button></Link>
  },
 ];
 
@@ -141,15 +141,16 @@ const diff_hours = (dt2: Date, dt1: Date) => {
 }
 
 export default function HistoryTable(props: any) {
-  if (props.listings.length !== 0) {
+  if (props.listings.length !== undefined) {
     rows = [];
     props.listings.forEach((e: any, idx: number) => {
       // console.log(e);
-      const startDate = new Date(e.timeRangeStart);
-      const endDate = new Date(e.timeRangeEnd);
+      const startDate = new Date(e.start_time);
+      const endDate = new Date(e.end_time);
       const diffDate = diff_hours(endDate, startDate);
-      rows.push({id: e.id, name: e.name, address: e.address, detail: e.detail,
-      city: e.place_id, startDateTime: startDate, endDateTime: endDate, duration: `${diffDate} hours`, lat: e.lat, lng: e.lng});
+      console.log(props.listings);
+      rows.push({id: e.id, name: e.name, address: e.address, detail: e.description,
+      startDateTime: startDate, endDateTime: endDate, duration: `${e.duration} hour(s)`, lat: e.lat, lng: e.lng});
     });
   }
   return (

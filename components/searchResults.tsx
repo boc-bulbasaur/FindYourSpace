@@ -1,112 +1,133 @@
 import React from 'react'
-import { Box, Flex, Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
-import SearchResult from './searchResult'
-import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { Box, Grid, Skeleton, Stack, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import SearchResult from './searchResult';
+import SearchResultZoom from './searchResultZoom';
+import styles from '../styles/search.module.css';
+
 
 type SearchResultsProps = {
   results: {}[];
   isLoading: boolean;
+  sortBy: string;
+  setSortBy: Function;
+  startTime: string;
+  endTime: string;
+  selected: number;
+  setSelected: Function;
 }
 
-const SearchResults = ({results, isLoading}: SearchResultsProps) =>{
+const SearchResults = ({results, isLoading, sortBy, setSortBy, startTime, endTime, selected, setSelected }: SearchResultsProps) =>{
+  const handleChange = (e: React.MouseEvent<HTMLElement>) => {
+    if (e.target.value !== null) {
+      setSortBy(e.target.value);
+    }
+  }
+
+  const handleClick = (e: React.MouseEvent<HTMLElement>, id: number) => {
+    if (selected !== id) {
+      setSelected(id);
+    } else {
+      setSelected(null);
+    }
+  }
+
   if (isLoading) return (
-    <Flex
-      direction={'column'}
-      bg={'whiteAlpha.900'}
-      width={'35%'}
-      height ={'100%'}
-      position ={'absolute'}
-      left={0}
-      top={0}
-      zIndex={1}
-      overflow='hidden'
-      px={2}
-    >
-      <Box padding = '6' boxShadow='lg' bg='white' mt={16}>
-        <SkeletonCircle size='10' />
-        <SkeletonText mt='4' noOfLines ={4} spacing = '4' />
-      </Box>
-      <Box padding = '6' boxShadow='lg' bg='white' mt={3}>
-        <SkeletonCircle size='10' />
-        <SkeletonText mt='4' noOfLines ={4} spacing = '4' />
-      </Box>
-      <Box padding = '6' boxShadow='lg' bg='white' mt={3}>
-        <SkeletonCircle size='10' />
-        <SkeletonText mt='4' noOfLines ={4} spacing = '4' />
-      </Box>
-      <Box padding = '6' boxShadow='lg' bg='white' mt={3}>
-        <SkeletonCircle size='10' />
-        <SkeletonText mt='4' noOfLines ={4} spacing = '4' />
-      </Box>
-      <Box padding = '6' boxShadow='lg' bg='white' mt={3}>
-        <SkeletonCircle size='10' />
-        <SkeletonText mt='4' noOfLines ={4} spacing = '4' />
-      </Box>
-      <Box padding = '6' boxShadow='lg' bg='white' mt={3}>
-        <SkeletonCircle size='10' />
-        <SkeletonText mt='4' noOfLines ={4} spacing = '4' />
-      </Box>
-      <Box padding = '6' boxShadow='lg' bg='white' mt={3}>
-        <SkeletonCircle size='10' />
-        <SkeletonText mt='4' noOfLines ={4} spacing = '4' />
-      </Box>
-      <Box padding = '6' boxShadow='lg' bg='white' mt={3}>
-        <SkeletonCircle size='10' />
-        <SkeletonText mt='4' noOfLines ={4} spacing = '4' />
-      </Box>
-      <Box padding = '6' boxShadow='lg' bg='white' mt={3}>
-        <SkeletonCircle size='10' />
-        <SkeletonText mt='4' noOfLines ={4} spacing = '4' />
-      </Box>
-    </Flex>
+    <Box sx={{
+      direction: 'column',
+      bg: 'whiteAlpha.900',
+      width: '38%',
+      height: '100%',
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      zIndex: 1,
+      overflow: 'hidden',
+      px: 2,
+    }} >
+      <Stack>
+        <br></br>
+        <Skeleton height='50px' />
+        <br></br>
+        <Skeleton height='50px' />
+        <br></br>
+        <Skeleton height='50px' />
+        <br></br>
+        <Skeleton height='50px' />
+        <br></br>
+        <Skeleton height='50px' />
+        <br></br>
+        <Skeleton height='50px' />
+        <br></br>
+        <Skeleton height='50px' />
+        <br></br>
+        <Skeleton height='50px' />
+        <br></br>
+        <Skeleton height='50px' />
+        <br></br>
+        <Skeleton height='50px' />
+      </Stack>
+    </Box>
   )
   return (
-    <Flex
-      direction={'column'}
-      bg={'whiteAlpha.900'}
-      width={'35%'}
-      height ={'100%'}
-      position ={'absolute'}
-      left={0}
-      top={0}
-      zIndex={1}
-      overflow='hidden'
-      px={2}
-    >
-      <Flex
-        justifyContent={'right'}
-        alignItems={'center'}
-      >
-        <Flex
+    <Box sx={{
+      direction: 'column',
+      bg: 'whiteAlpha.900',
+      width: '38%',
+      height: '100%',
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      zindex: 1,
+      overflow: 'scroll',
+      px: 2,
+    }} className={styles.searchresults} >
+      <Grid container direction={'row'} justifyContent={'flex-end'} alignItems={'center'} >
+        <Grid
           justifyContent={'center'}
           alignItems={'center'}
         >
           Sort By:
-        </Flex>
-        <Flex
+        </Grid>
+        <Grid
           justifyContent={'center'}
           alignItems={'center'}
         >
           <ToggleButtonGroup
             color="primary"
-            value={'sort'}
+            value={sortBy}
             exclusive
             aria-label="sortBy"
+            onChange={handleChange}
           >
             <ToggleButton value="distance">Distance</ToggleButton>
-            <ToggleButton value="price">Price</ToggleButton>
+            <ToggleButton value="lat">Price</ToggleButton>
           </ToggleButtonGroup>
-        </Flex>
-      </Flex>
-      <Flex flex={1} overflowY={'scroll'} mt ={16} direction={'column'} className='search-results'>
+        </Grid>
+      </Grid>
+      <Grid container direction={'column'} columnSpacing={2} >
         {
-          results && results.map((parking: Object): JSX.Element => {
-            const {id, price, address, description } = parking;
-            return <SearchResult address={address} id={id} price={price} description={description} />
+          results.length !== 0 && results.map((location: Object): JSX.Element => {
+            const id = location.id;
+            if (id === selected) {
+              return (
+                <Grid key={id} onClick={(e) => { handleClick(e, id) }} >
+                  <SearchResultZoom location={location} startTime={startTime} endTime={endTime} />
+                </Grid>
+              )
+            } else {
+              return (
+                <Grid key={id} onClick={(e) => { handleClick(e, id) }} >
+                  <SearchResult location={location} />
+                </Grid>
+              )
+            }
           })
         }
-      </Flex>
-    </Flex>
+        {
+          results.length === 0 && <div>No available results</div>
+        }
+      </Grid>
+    </Box>
   )
 }
 

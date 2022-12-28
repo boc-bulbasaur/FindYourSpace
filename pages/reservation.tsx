@@ -5,13 +5,21 @@ import NavBar from "../components/navBar";
 import Payment from '../components/reservation/payment';
 import Booking from '../components/reservation/booking';
 import styles from '../styles/reservation.module.css';
+import {useRouter} from 'next/router'
 
 export default function NewReservation() {
+  const router = useRouter()
+  const {query: {startTime, endTime }} = router
+  const props = {
+    startTime,
+    endTime,
+    // address
+  }
   return (
     <div>
       <NavBar/>
         <h2>
-          <Link href="/"><ArrowBackIosNewIcon className={styles.back}></ArrowBackIosNewIcon>Back to Search</Link>
+          <Link href="/search"><ArrowBackIosNewIcon className={styles.back}></ArrowBackIosNewIcon>Back to Search</Link>
         </h2>
       <div className={styles.newRes}>
         <h1 className={styles.checkout}>CHECKOUT</h1>
