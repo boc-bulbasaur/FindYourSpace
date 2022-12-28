@@ -8,6 +8,7 @@ import { useSession } from 'next-auth/react';
 import Box from '@mui/material/Box';
 
 
+
 type SearchProps = {
   startTime: String;
   endTime: String;
@@ -41,10 +42,11 @@ export default function Search(props: SearchProps) {
     setResults(newResults.sort((a, b) => a[sortBy] - b[sortBy]));
   }, [results, sortBy]);
 
+
   const handleSearch = async (e) => {
     console.log("search button clicked");
     if (startTime !== '' && endTime !== '' && coordinates.lat && coordinates.lng) {
-      // setIsLoading(true);
+      setIsLoading(true);
       console.log('start search');
       console.log(startTime, endTime, coordinates.lat, coordinates.lng);
       const info = {startTime, endTime, coordinates};

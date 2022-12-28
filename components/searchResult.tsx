@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -13,6 +14,7 @@ type SearchResultProps = {
     url: string;
   };
 }
+
 
 const SearchResult = ({location}: SearchResultProps): JSX.Element => {
   const { address, id, distance, price, url } = location;
@@ -32,6 +34,7 @@ const SearchResult = ({location}: SearchResultProps): JSX.Element => {
         </Grid>
       </Grid>
     </Box>
+
   );
 }
 
