@@ -9,9 +9,10 @@ import O_MonthlyBreakdown from "../components/ownerMonthlyBreakdown"
 import O_RenderHistory from "../components/ownerRenderHistory"
 import O_RentalList from "../components/ownerRentalList"
 import styles from '../styles/ownerHistoryDash.module.css';
+import handler from '/api/ownerHistory';
 
 export default function OwnerHistory( props ) {
-  console.log('Main History Dashboard props: ', props)
+  // console.log('Main History Dashboard props: ', props)
 
   const theme = createTheme({
     palette: {
@@ -33,6 +34,7 @@ export default function OwnerHistory( props ) {
 
   return (
     <ThemeProvider theme={theme}>
+      <NavBar session={undefined} />
       <div className={styles.owner_top_container}>
         <DatePicker />
         <O_RentalList />
@@ -46,6 +48,8 @@ export default function OwnerHistory( props ) {
 export async function getServerSideProps() {
 
   //ServerSideProps will return: total rental listings
+  // const response = await
+
 
   let total = 0;
 
