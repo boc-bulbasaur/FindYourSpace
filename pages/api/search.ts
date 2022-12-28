@@ -47,7 +47,7 @@ export default async function handler(
   }
   try {
     console.log('inputs', startTime, endTime, lat, lng);
-    const { rows } = await client.query(`SELECT address, lat, lng,
+    const { rows } = await client.query(`SELECT id, address, lat, lng,
       ST_Distance(a.coordinates, ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326)) AS distance
     FROM locations a
     WHERE ST_Distance(a.coordinates, ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326)) < 10000
