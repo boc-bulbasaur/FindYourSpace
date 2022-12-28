@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 type SearchResultProps = {
@@ -9,7 +10,7 @@ type SearchResultProps = {
   };
 }
 
-const SearchResult = ({location}: SearchResultProps): JSX.Element => {
+const SearchResult = ({location}: SearchResultProps, startTime, endTime): JSX.Element => {
   const { address, id, lat, lng, distance } = location;
   return (
     <div key={id}>
@@ -17,6 +18,9 @@ const SearchResult = ({location}: SearchResultProps): JSX.Element => {
       <div>lat: {lat}</div>
       <div>lng: {lng}</div>
       <div>Distance: {distance}</div>
+      <button>
+      <Link href={{ pathname: '/reservation', query: {startTime, endTime, address}}}>Book Now</Link>
+      </button>
     </div>
   );
 }
