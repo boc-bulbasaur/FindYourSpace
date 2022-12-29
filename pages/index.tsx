@@ -13,7 +13,11 @@ import { useSession } from 'next-auth/react';
 export default function Home() {
   const { data: session } = useSession();
   console.log(session);
+  const scriptURL = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_API_KEY}&libraries=places&callback=initMap`
+
   return (
+  <>
+    <script id="google-map-script" async defer src={scriptURL}  />
     <div className={styles.container}>
       <Head>
         <title>find your space</title>
@@ -52,7 +56,7 @@ export default function Home() {
           <a
             href=""
             className={styles.card}
-          >
+            >
             <h2>Everyone&apos;s doing it.</h2>
             <p>Sed commodo purus ut auctor volutpat. In vehicula, nisl eu maximus tristique, neque libero luctus massa, sed finibus est leo quis eros.</p>
           </a>
@@ -70,7 +74,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
             className={styles.card}
-          >
+            >
             <h2>Come on, give it a try!</h2>
             <p>
             Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed finibus nec risus a posuere.
@@ -85,5 +89,6 @@ export default function Home() {
         </a>
       </footer>
     </div>
+  </>
   )
 }
