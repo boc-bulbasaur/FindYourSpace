@@ -29,7 +29,11 @@ export default function DatePicker(props) {
           openTo="day"
           value={value}
           onChange={(newValue) => {
-            console.log('newValue: ', newValue)
+            let day, reformat;
+            if(newValue.$D <= 9) {
+              day = `0${newValue.$D}`
+            }
+            reformat = `${newValue.$y}-${newValue.$M + 1}-${day || newValue.$D }`;
             setValue(newValue);
           }}
           onMonthChange={(e) => {console.log('New Month Event: ', e)}}

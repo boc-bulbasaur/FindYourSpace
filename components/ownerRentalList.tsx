@@ -15,7 +15,7 @@ import FolderIcon from '@mui/icons-material/Folder';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import styles from '../styles/ownerHistoryDash.module.css';
 
-function generate(element) {
+function generate(element, props) {
   return [0, 1, 2].map((value) =>
     React.cloneElement(element, {
       key: value,
@@ -27,9 +27,9 @@ const Demo = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
 
-export default function O_RentalList() {
+export default function O_RentalList(props) {
   const [secondary, setSecondary] = React.useState(false);
-
+  console.log('list props: ', props.ownerHistory)
   return (
     <Box className={styles.owner_history_table}>
       <FormGroup row>

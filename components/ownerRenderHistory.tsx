@@ -12,7 +12,7 @@ const columns: GridColDef[] = [
   { field: 'end_time', type: 'dateTime', headerName: 'End DateTime', width: 225, headerAlign: 'center' },
   { field: 'duration', headerName: 'Rental Duration', width: 200, headerAlign: 'center', align: 'center'},
   { field: 'address', headerName: 'Location', width: 300, sortable: false, headerAlign: 'center'},
-  { field: 'short_term_rate', headerName: 'Total', width: 128, headerAlign: 'center' },
+  { field: 'short_term_rate', headerName: 'Total', width: 128, headerAlign: 'center', align: 'center' },
   { field: 'block', headerName: 'Block User', width: 250, sortable: false, type: 'boolean', headerAlign: 'center'}
 ];
 

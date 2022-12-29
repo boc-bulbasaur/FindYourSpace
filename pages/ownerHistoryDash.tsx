@@ -37,7 +37,7 @@ export default function OwnerHistory( props ) {
       <NavBar session={undefined} />
       <div className={styles.owner_top_container}>
         <DatePicker dates={props.dates}/>
-        <O_RentalList />
+        <O_RentalList ownerHistory={props.userHistory}/>
         <O_MonthlyBreakdown total={props.total}/>
       </div>
       <O_RenderHistory  ownerHistory={props} />
