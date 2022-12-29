@@ -3,48 +3,64 @@ import Box from '@mui/material/Box';
 import GoogleMapReact from 'google-map-react'
 import { IoLocation } from "react-icons/io5";
 
+
 type MapProps = {
   coordinates: {
     lat: number;
     lng: number;
   };
   results: {}[];
+  selected: number;
 }
 
-const Map = ({coordinates, results}: MapProps) =>{
+const Map = ({coordinates, results, selected }: MapProps) =>{
   return (
   <Box position={'absolute'} right={0} width={'60%'} height = {'100%'}>
     <GoogleMapReact
           bootstrapURLKeys = {{key: process.env.GOOGLE_MAP_API_KEY}}
           center = {coordinates}
-          defaultZoom = {15}
+          defaultZoom = {12}
           margin = {[50,50,50,50]}
           option= {''}
           onchange = {()=>{}}
           onChildClick = {()=>{}}
     >
-      <div
-        lat = {coordinates.lat}
-        lng = {coordinates.lng}
+      <Box
+        component='span'
+        lat={coordinates.lat}
+        lng={coordinates.lng}
         position={'relative'}
-        cursor = {'poniter'}
         zIndex={100}
-       >
+      >
           <IoLocation color = 'red' fontSize={40} />
-      </div>
+      </Box>
       {results && results.map((location):JSX.Element => {
-        const { lat, lng, price, id } = location;
-        return (
-        <div
-          key={id}
-          lat = {lat}
-          lng = {lng}
-          position={'relative'}
-          cursor = 'poniter'
-          text={lat}
-         >
-          <IoLocation color = 'black' fontSize={40} />
-        </div>)
+        const { lat, lng, id } = location;
+        if (id === selected) {
+          return (
+            <Box
+              component='span'
+              key={id}
+              lat = {lat}
+              lng = {lng}
+              position={'relative'}
+              zIndex={20}
+             >
+              <IoLocation color='green' fontSize={40} />
+            </Box>)
+        } else {
+          return (
+            <Box
+              component='span'
+              key={id}
+              lat = {lat}
+              lng = {lng}
+              position={'relative'}
+              zIndex={10}
+             >
+              <IoLocation color='black' fontSize={40} />
+            </Box>)
+        }
       })}
     </GoogleMapReact>
   </Box>)
