@@ -41,7 +41,7 @@ export default function Search(props: SearchProps) {
   useEffect(() => {
     let newResults = [...results];
     setResults(newResults.sort((a, b) => a[sortBy] - b[sortBy]));
-  }, [results, sortBy]);
+  }, [sortBy]);
 
 
   const handleSearch = async () => {
