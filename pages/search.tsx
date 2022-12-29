@@ -69,10 +69,12 @@ export default function Search(props: SearchProps) {
       }
     }
   }
+  // const scriptURL = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_API_KEY}&libraries=places&callback=initMap`
 
 
   return (
     <>
+      {/* <script id="google-map-script" async defer src={scriptURL}  /> */}
       <Box sx={{
         width: '100%',
         height: '10%',
