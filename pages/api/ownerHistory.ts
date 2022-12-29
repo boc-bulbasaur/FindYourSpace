@@ -15,7 +15,7 @@ export default async function handler(
   }
   try {
     const { rows } = await client.query(
-    `SELECT bookings.conf_code, users.name, locations.address, bookings.start_time, bookings.end_time, bookings.duration
+    `SELECT bookings.conf_code as id, users.name, locations.address, listings.short_term_rate, listings.long_term_rate, bookings.start_time, bookings.end_time, bookings.duration
     FROM bookings
     JOIN listings
     ON bookings.listing_id = listings.id

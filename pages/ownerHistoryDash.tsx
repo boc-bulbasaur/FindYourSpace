@@ -64,10 +64,9 @@ export async function getServerSideProps() {
     { id: '49B6F40D', fullName: 'JT Liu', startDateTime: '2022-04-25 8:00', endDateTime: '2022-04-25 12:00', duration: null, location: '1234 Example st', total: '$25.00', block: null },
   ];
 
-  // data.forEach((entry) => {
-  //   let rentalValue = entry.total.slice(1)
-  //   total += Number(rentalValue)
-  // })
+  data.forEach((entry) => {
+    total += entry.short_term_rate
+  })
 
   return {
     props: {
