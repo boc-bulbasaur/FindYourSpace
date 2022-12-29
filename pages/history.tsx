@@ -10,8 +10,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSession } from 'next-auth/react';
 
 export default function History() {
-  const { data: session } = useSession();
-  console.log(session);
+  const { data: session, status } = useSession();
+  console.log('status', status);
+  console.log('session', session);
 
   const [owner, setToggle] = useState(false);
 
@@ -40,9 +41,9 @@ export default function History() {
   });
   let history;
   if (!owner) {
-    history = <RenterHistory />
+    history = <RenterHistory session={session}/>
   } else {
-    history = <OwnerHistory />
+    history = <OwnerHistory session={session}/>
   }
   return (
     <ThemeProvider theme={theme} >
