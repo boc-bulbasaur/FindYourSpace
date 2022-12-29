@@ -34,6 +34,7 @@ export default function DatePicker(props) {
               day = `0${newValue.$D}`
             }
             reformat = `${newValue.$y}-${newValue.$M + 1}-${day || newValue.$D }`;
+            props.liftDate(reformat);
             setValue(newValue);
           }}
           onMonthChange={(e) => {console.log('New Month Event: ', e)}}

@@ -29,7 +29,7 @@ const Demo = styled('div')(({ theme }) => ({
 
 export default function O_RentalList(props) {
   const [secondary, setSecondary] = React.useState(false);
-  console.log('list props: ', props.ownerHistory)
+  console.log('list props: ', props)
   return (
     <Box className={styles.owner_history_table}>
       <FormGroup row>

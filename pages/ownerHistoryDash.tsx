@@ -1,6 +1,6 @@
 import { format, formatDistance, formatRelative, subDays } from 'date-fns'
 import * as React from 'react';
-import {useState} from 'react';
+import {useState, useFetch} from 'react';
 
 import NavBar from "../components/navBar"
 import { ThemeProvider, createTheme } from "@mui/material";
@@ -13,6 +13,7 @@ import handler from '/api/ownerHistory.ts';
 
 export default function OwnerHistory( props ) {
   //console.log('Main History Dashboard props: ', props)
+  const [date, setDate] = useState();
 
   const theme = createTheme({
     palette: {
@@ -32,12 +33,18 @@ export default function OwnerHistory( props ) {
     },
   });
 
+ const liftDate = (reformattedDate) => {
+  let newDate = reformattedDate;
+  setDate(newDate);
+  //console.log('date hook: ', newDate)
+ }
+
   return (
     <ThemeProvider theme={theme}>
       <NavBar session={undefined} />
       <div className={styles.owner_top_container}>
-        <DatePicker dates={props.dates}/>
-        <O_RentalList ownerHistory={props.userHistory}/>
+        <DatePicker liftDate={liftDate} dates={props.dates}/>
+        <O_RentalList ownerHistory={props.userHistory} newDate={date}/>
         <O_MonthlyBreakdown total={props.total}/>
       </div>
       <O_RenderHistory  ownerHistory={props} />

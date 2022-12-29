@@ -18,7 +18,7 @@ const columns: GridColDef[] = [
 
 export default function O_RenderHistory({ ownerHistory }) {
 
-  console.log('Render History: ', ownerHistory.userHistory)
+  //console.log('Render History: ', ownerHistory.userHistory)
 
   return (
 

@@ -2,7 +2,7 @@ import styles from '../styles/ownerHistoryDash.module.css';
 
 export default function O_MonthlyBreakdown(props) {
 
-  console.log('monthly breakdown props: ', props)
+  //console.log('monthly breakdown props: ', props)
 
   return (
     <div className={styles.monthly_breakdown_container}>
