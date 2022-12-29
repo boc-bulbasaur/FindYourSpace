@@ -59,7 +59,7 @@ export default function O_RentalList(props) {
             </ListItemAvatar>
             <ListItemText sx={{paddingLeft: '5%'}}
               primary={`${item.name} | $${item.short_term_rate}.00`}
-              secondary= {<button onClick={() => {console.log('Clicked')}}>Cancel Reservation</button>}
+              secondary= {<button onClick={() => {console.log('clicked user id: ', item.id)}}>Cancel Reservation</button>}
             />
           </ListItem>
             )
