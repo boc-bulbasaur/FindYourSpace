@@ -17,7 +17,7 @@ class ProfileAbout extends React.Component {
   render() {
     return (
       <div className="About">
-        <Avatar alt="Lemon Santana" src="/static/images/avatar/1.jpg" />
+        <Avatar alt="Matthew McConaughey" src="/static/images/avatar/1.jpg" />
         <h3>About Me</h3>
           {/* Name: {this.state.name}<br />
           Email:{this.state.email}<br />
@@ -25,9 +25,9 @@ class ProfileAbout extends React.Component {
           About: {this.state.about}<br /> */}
 
           {/* hardcode just for now */}
-          Name: Lemon<br />
-          Email: lemon.santana@gmail.com<br />
-          Number: 212-123-4567<br />
+          Name: Matthew<br />
+          Email: matthew.mcconaughey@gmail.com<br />
+          Number: 512-123-4567<br />
           About: I live in Austin and am a big fan of concerts. <br />
         <div>Extra Info</div>
       </div>
