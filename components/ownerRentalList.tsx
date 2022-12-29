@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -15,8 +16,11 @@ import FolderIcon from '@mui/icons-material/Folder';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import styles from '../styles/ownerHistoryDash.module.css';
 
-function generate(element, props) {
-  return [0, 1, 2].map((value) =>
+function generate(element, rentals) {
+
+  let userRentals = rentals || [];
+
+  return userRentals.map((value) =>
     React.cloneElement(element, {
       key: value,
     }),
@@ -28,8 +32,25 @@ const Demo = styled('div')(({ theme }) => ({
 }));
 
 export default function O_RentalList(props) {
-  const [secondary, setSecondary] = React.useState(false);
-  console.log('list props: ', props)
+  const [secondary, setSecondary] = useState(false);
+  const [rentalHistory, setRentalHistory] = useState(props.ownerHistory)
+  let matchedDates = [];
+
+  if (props.newDate) {
+    //console.log('New Date Defined', props)
+    props.ownerHistory.forEach((rentals) => {
+      let withTime = new Date(rentals.start_time);
+      let withoutTime = withTime.toISOString().split('T')[0];
+      console.log(withoutTime === props.newDate)
+      if (withoutTime === props.newDate) {
+        let key = -1;
+        key += 1
+        matchedDates.push(key)
+        console.log('matchedDates: ', matchedDates)
+      }
+    })
+  }
+
   return (
     <Box className={styles.owner_history_table}>
       <FormGroup row>
@@ -70,6 +91,7 @@ export default function O_RentalList(props) {
                     secondary= {<button onClick={() => {console.log('Clicked')}}>Cancel Reservation</button>}
                   />
                 </ListItem>,
+                matchedDates
               )}
             </List>
           </Demo>
