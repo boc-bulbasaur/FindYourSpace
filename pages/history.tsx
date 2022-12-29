@@ -8,6 +8,7 @@ import HistoryToggle from "../components/history/historyToggle";
 import styles from '../styles/history.module.css';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSession } from 'next-auth/react';
+// import '../styles/history.module.css';
 
 export default function History() {
   const { data: session, status } = useSession();
@@ -56,17 +57,19 @@ export default function History() {
   });
   let history;
   if (!owner) {
-    history = <RenterHistory session={session}/>
+    history = <div className={styles.renterMain}><RenterHistory session={session}/></div>
   } else {
     history = <OwnerHistory session={session}/>
   }
   return (
     <ThemeProvider theme={theme} >
-      <NavBar session={session}/>
-        <div className={styles.main}>
+      <div>
+        <NavBar session={session}/>
+        <div className={styles.historyToggle} >
           <HistoryToggle handleToggle={handleToggle} sx={{color: 'black'}}/>
-          {history}
         </div>
+        {history}
+      </div>
     </ThemeProvider>
   );
 
