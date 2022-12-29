@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import Script from 'next/script';
 import Box from '@mui/material/Box';
 import Map from '../components/map';
 import SearchBar from '../components/searchBar';
