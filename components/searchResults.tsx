@@ -27,7 +27,7 @@ const SearchResults = ({results, isLoading, sortBy, setSortBy, startTime, endTim
     if (selected !== id) {
       setSelected(id);
     } else {
-      setSelected(null);
+      setSelected(-1);
     }
   }
 
