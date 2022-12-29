@@ -18,8 +18,8 @@ class Booking extends React.Component {
   render () {
     return (
       <div>
-        <h3>1234 USA Street, Sunnyvale, CA, 94560</h3>
-        <h3>12/10/2023 10:30:00AM - 12/10/2023 02:30:00PM</h3>
+        <h3>{this.props.address}</h3>
+        <h3>{this.props.start} - {this.props.end}</h3>
         <div className={styles.price}>
           <div className={styles.details}>
             <Image

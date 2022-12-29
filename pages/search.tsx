@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import Script from 'next/script';
 import Box from '@mui/material/Box';
 import Map from '../components/map';
 import SearchBar from '../components/searchBar';
@@ -71,11 +70,9 @@ export default function Search(props: SearchProps) {
     }
   }
 
-  const scriptURL = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_API_KEY}&libraries=places&callback=initMap`
 
   return (
     <>
-      <Script id="google-map-script" src={scriptURL} strategy="beforeInteractive" />
       <Box sx={{
         width: '100%',
         height: '10%',
