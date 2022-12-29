@@ -75,7 +75,7 @@ export default function Search(props: SearchProps) {
 
   return (
     <>
-      <Script id="google-map-script" src={scriptURL} strategy="beforeInteractive" />
+      <script id="google-map-script" async defer src={scriptURL}  />
       <Box sx={{
         width: '100%',
         height: '10%',
