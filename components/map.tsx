@@ -46,7 +46,7 @@ const Map = ({coordinates, results, selected }: MapProps) =>{
               position={'relative'}
               zIndex={20}
              >
-              <IoLocation color='green' fontSize={40} />
+              <IoLocation color='blue' fontSize={40} />
             </Box>)
         } else {
           return (
