@@ -26,7 +26,9 @@ export default function NewReservation() {
   const { data: session } = useSession();
   let userEmail = session.user.email
   let userName = session.user.name
-  let location = address.toString()
+  if (address){
+    let location = address.toString()
+  }
   let orderNumber = 8888
   let price = '40'
   // let userEmail = 'test@gmail.com'
@@ -56,7 +58,6 @@ export default function NewReservation() {
 
   return (
     <div>
-      {userEmail} {userName}
       <NavBar session={session}/>
         <h2>
           <Link href="/search"><ArrowBackIosNewIcon className={styles.back}></ArrowBackIosNewIcon>Back to Search</Link>
