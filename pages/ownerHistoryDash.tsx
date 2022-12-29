@@ -9,7 +9,7 @@ import O_MonthlyBreakdown from "../components/ownerMonthlyBreakdown"
 import O_RenderHistory from "../components/ownerRenderHistory"
 import O_RentalList from "../components/ownerRentalList"
 import styles from '../styles/ownerHistoryDash.module.css';
-import handler from '/api/ownerHistory';
+import handler from '/api/ownerHistory.ts';
 
 export default function OwnerHistory( props ) {
   // console.log('Main History Dashboard props: ', props)
@@ -48,8 +48,8 @@ export default function OwnerHistory( props ) {
 export async function getServerSideProps() {
 
   //ServerSideProps will return: total rental listings
-  // const response = await
-
+  const response = await fetch(`http://localhost:3000/api/ownerHistory`);
+  const data = await response.json();
 
   let total = 0;
 
@@ -64,14 +64,14 @@ export async function getServerSideProps() {
     { id: '49B6F40D', fullName: 'JT Liu', startDateTime: '2022-04-25 8:00', endDateTime: '2022-04-25 12:00', duration: null, location: '1234 Example st', total: '$25.00', block: null },
   ];
 
-  rows.forEach((entry) => {
-    let rentalValue = entry.total.slice(1)
-    total += Number(rentalValue)
-  })
+  // data.forEach((entry) => {
+  //   let rentalValue = entry.total.slice(1)
+  //   total += Number(rentalValue)
+  // })
 
   return {
     props: {
-      userHistory: rows,
+      userHistory: data,
       total
     },
   }
