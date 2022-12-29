@@ -35,8 +35,15 @@ const SearchResultZoom = ({ location, startTime, endTime }: SearchResultProps): 
           <Box className={styles.distance} >Distance: {Math.round(distance)} m</Box>
           <Box className={styles.price} >Price: ${price}/hr</Box>
         </Grid>
-        <Grid item xs={12} margin={'auto'}>
-
+        <Grid container item xs={12} margin={'10px'}>
+          <Grid container item direction={'column'} xs={6}>
+            <Grid item xs={6} >
+              1
+            </Grid>
+          </Grid>
+          <Grid item xs={6} >
+            pic
+          </Grid>
         </Grid>
       </Grid>
 

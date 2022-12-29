@@ -10,8 +10,8 @@ import NavBar from '../components/navBar';
 
 
 type SearchProps = {
-  startTime: String;
-  endTime: String;
+  startTime: string;
+  endTime: string;
   coordinates: {
     lat: number;
     lng: number;
@@ -26,7 +26,7 @@ export default function Search(props: SearchProps) {
   const [startTime, setStartTime] = useState(props.startTime || '')
   const [endTime, setEndTime] = useState(props.endTime || '')
   const [sortBy, setSortBy] = useState('distance')
-  const [selected, setSelected] = useState(null)
+  const [selected, setSelected] = useState(-1)
 
   const { data: session } = useSession();
   // console.log(session);
@@ -44,7 +44,7 @@ export default function Search(props: SearchProps) {
   }, [results, sortBy]);
 
 
-  const handleSearch = async (e) => {
+  const handleSearch = async () => {
     console.log("search button clicked");
     if (startTime !== '' && endTime !== '' && coordinates.lat && coordinates.lng) {
       setIsLoading(true);
@@ -60,7 +60,7 @@ export default function Search(props: SearchProps) {
           let data = await response.json();
           console.log(data);
           setSortBy('distance');
-          setSelected(null);
+          setSelected(-1);
           setResults(data);
           setIsLoading(false);
         })
@@ -96,7 +96,7 @@ export default function Search(props: SearchProps) {
         position: 'relative',
         flexDirection: 'column'
       }} >
-        <Box width={'100%'} height={'10%'} position = {'relative'} marginTop={'10px'} alignItems={'center'}>
+        <Box width={'100%'} height={'10%'} position={'relative'} marginTop={'20px'} justifyContent={'center'} alignItems={'center'}>
           <SearchBar
             setCoordinates={setCoordinates}
             startTime={startTime}
@@ -110,7 +110,7 @@ export default function Search(props: SearchProps) {
         <Box width={'100%'} height={'85%'} position={'relative'} marginTop={'10px'}>
           <SearchResults results={results} isLoading={isLoading} sortBy={sortBy} setSortBy={setSortBy}
             startTime={startTime} endTime={endTime} selected={selected} setSelected={setSelected} />
-          <Map coordinates={coordinates} results={results}/>
+          <Map coordinates={coordinates} results={results} selected={selected} />
         </Box>
       </Box>
     </>
