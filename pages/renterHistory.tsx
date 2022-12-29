@@ -1,8 +1,10 @@
 import React from 'react';
 import HistoryTable from '../components/history/r_historyTable';
+import ImgMediaCard from '../components/history/r_historyCard';
 import dynamic from 'next/dynamic'
 import { GridEventListener } from '@mui/x-data-grid';
 import { Box, Card, Typography } from '@mui/material';
+import styles from '../styles/history.module.css';
 
 class RenterHistory extends React.Component {
 
@@ -122,7 +124,7 @@ class RenterHistory extends React.Component {
     );
     let timeRange;
     if (this.state.timeRange !== '') {
-      timeRange = <Card sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)', padding: 2, margin: 2, width: '50%'}}>
+      timeRange = <Card sx={{ mx: '2px', transform: 'scale(0.8)', padding: 2, margin: 2}}>
         <Typography variant="h4" component="div">
           Quick stats:
           <Typography sx={{ fontSize: 20 }} color="text.secondary">
@@ -138,11 +140,17 @@ class RenterHistory extends React.Component {
     return (
       <>
         <h1>My Rental History</h1>
-        <HistoryTable listings={this.state.listings} handleTableClick={this.handleTableClick} />
-        {timeRange}
-        <Box >Current Position: {}
+        <div className={styles.historyTable}>
+          <HistoryTable listings={this.state.listings} handleTableClick={this.handleTableClick} />
+        </div>
+        <div className={styles.historySummary}>
+          {timeRange}
+          <ImgMediaCard listings={this.state.listings}/>
+        </div>
+        {/* <Box > */}
+          <h2>Current Selection:</h2>
           <LeafMap position={this.state.currentLoc} />
-        </Box>
+        {/* </Box> */}
       </>
     )
   }
