@@ -30,19 +30,10 @@ type SearchResultsProps = {
   setSelected: Function;
 }
 
-
 const SearchResults = ({results, isLoading, sortBy, setSortBy, startTime, endTime, selected, setSelected }: SearchResultsProps) =>{
   const handleChange = (e: React.MouseEvent<HTMLElement>) => {
     if (e.target.value !== null) {
       setSortBy(e.target.value);
-    }
-  }
-
-  const handleClick = (e: React.MouseEvent<HTMLElement>, id: number) => {
-    if (selected !== id) {
-      setSelected(id);
-    } else {
-      setSelected(-1);
     }
   }
 
@@ -126,7 +117,7 @@ const SearchResults = ({results, isLoading, sortBy, setSortBy, startTime, endTim
             if (id === selected) {
               return (
                 <Grid key={id} onClick={(e) => { handleClick(e, id) }} >
-                  <SearchResultZoom location={location} startTime={startTime} endTime={endTime} />
+                  <SearchResultZoom location={location} startTime={startTime} endTime={endTime}/>
                 </Grid>
               )
             } else {
