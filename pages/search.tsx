@@ -69,6 +69,13 @@ export default function Search(props: SearchProps) {
       }
     }
   }
+  const handleClick = (e: React.MouseEvent<HTMLElement>, id: number) => {
+    if (selected !== id) {
+      setSelected(id);
+    } else {
+      setSelected(-1);
+    }
+  }
 
 
   return (
@@ -106,8 +113,8 @@ export default function Search(props: SearchProps) {
         </Box>
         <Box width={'100%'} height={'85%'} position={'relative'} marginTop={'10px'}>
           <SearchResults results={results} isLoading={isLoading} sortBy={sortBy} setSortBy={setSortBy}
-            startTime={startTime} endTime={endTime} selected={selected} setSelected={setSelected} />
-          <Map coordinates={coordinates} results={results} selected={selected} />
+            startTime={startTime} endTime={endTime} selected={selected} handleClick={handleClick}/>
+          <Map coordinates={coordinates} results={results} selected={selected} handleClick={handleClick}/>
         </Box>
       </Box>
     </>

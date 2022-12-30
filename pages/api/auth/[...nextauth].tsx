@@ -81,7 +81,16 @@ const options = {
       session.user.user_id = result.rows[0].user_id;
       session.user.bluecheckmark = result.rows[0].bluecheckmark;
       return session;
-  }
+  },
+  async signIn({ user, account, profile }) {
+    const { email, name } = user;
+    const values = [email, name, true, new Date()];
+    if (account.provider === 'google') {
+      const result = await client.query(`INSERT INTO users (email, name, is_verified, registered_at) VALUES($1, $2, $3, $4) ON CONFLICT (email) DO NOTHING`, values);
+      console.log(result);
+    }
+    return true
+  },
 }
 }
 
