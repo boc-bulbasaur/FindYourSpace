@@ -15,19 +15,19 @@ export default async function handler(
   }
   try {
     let {
-      user_id,
-      blocked_user_id,
+      favoriting_user_id,
+      favorited_user_id,
     } = JSON.parse(req.body);
-    console.log('inputs', user_id, blocked_user_id);
-    const { rows } = await client.query(`SELECT * FROM blocked WHERE user_id = '${user_id}' AND blocked_user_id = '${blocked_user_id}'`);
+    console.log('inputs', favoriting_user_id, favorited_user_id);
+    const { rows } = await client.query(`SELECT * FROM favorite_user WHERE favoriting_user_id = '${favoriting_user_id}' AND favorited_user_id = '${favorited_user_id}'`);
     const user = rows[0];
     console.log('user', user);
     if (user !== undefined) {
-      res.status(200).json({ notification: 'User is already blocked.' });
+      res.status(200).json({ error: 'User is already favorited.' });
     } else {
-      const values = [user_id, blocked_user_id];
-      const { rows } = await client.query(`INSERT INTO blocked
-        (user_id, blocked_user_id)
+      const values = [favoriting_user_id, favorited_user_id];
+      const { rows } = await client.query(`INSERT INTO favorite_user
+        (favoriting_user_id, favorited_user_id)
         VALUES ($1, $2) RETURNING *`,
         values);
       const responseData = rows[0];
@@ -35,7 +35,7 @@ export default async function handler(
       if (!responseData) {
         throw new Error;
       } else {
-        res.status(201).json({ message: 'User successfully blocked.' });
+        res.status(201).json({ message: 'User successfully favorited.' });
       }
     }
   } catch (err: any) {

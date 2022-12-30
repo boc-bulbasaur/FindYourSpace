@@ -5,14 +5,64 @@ import NavBar from "../components/navBar";
 import Payment from '../components/reservation/payment';
 import Booking from '../components/reservation/booking';
 import styles from '../styles/reservation.module.css';
+import {useRouter} from 'next/router'
+import { useSession } from 'next-auth/react';
 import Timer from '../components/reservation/countdownTimer';
 
 export default function NewReservation() {
+  let location;
+  const router = useRouter()
+  const {query: {address, startTime, endTime}} = router
+  const timeFormat = (t) =>{
+    let currentdate = new Date(Number(t));
+    var time = currentdate.getDate() + "/"
+              + (currentdate.getMonth()+1)  + "/"
+              + currentdate.getFullYear() + " @ "
+              + currentdate.getHours() + ":"
+              + currentdate.getMinutes() + ":"
+              + currentdate.getSeconds();
+    return time
+  }
+  let start = timeFormat(startTime)
+  let end = timeFormat(endTime)
+  const { data: session } = useSession();
+  let userEmail = session.user.email
+  let userName = session.user.name
+  if (address){
+    location = address.toString()
+  }
+  let orderNumber = 8888
+  let price = '40'
+  // let userEmail = 'test@gmail.com'
+
+  const confirmationEmail = async () =>{
+    console.log('clicked')
+    try {
+      const res = await fetch('/api/notification/bookEmail',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          email: userEmail,
+          name: userName,
+          orderNumber: orderNumber,
+          price: price,
+          start: start,
+          end: end,
+          address: location
+        })
+      }
+      );
+      const data = await res.json();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
-      <NavBar/>
+      <NavBar session={session}/>
         <h2 className={styles.back}>
-          <Link href="/"><ArrowBackIosNewIcon className={styles.back}></ArrowBackIosNewIcon>Back to Search</Link>
+          <Link href="/search"><ArrowBackIosNewIcon className={styles.back}></ArrowBackIosNewIcon>Back to Search</Link>
         </h2>
       <Timer />
       <h1 className={styles.checkout}>CHECKOUT</h1>
