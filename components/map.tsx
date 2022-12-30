@@ -2,9 +2,6 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import GoogleMapReact from 'google-map-react'
 import { IoLocation } from "react-icons/io5";
-import { useJsApiLoader } from '@react-google-maps/api';
-
-
 
 type MapProps = {
   coordinates: {
@@ -13,6 +10,7 @@ type MapProps = {
   };
   results: {}[];
   selected: number;
+  handleClick: Function;
 }
 
 const Map = ({coordinates, results, selected, handleClick }: MapProps) =>{
@@ -21,7 +19,7 @@ const Map = ({coordinates, results, selected, handleClick }: MapProps) =>{
     <GoogleMapReact
           bootstrapURLKeys = {{key: process.env.GOOGLE_MAP_API_KEY}}
           center = {coordinates}
-          defaultZoom = {12}
+          defaultZoom = {15}
           margin = {[50,50,50,50]}
           option= {''}
           onchange = {()=>{}}
