@@ -14,8 +14,8 @@ class RenterHistory extends React.Component {
       listings: [],
       currentLoc: [40.7128,-74.0060], //default to NYC
       timeRange: '',
-      numListings: ''
-
+      numListings: '',
+      currentListing: {}
     };
     this.handleTableClick = this.handleTableClick.bind(this);
     this.calculateTimeRange = this.calculateTimeRange.bind(this);
@@ -111,7 +111,11 @@ class RenterHistory extends React.Component {
     details, // GridCallbackDetails
   ) => {
     event.preventDefault();
-    this.setState({currentLoc: [params.row.lat,params.row.lng]});
+    console.log(params.row);
+    this.setState({
+      currentLoc: [params.row.lat,params.row.lng],
+      currentListing: params.row
+    });
   };
 
   render() {
@@ -145,7 +149,7 @@ class RenterHistory extends React.Component {
         </div>
         <div className={styles.historySummary}>
           {timeRange}
-          <ImgMediaCard listings={this.state.listings}/>
+          <ImgMediaCard currentListing={this.state.currentListing}/>
         </div>
         {/* <Box > */}
           <h2>Current Selection:</h2>
