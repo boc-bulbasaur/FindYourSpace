@@ -34,7 +34,11 @@ const theme = createTheme({
 export default function Home() {
   const { data: session } = useSession();
   console.log(session);
+  const scriptURL = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_API_KEY}&libraries=places&callback=initMap`
+
   return (
+  <>
+    <script id="google-map-script" async defer src={scriptURL}  />
     <div className={styles.container}>
       <Head>
         <title>find your space</title>
@@ -87,5 +91,6 @@ export default function Home() {
         </a>
       </footer>
     </div>
+  </>
   )
 }

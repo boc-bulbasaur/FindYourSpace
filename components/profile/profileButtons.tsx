@@ -11,13 +11,53 @@ class ProfileButtons extends React.Component {
       favLabel: 'Favorite'
     };
 
-    this.buttonClick = this.buttonClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
+    this.handleBlockClick = this.handleBlockClick.bind(this);
   }
 
-  buttonClick = (e: any) => {
-    e.preventDefault();
-    console.log(e.target.name);
+  handleFavoriteClick = async () => {
+    const body = {
+      user_id: 3,
+      blocked_user_id: 7,
+    }
+    await fetch('/api/favoriteUser', {
+      method: 'POST',
+      body: JSON.stringify(body),
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        console.log('Favorite already exists.', new Date());
+      }
+      if (response.status === 201) {
+        console.log('Success:', response);
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  }
+
+  handleBlockClick = async () => {
+    const body = {
+      user_id: 3,
+      blocked_user_id: 2,
+    }
+    await fetch('/api/blockUser', {
+      method: 'POST',
+      body: JSON.stringify(body),
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        console.log('User already blocked.', new Date());
+      }
+      if (response.status === 201) {
+        console.log('Success:', response);
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
   }
 
   handleSubmit = (e) => {
@@ -55,8 +95,8 @@ class ProfileButtons extends React.Component {
   render() {
     return (
       <>
-        <Button variant="contained" onClick={this.handleSubmit} name="favorite" children={this.state.favLabel} sx={{margin: 1}}></Button>
-        <Button variant="contained" onClick={this.handleSubmit} name="block" children={this.state.blockLabel}></Button>
+        <Button variant="contained" onClick={this.handleFavoriteClick} name="favorite" children={this.state.favLabel} sx={{margin: 1}}></Button>
+        <Button variant="contained" onClick={this.handleBlockClick} name="block" children={this.state.blockLabel}></Button>
       </>
     )
   }
