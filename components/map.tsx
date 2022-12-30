@@ -13,7 +13,7 @@ type MapProps = {
   selected: number;
 }
 
-const Map = ({coordinates, results, selected }: MapProps) =>{
+const Map = ({coordinates, results, selected, handleClick }: MapProps) =>{
   return (
   <Box position={'absolute'} right={0} width={'60%'} height = {'100%'}>
     <GoogleMapReact
@@ -43,10 +43,11 @@ const Map = ({coordinates, results, selected }: MapProps) =>{
               key={id}
               lat = {lat}
               lng = {lng}
-              position={'relative'}
+              position={'absoulte'}
               zIndex={20}
+              onClick={(e) => { handleClick(e, id) }}
              >
-              <IoLocation color='blue' fontSize={40} />
+              <IoLocation color='blue' fontSize={45} />
             </Box>)
         } else {
           return (
@@ -57,6 +58,7 @@ const Map = ({coordinates, results, selected }: MapProps) =>{
               lng = {lng}
               position={'relative'}
               zIndex={10}
+              onClick={(e) => { handleClick(e, id) }}
              >
               <IoLocation color='black' fontSize={40} />
             </Box>)
