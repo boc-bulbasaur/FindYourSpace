@@ -11,9 +11,51 @@ import { useSession } from 'next-auth/react';
 export default function NewReservation() {
   const router = useRouter()
   const {query: {address, startTime, endTime}} = router
-  let start = new Date(Number(startTime)).toString();
-  let end = new Date(Number(endTime)).toString()
+  const timeFormat = (t) =>{
+    let currentdate = new Date(Number(t));
+    var time = currentdate.getDate() + "/"
+              + (currentdate.getMonth()+1)  + "/"
+              + currentdate.getFullYear() + " @ "
+              + currentdate.getHours() + ":"
+              + currentdate.getMinutes() + ":"
+              + currentdate.getSeconds();
+    return time
+  }
+  let start = timeFormat(startTime)
+  let end = timeFormat(endTime)
   const { data: session } = useSession();
+  let userEmail = session.user.email
+  let userName = session.user.name
+  if (address){
+    let location = address.toString()
+  }
+  let orderNumber = 8888
+  let price = '40'
+  // let userEmail = 'test@gmail.com'
+
+  const confirmationEmail = async () =>{
+    console.log('clicked')
+    try {
+      const res = await fetch('/api/notification/bookEmail',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          email: userEmail,
+          name: userName,
+          orderNumber: orderNumber,
+          price: price,
+          start: start,
+          end: end,
+          address: location
+        })
+      }
+      );
+      const data = await res.json();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       <NavBar session={session}/>
@@ -21,11 +63,11 @@ export default function NewReservation() {
           <Link href="/search"><ArrowBackIosNewIcon className={styles.back}></ArrowBackIosNewIcon>Back to Search</Link>
         </h2>
       <div className={styles.newRes}>
-        <h1 className={styles.checkout}>CHECKOUT</h1>
+        <h1 className={styles.checkout}>CHECKUT</h1>
         <Booking address={address} start={start} end={end}/>
         <h3>Cancellation Policy</h3>
         <p className={styles.parkDetails}>To receive a full refund, guests must cancel at least 30 days before check-in. They can also get a full refund within 48 hours of booking if the cancellation occurs at least 14 days before check-in. If they cancel between 7 and 30 days before check-in, you’ll be paid 50% for all nights. If they cancel less than 7 days before check-in, you’ll be paid 100% for all nights.</p>
-        <Payment />
+        <Payment  confirmationEmail={confirmationEmail}/>
       </div>
     </div>
   );
