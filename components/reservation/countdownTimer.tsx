@@ -8,7 +8,9 @@ export default class Timer extends React.Component {
     super(props);
     this.state = {
       minutes: 15,
-      seconds: 0
+      seconds: 0,
+      live: true,
+      bookingId: ''
     }
   }
 
@@ -24,7 +26,10 @@ export default class Timer extends React.Component {
 
       if (seconds === 0) {
         if (minutes === 0) {
-          clearInterval(this.myInterval)
+          clearInterval(this.myInterval);
+          this.setState({
+            live: false
+          })
         } else {
           this.setState(({ minutes }) => ({
             minutes: minutes - 1,
@@ -37,6 +42,22 @@ export default class Timer extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.myInterval)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.live !== prevState.live) {
+      console.log('Time\'s up!');
+      let contact = {
+        id: this.state.bookingId
+      }
+      fetch('/api/deleteBooking', contact)
+        .then(() => {
+          console.log('Successfully deleted');
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   }
 
   render () {

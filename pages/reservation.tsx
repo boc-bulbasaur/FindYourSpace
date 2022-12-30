@@ -26,8 +26,8 @@ export default function NewReservation() {
   let start = timeFormat(startTime)
   let end = timeFormat(endTime)
   const { data: session } = useSession();
-  let userEmail = session.user.email
-  let userName = session.user.name
+  let userEmail = session.user.email;
+  let userName = session.user.name;
   if (address){
     location = address.toString()
   }
@@ -68,7 +68,7 @@ export default function NewReservation() {
       <h1 className={styles.checkout}>CHECKOUT</h1>
       <div className={styles.newRes}>
         <div className={styles.rightHalf}>
-          <Booking />
+          <Booking address={address} start={start} end={end}/>
           <h3>Cancellation Policy</h3>
           <p className={styles.cancellation}>To receive a full refund, renters must cancel at least 1 hour before their rental start time. Renters can also get a full refund within 2 hours of booking if the cancellation occurs at least 24 hours before the rental start time. If the renter cancels less than an hour before the rental start time, they will pay the owner 50% for the entire rental duration.</p>
         </div>
