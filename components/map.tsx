@@ -2,6 +2,8 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import GoogleMapReact from 'google-map-react'
 import { IoLocation } from "react-icons/io5";
+import { useJsApiLoader } from '@react-google-maps/api';
+
 
 
 type MapProps = {
@@ -14,6 +16,7 @@ type MapProps = {
 }
 
 const Map = ({coordinates, results, selected }: MapProps) =>{
+
   return (
   <Box position={'absolute'} right={0} width={'60%'} height = {'100%'}>
     <GoogleMapReact

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Autocomplete } from '@react-google-maps/api';
+import { Autocomplete, useJsApiLoader } from '@react-google-maps/api';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -25,6 +25,7 @@ const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTim
     setCoordinates({lat,lng})
   }
   let now = new Date();
+
   return (
     <Box>
       <Grid container direction="row" justifyContent='flex-start' alignItems='center' >
