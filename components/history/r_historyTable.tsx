@@ -118,17 +118,17 @@ function renderCellExpand(params: GridRenderCellParams<string>) {
 }
 
 const columns: GridColDef[] = [
-  { field: 'id', headerName: 'Conf#', width: 60, },
-  { field: 'name', headerName: 'Name', width: 150, renderCell: renderCellExpand },
-  { field: 'address', headerName: 'Address', width: 180, renderCell: renderCellExpand },
-  { field: 'detail', headerName: 'Detail', width: 150, renderCell: renderCellExpand },
+  { field: 'id', headerName: 'Conf#', width: 60, headerAlign: 'center', align: 'center' },
+  { field: 'name', headerName: 'Name', width: 150, headerAlign: 'center', align: 'center', renderCell: renderCellExpand },
+  { field: 'address', headerName: 'Address', width: 180, headerAlign: 'center', align: 'center', renderCell: renderCellExpand },
+  { field: 'detail', headerName: 'Detail', width: 150, headerAlign: 'center', align: 'center', renderCell: renderCellExpand },
   // { field: 'city', headerName: 'City', width: 120 },
   // { field: 'state', headerName: 'State', width: 70 },
   // { field: 'zip', headerName: 'ZIP', width: 70 },
-  { field: 'startDateTime', type: 'dateTime', headerName: 'Start DateTime', width: 220 },
-  { field: 'endDateTime', type: 'dateTime', headerName: 'End DateTime', width: 220 },
-  { field: 'duration', type: 'number', headerName: 'Duration', width: 100 },
-  { field: 'rebook', headerName: 'Rebook', width: 100, renderCell: (params) => <Link href={'/reservation'}><Button variant="outlined">Rebook</Button></Link>
+  { field: 'startDateTime', type: 'dateTime', headerName: 'Start DateTime', width: 220, headerAlign: 'center', align: 'center' },
+  { field: 'endDateTime', type: 'dateTime', headerName: 'End DateTime', width: 220, headerAlign: 'center', align: 'center' },
+  { field: 'duration', type: 'number', headerName: 'Duration', width: 100, headerAlign: 'center', align: 'center' },
+  { field: 'rebook', headerName: 'Rebook', width: 100, headerAlign: 'center', align: 'center', renderCell: (params) => <Link href={'/reservation'}><Button variant="outlined">Rebook</Button></Link>
  },
 ];
 

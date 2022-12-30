@@ -187,7 +187,7 @@ class Payment extends React.Component {
 
           {/* <button type="submit">CHECKOUT</button> */}
           <div className={`${styles.billingCol} ${styles.fullCol}`}>
-            <Button color="primary" variant="contained">Checkout</Button>
+            <Button color="primary" variant="contained" onClick={this.props.confirmationEmail}>Checkout</Button>
           </div>
         </div>
       </form>

@@ -1,15 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 const mail = require('@sendgrid/mail')
 
-type Data = {
-  name: string
-}
 mail.setApiKey(process.env.SENDGRID_API_KEY)
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse
 ) {
-  const {renter_email, renter_name, owner_email, owner_name, orderNumber, location, bookTime} = req.query
+  const {renter_email, renter_name, owner_email, owner_name, orderNumber, location, start, end} = req.query
   const renter = {
     to : `${renter_email}`,
     from : 'noreply@findyourspace.app',
