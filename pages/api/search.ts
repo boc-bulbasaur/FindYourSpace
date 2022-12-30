@@ -7,7 +7,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  console.log(req.body);
+  // console.log(req.body);
   let { startTime, endTime, coordinates: {lat, lng } } = JSON.parse(req.body);
   if (req.method !== 'POST') {
     res.status(400).json({ error: 'Improper request.' });
@@ -29,10 +29,10 @@ export default async function handler(
        special_information, a.user_id as owner_id,
       ST_Distance(a.coordinates, ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326)) AS distance
     FROM listings a
-    JOIN images b
+    JOIN images b ON b.id = a.image_id
     WHERE
       ST_Distance(a.coordinates, ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326)) < 10000 AND
-      (a.first_available - startTime) < 0 AND (a.last_available - endTime) > 0 AND a.image_id = b.id
+      (a.first_available - startTime) < 0 AND (a.last_available - endTime) > 0
     ORDER BY distance;`);
     // console.log(rows);
     res.status(200).send(rows);
