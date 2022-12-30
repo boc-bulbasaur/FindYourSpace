@@ -43,7 +43,7 @@ const Map = ({coordinates, results, selected, handleClick }: MapProps) =>{
               key={id}
               lat = {lat}
               lng = {lng}
-              position={'absoulte'}
+              position={'relative'}
               zIndex={20}
               onClick={(e) => { handleClick(e, id) }}
              >
