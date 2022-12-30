@@ -8,55 +8,64 @@ class ProfileButtons extends React.Component {
     super(props);
     this.state = {
       blockLabel: 'Block',
-      favLabel: 'Favorite'
+      favLabel: 'Favorite',
+      profileUser: 3
     };
 
-    this.buttonClick = this.buttonClick.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
+    this.handleBlockClick = this.handleBlockClick.bind(this);
   }
 
-  buttonClick = (e: any) => {
-    e.preventDefault();
-    console.log(e.target.name);
-  }
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const postData = async () => {
-      const data = {
-        block: '',
-        favorite: ''
-      };
-      if (e.target.name === 'block') {
-        data.block = 'username';
-      } else if (e.target.name === 'favorite') {
-        data.favorite = 'username';
-      }
-
-      const response = await fetch("/api/profile", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
-      return response.json();
-    };
-    postData().then((data) => {
-      console.log('API called');
-      console.log(data);
-    });
-
-    if (e.target.name === 'block') {
-      this.setState({blockLabel: 'Blocked'});
-    } else if (e.target.name === 'favorite') {
-      // e.target.name = 'Added to Favorites';
-      this.setState({favLabel: 'Added to Favorites'});
+  handleFavoriteClick = async (e: any, userToFav: any) => {
+    const body = {
+      user_id: this.state.currUser,
+      fav_user_id: userToFav,
     }
+    await fetch('/api/favoriteUser', {
+      method: 'POST',
+      body: JSON.stringify(body),
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        console.log('Favorite already exists.', new Date());
+      }
+      if (response.status === 201) {
+        console.log('Success:', response);
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  }
+
+  handleBlockClick = async (e: any, userToBlock: any) => {
+    const currUser = this.props.session.user.user_id; //currUser = user from session
+    const body = {
+      user_id: currUser,
+      blocked_user_id: userToBlock,
+    }
+    await fetch('/api/blockUser', {
+      method: 'POST',
+      body: JSON.stringify(body),
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        console.log('User already blocked.', new Date());
+      }
+      if (response.status === 201) {
+        console.log('Success:', response);
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
   }
 
   render() {
     return (
       <>
-        <Button variant="contained" onClick={this.handleSubmit} name="favorite" children={this.state.favLabel}></Button>
-        <Button variant="contained" onClick={this.handleSubmit} name="block" children={this.state.blockLabel}></Button>
+        <Button variant="contained" user={this.props.user} onClick={(e) => this.handleFavoriteClick(e, this.state.profileUser)} name="favorite" children={this.state.favLabel} sx={{margin: 1}}></Button>
+        <Button variant="contained" user={this.props.user} onClick={(e) => this.handleBlockClick(e, this.state.profileUser)} name="block" children={this.state.blockLabel}></Button>
       </>
     )
   }

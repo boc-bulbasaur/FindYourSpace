@@ -6,6 +6,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import Button from '@mui/material/Button';
 import LockIcon from '@mui/icons-material/Lock';
 import styles from '../../styles/reservation.module.css';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 class Payment extends React.Component {
   constructor (props) {
@@ -25,6 +26,8 @@ class Payment extends React.Component {
     }
 
     this.handleChange = this.handleChange.bind(this);
+    this.onReCAPTCHAChange = this.onReCAPTCHAChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -44,6 +47,41 @@ class Payment extends React.Component {
       [name]: value
     });
   }
+
+
+  handleSubmit(event) {
+    event.preventDefault();
+    // Execute the reCAPTCHA when the form is submitted
+    const recaptchaRef = React.useRef(null);
+    recaptchaRef.current.execute();
+  };
+
+  async onReCAPTCHAChange(captchaCode) {
+    // If the reCAPTCHA code is null or undefined indicating that
+    // the reCAPTCHA was expired then return early
+    if (!captchaCode) {
+      return;
+    }
+    try {
+      const response = await fetch("/api/reCaptcha", {
+        method: "POST",
+        body: JSON.stringify({ captcha: captchaCode }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        // If the response is ok than show the success alert
+        // alert("successful reCAPTCHA verification");
+        console.log("successful reCAPTCHA verification");
+      } else {
+        const error = await response.json();
+        throw new Error(error.message)
+      }
+    } catch (error) {
+      alert("Something went wrong");
+    }
+  };
 
   render () {
     return (
@@ -138,9 +176,18 @@ class Payment extends React.Component {
             </div>
           </div>
           <br/>
+
+          <form onSubmit={this.handleSubmit}>
+            <ReCAPTCHA
+              size="normal"
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+              onChange={this.onReCAPTCHAChange}
+            />
+          </form>
+
           {/* <button type="submit">CHECKOUT</button> */}
           <div className={`${styles.billingCol} ${styles.fullCol}`}>
-            <Button color="primary" variant="contained">Checkout</Button>
+            <Button color="primary" variant="contained" onClick={this.props.confirmationEmail}>Checkout</Button>
           </div>
         </div>
       </form>

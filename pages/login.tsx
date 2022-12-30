@@ -1,70 +1,40 @@
 import React, { useState } from "react";
 import router from 'next/router';
+import { Formik } from 'formik';
+import * as yup from 'yup';
 import NavBar from "../components/navBar";
-import { signIn, useSession, getSession, getProviders, getCsrfToken } from "next-auth/react";
+import { signIn, useSession, getSession } from "next-auth/react";
 import Link from 'next/link';
 import {
   Box,
   Heading,
   Container,
 } from "@chakra-ui/react";
-import { Button, TextField, Typography, } from '@mui/material';
-import { PasswordOutlined } from "@mui/icons-material";
+import {
+  Button,
+  TextField,
+  Typography,
+  CardContent,
+  CardActions,
+} from '@mui/material';
 
 export default function LogIn() {
   const { data: session } = useSession();
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [emailHelper, setEmailHelper] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
   const [message, setMessage] = useState('');
-  const [disabledButton, setDisabledButton ] = useState(true);
 
-  const handleEmailChange = (e) => {
-    if (emailError) {
-      setEmailError(false);
-    }
-    setEmail(e.target.value);
-    if (password.length && email.length && email.indexOf('@') !== -1) {
-      setDisabledButton(false);
-      setEmailHelper('');
-      setEmailError(false);
-    } else {
-      setDisabledButton(true);
-    }
+  const initialValues = {
+    email: '',
+    password: '',
   };
-  const handleEmailBlur = () => {
-    if (email.length > 4 && email.indexOf('@') === -1) {
-      console.log('Please enter a valid email address');
-      setEmailHelper('Please enter a valid email address');
-      setEmailError(true);
-      setDisabledButton(true);
-    }
-    else {
-      setEmailHelper('');
-      setEmailError(false);
-    }
-  };
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-    if (passwordError) {
-      setPasswordError(false);
-    }
-    if (e.target.value.length && email.length) {
-      setDisabledButton(false);
-    } else {
-      setDisabledButton(true);
-    }
-  };
-  const handleCredentialsSubmit = async () => {
+  const validationSchema = yup.object().shape({
+    email: yup.string().email("Please enter a valid email").required("Email is required"),
+    password: yup.string().required("Please enter your password")
+  });
+
+  const handleSubmit = async ({email, password}) => {
     signIn('credentials', { email, password, redirect: false})
       .then(({ error }) => {
         if (error) {
-          setEmail('');
-          setEmailError(true);
-          setPassword('');
-          setPasswordError(true);
           setMessage('You have either entered invalid credentials or your email has not been validated.');
         } else {
           router.push('/');
@@ -91,41 +61,66 @@ export default function LogIn() {
             Continue with Google
             </Button>
             <Typography color={'black'} textAlign="center" margin={2}>or</Typography>
-            <TextField
-              id="email"
-              label="Email"
-              variant="outlined"
-              value={email}
-              required={true}
-              error={emailError}
-              onBlur={handleEmailBlur}
-              helperText={emailHelper}
-              sx={{ p: 1.5 }}
-              onChange={handleEmailChange}
-            />
-            <TextField
-              id="password"
-              label="Password"
-              type="password"
-              variant="outlined"
-              value={password}
-              required={true}
-              error={passwordError}
-              helperText={''}
-              autoComplete="current-password"
-              sx={{ p: 1.5 }}
-              onChange={handlePasswordChange}
-            />
-            <Typography color={'error'} textAlign="center" sx={{ m: 1.2 }}>{message}</Typography>
-            <Button
-              type="submit"
-              variant="contained"
-              sx={{ p: 1, m: 1 }}
-              onClick={handleCredentialsSubmit}
-              disabled={disabledButton}
+            <Formik
+              initialValues={{ ...initialValues }}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
             >
-              Log In
-            </Button>
+              {({
+                errors,
+                handleBlur,
+                handleChange,
+                handleSubmit,
+                isValid,
+                touched,
+                values
+              }) => (
+                <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+                  <CardContent display={'flex'} flexDirection={'column'} justifyContent={'space-evenly'} alignItems={'stretch'}>
+                    <TextField
+                      error={Boolean(touched.email && errors.email)}
+                      fullWidth
+                      required
+                      helperText={touched.email && errors.email}
+                      label="Email"
+                      name="email"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      type="text"
+                      value={values.email}
+                      variant="outlined"
+                      sx={{ py: 1.2 }}
+                    />
+                    <TextField
+                      error={Boolean(touched.password && errors.password)}
+                      fullWidth
+                      required
+                      helperText={touched.password && errors.password}
+                      label="Password"
+                      name="password"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      type="password"
+                      value={values.password}
+                      variant="outlined"
+                      sx={{ py: 1.2 }}
+                    />
+                    <Typography color={'error'} textAlign="center" sx={{ m: 1.2 }}>{message}</Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button
+                      color="primary"
+                      disabled={Boolean(!isValid)}
+                      type="submit"
+                      variant="contained"
+                      sx={{width: '100%'}}
+                    >
+                      Log in
+                    </Button>
+                  </CardActions>
+                </form>
+              )}
+            </Formik>
             <Typography color={'primary'} textAlign="center" marginTop={3}><Link href='/forgot-password'>Forgot password?</Link></Typography>
             <Typography color={'primary'} textAlign="center" margin={1}><Link href='/signup'>Create an account</Link></Typography>
           </Box>

@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import utils from '../../lib/crypto.js';
-import { sendPasswordResetEmail } from '../../lib/emailers.js';
+import { sendVerificationEmail } from '../../lib/emailers.js';
 import client from '../../database/db.js';
 
 type Data = {
@@ -25,17 +25,17 @@ export default async function handler(
     } else {
       const token = await utils.createRandom32String();
       const token_expires = new Date(new Date().getTime() + 1000 * 60 * 60 * 24);
-      const values = [token_expires, token, true, email];
+      const values = [token_expires, token, email];
       const { rows } = await client.query(`UPDATE users SET
-        token_expires = $1, token = $2, is_verified = $3 WHERE email = $4 RETURNING *`,
+        token_expires = $1, token = $2 WHERE email = $3 RETURNING *`,
         values);
       const returnedUser = rows[0];
       console.log('returnedUser:', returnedUser);
       if (!returnedUser) {
         throw new Error;
       } else {
-        sendPasswordResetEmail(email, returnedUser.token);
-        res.status(200).json({ message: 'Password reset email sent. Please check your email.' });
+        sendVerificationEmail(returnedUser.name, email, returnedUser.token);
+        res.status(200).json({ message: 'Verification resent. Please check your email.' });
       }
     }
   } catch (err) {

@@ -18,6 +18,7 @@ export default function HistoryToggle(props: any) {
       exclusive
       onChange={props.handleToggle}
       aria-label="text alignment"
+      sx={{bgcolor: 'primary.secondary', color: 'black'}}
     >
       <ToggleButton value="renter" aria-label="renter">
         Renter

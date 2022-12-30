@@ -24,13 +24,15 @@ a {
   }
   body {
     color: white;
-    background: black;
+    background: #1c1c1c;
   }
 }
 
 /* RENTAL HISTORY CSS */
 .leaflet-container {
   margin: 20px 60px 20px 60px;
+  max-width: 100%;
+  /* min-width: 400px; */
 }
 
 /* //////OWNER HISTORY CSS////// */
@@ -82,6 +84,7 @@ a {
 /* set color of top row */
 .css-gl260s-MuiDataGrid-columnHeadersInner {
   background-color: #1b2139;
+  /* background-color: red; */
 }
 
 /* adjust color of table row names */
@@ -241,9 +244,6 @@ hr {
   margin-left: 50%;
 }
 
-.search-results::-webkit-scrollbar {
-  display: none;
-}
 
 
 
