@@ -1,58 +1,40 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import client from '../../database/db.js';
 
-type Data = {
-
-}
-
-const mokeResults = [
-  {address: "some 1 places",
-   id: 1,
-   price: 10,
-   description: "this place have one parking spot",
-   coordinates: {
-    lat: 28.6346,
-    lng: -96.62859
-   }
-  },
-  {address: "some 2 places",
-    id: 2,
-    price: 20,
-    description: "this place have two parking spot",
-    coordinates: {
-      lat: 28.63496,
-      lng: -96.62796
-     }
-  },
-  {address: "some 3 places",
-    id: 3,
-    price: 40,
-    description: "this place have three parking spot",
-    coordinates: {
-      lat: 28.63454,
-      lng: -96.62495
-     }
-  }
-];
+type Data = {}
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  console.log(req.body);
+  // console.log(req.body);
   let { startTime, endTime, coordinates: {lat, lng } } = JSON.parse(req.body);
   if (req.method !== 'POST') {
     res.status(400).json({ error: 'Improper request.' });
     res.end();
   }
+  const duration = (Date.parse(endTime) - Date.parse(startTime)) / 3600000;
+  let price;
+  if (duration > 24) {
+    price = 'long_term_rate';
+  } else {
+    price = 'short_term_rate';
+  }
   try {
-    console.log('inputs', startTime, endTime, lat, lng);
-    const { rows } = await client.query(`SELECT id, address, lat, lng,
+    // console.log('inputs', startTime, endTime, lat, lng);
+    const { rows } = await client.query(`SELECT a.id as id, a.address as address, a.lat as lat,
+      a.lng as lng, a.${price} as price, b.url as url, a.attended as attended, a.gated as gated,
+      a.electric_charger as electric, a.garage as garage, a.always_available as always_available,
+      a.high_clearance as high_clearance, a.description as description, a.special_information as
+       special_information, a.user_id as owner_id,
       ST_Distance(a.coordinates, ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326)) AS distance
-    FROM locations a
-    WHERE ST_Distance(a.coordinates, ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326)) < 10000
+    FROM listings a
+    JOIN images b ON b.id = a.image_id
+    WHERE
+      ST_Distance(a.coordinates, ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326)) < 10000 AND
+      (a.first_available - startTime) < 0 AND (a.last_available - endTime) > 0
     ORDER BY distance;`);
-    console.log(rows);
+    // console.log(rows);
     res.status(200).send(rows);
   } catch (err) {
     console.log(err);

@@ -77,15 +77,18 @@ export default function Search(props: SearchProps) {
     }
   }
 
+  const scriptURL = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_API_KEY}&libraries=places&callback=initMap`
 
   return (
     <>
+      <script id="google-map-script" async defer src={scriptURL} />
       <Box sx={{
         width: '100%',
         height: '10%',
         position: 'relative',
         margin: '0',
-        alignItems: 'center'
+        alignItems: 'center',
+        color: 'white'
         }} >
         <NavBar session={session}/>
       </Box>
@@ -107,7 +110,6 @@ export default function Search(props: SearchProps) {
             setStartTime={setStartTime}
             endTime={endTime}
             setEndTime={setEndTime}
-            isLoading={isLoading}
             handleSearch={handleSearch}
           />
         </Box>
