@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import { GridEventListener } from '@mui/x-data-grid';
 import { Box, Card, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
+// import Button from '@mui/material/Button';
 
 class editProfileAbout extends React.Component {
 
@@ -106,6 +107,7 @@ class editProfileAbout extends React.Component {
           <input type="text" name="aboutMe" value={this.state.aboutMe} onChange={(e) => this.onChangeAboutMe(e)}/>
           <br />
           <button type="submit" >Save Profile</button>
+          {/* <Button variant="contained" onClick={this.handleBlockClick} name="Save Profile" children={this.state.blockLabel}></Button> */}
         </form>
       </div>
     )
