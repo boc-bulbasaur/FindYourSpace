@@ -114,7 +114,7 @@ export default function Search(props: SearchProps) {
         <Box width={'100%'} height={'85%'} position={'relative'} marginTop={'10px'}>
           <SearchResults results={results} isLoading={isLoading} sortBy={sortBy} setSortBy={setSortBy}
             startTime={startTime} endTime={endTime} selected={selected} handleClick={handleClick}/>
-          <Map coordinates={coordinates} results={results} selected={selected} handleClick={handleClick} setSelected={setSelected}/>
+          <Map coordinates={coordinates} results={results} selected={selected} handleClick={handleClick}/>
         </Box>
       </Box>
     </>
