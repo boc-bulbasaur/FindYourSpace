@@ -279,28 +279,6 @@ function ListSpace() {
                 onClick={handleSubmit}
               >{ page === 7 ? "SUBMIT" : "NEXT" }</Button>
             }
-            {/* {
-              page === 6 &&
-              <Button
-                variant="contained"
-                className="listing-submit-button"
-                sx={{
-                  display: 'flex',
-                  marginLeft: '8px'
-                }}
-                onClick={handleSubmit}
-              >SUBMIT</Button>
-            } */}
-            {/* <Button
-              onClick={() => handleData(formData)}
-              className="listing-next-button"
-              variant="contained"
-              sx={{
-                marginLeft: '8px'
-              }}
-            >
-              { page === 7 ? "SUBMIT" : "NEXT" }
-            </Button> */}
           </Box>
         </Box>
       <Box
