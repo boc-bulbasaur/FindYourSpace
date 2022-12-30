@@ -9,7 +9,6 @@ class ProfileButtons extends React.Component {
     this.state = {
       blockLabel: 'Block',
       favLabel: 'Favorite',
-      currUser: this.props.session.user.user_id, //currUser = user from session
       profileUser: 3
     };
 
@@ -40,8 +39,9 @@ class ProfileButtons extends React.Component {
   }
 
   handleBlockClick = async (e: any, userToBlock: any) => {
+    const currUser = this.props.session.user.user_id; //currUser = user from session
     const body = {
-      user_id: this.state.currUser,
+      user_id: currUser,
       blocked_user_id: userToBlock,
     }
     await fetch('/api/blockUser', {
