@@ -47,11 +47,13 @@ function Seventh({ formData, setFormData }) {
   return (
     <>
     <Box
-        sx={{
-          marginBottom: '5px'
-        }}
-      >
+      className='title-container'
+      sx={{
+        marginBottom: '5px'
+      }}
+    >
       <Typography
+        className='text main-title'
         sx={{
           display: 'flex',
           flexGrow: '1',

@@ -44,6 +44,7 @@ function Map({ formData, setFormData }) {
         }}
       >
         <Typography
+        className='text main-title'
         sx={{
           display: 'flex',
           flexGrow: '1',
@@ -55,6 +56,7 @@ function Map({ formData, setFormData }) {
         Where is the space located?
       </Typography>
       <Typography
+        className='text secondary-title'
         sx={{
           display: 'flex',
           flexGrow: '1',
@@ -83,6 +85,7 @@ function Map({ formData, setFormData }) {
           <PlacesAutocomplete formData={formData} setFormData={setFormData} setSelected={setSelected} setLatLng={setLatLng} zoom={zoom} setZoom={setZoom} />
         </Box>
         <Box
+          className="outer-map-container"
           sx={{
             minHeight: 200,
             paddingBottom: '20px',
@@ -136,6 +139,7 @@ const PlacesAutocomplete = ({ setSelected, setLatLng, formData, setFormData, set
 
   return (
     <Combobox
+      className="search-places-container"
       onSelect={handleSelect}
       aria-label={"choose a location"}
       style={{ width: '100%' }}
@@ -144,7 +148,7 @@ const PlacesAutocomplete = ({ setSelected, setLatLng, formData, setFormData, set
         value={value}
         onChange={(e) => setValue(e.target.value)}
         disabled={!ready}
-        className="combobox-input"
+        className="combobox-input search-box"
         placeholder="Search an address"
         style={{ width: '100%' }}
       />

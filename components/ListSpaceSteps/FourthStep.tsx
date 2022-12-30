@@ -56,36 +56,40 @@ function Fourth({ formData, setFormData }) {
       }}
     >
       <Box
+        className='title-container'
         sx={{
           marginBottom: '5px'
         }}
       >
-      <Typography
-        sx={{
-          display: 'flex',
-          flexGrow: '1',
-          maxHeight: '30px',
-          alignItems: 'center',
-          fontSize: '16px'
-        }}
-      >
-        Add some photos of your space
-      </Typography>
-      <Typography
-        sx={{
-          display: 'flex',
-          flexGrow: '1',
-          maxHeight: '30px',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '12px',
-          color: 'gray'
-        }}
-      >
-        You'll need at least one to continue. You can add more or modify them later.
-      </Typography>
-    </Box>
+        <Typography
+          className='text main-title'
+          sx={{
+            display: 'flex',
+            flexGrow: '1',
+            maxHeight: '30px',
+            alignItems: 'center',
+            fontSize: '16px'
+          }}
+        >
+          Add some photos of your space
+        </Typography>
+        <Typography
+          className='text secondary-title'
+          sx={{
+            display: 'flex',
+            flexGrow: '1',
+            maxHeight: '30px',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '12px',
+            color: 'gray'
+          }}
+        >
+          You'll need at least one to continue. You can add more or modify them later.
+        </Typography>
+      </Box>
     <Box
+      className='image-upload-container'
       sx={{
         margin: '10px 20px',
         padding: '10px 20px',

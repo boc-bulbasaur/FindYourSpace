@@ -70,27 +70,20 @@ function ListSpace() {
         handleImage(formData.image_url)
       }
     }  else if (page === 4) {
-      if (formData.max_stay < 1) {
-        return alert('Please enter the maximum length a user can rent your space');
-      } else {
-        setPage(page + 1);
-        console.log(formData);
-      }
-    }  else if (page === 5) {
       if (!formData.availability[0] || !formData.availability[1]) {
         return alert('Please select the availability of your space from the calendar');
       } else {
         setPage(page + 1);
         console.log(formData);
       }
-    }  else if (page === 6) {
+    }  else if (page === 5) {
       if (formData.short_term_rate < 1 || formData.long_term_rate < 1) {
         return alert('Please enter the base price for your space');
       } else {
         setPage(page + 1);
         console.log(formData);
       }
-    }  else if (page === 7) {
+    }  else if (page === 6) {
         setPage(page + 1);
         handleListing(formData)
         console.log(formData);
@@ -139,16 +132,15 @@ function ListSpace() {
   }
 
   async function handleListing(data) {
-    console.log(data)
     const res = await fetch('/api/createlisting', {
       method: 'POST',
       body: JSON.stringify({
-        attended: !!data.attended,
-        gated: !!data.gated,
-        electric_charger: !!data.electric_charger,
-        garage: !!data.garage,
-        always_available: !!data.always_available,
-        high_clearance: !!data.high_clearance,
+        attended: !!data.amenities_attended,
+        gated: !!data.amenities_gated,
+        electric_charger: !!data.amenities_electric_charger,
+        garage: !!data.amenities_garage,
+        always_available: !!data.amenities_always_available,
+        high_clearance: !!data.amenities_high_clearance,
         description: data.description,
         special_information: data._special_information,
         minimum_stay: data.min_stay,
@@ -159,7 +151,14 @@ function ListSpace() {
         long_term_rate: data.long_term_rate,
         type: data.type,
         image_id: data.image_id,
-        location_id: data.location_id
+        location_id: data.location_id,
+        lat: parseFloat(data.coordinates.lat),
+        lng: parseFloat(data.coordinates.lng),
+        address: data._address,
+        lng_p: parseFloat(data.coordinates.lng),
+        lat_p: parseFloat(data.coordinates.lat),
+        first_available_tz: data.availability[0].$d,
+        last_available_tz: data.availability[1].$d
       }),
       headers: {
         'Content-Type': 'application/json'
@@ -181,15 +180,15 @@ function ListSpace() {
         return <Third formData={formData} setFormData={setFormData} />;
       case 3:
         return <Fourth formData={formData} setFormData={setFormData} />;
+      // case 4:
+      //   return <Fifth formData={formData} setFormData={setFormData} />;
       case 4:
-        return <Fifth formData={formData} setFormData={setFormData} />;
-      case 5:
         return <Sixth formData={formData} setFormData={setFormData} />;
-      case 6:
+      case 5:
         return <Seventh formData={formData} setFormData={setFormData} />;
-      case 7:
+      case 6:
         return <Eighth formData={formData} setFormData={setFormData} session={session} />
-      case 8:
+      case 7:
         return <Ninth formData={formData} setFormData={setFormData} />;
       default:
         return <First formData={formData} setFormData={setFormData} />;
@@ -200,8 +199,9 @@ function ListSpace() {
 
   return (
     <Box
+      className='listing-background-lightbox'
       sx={{
-        backgroundColor: '#C0c0c0',
+        // backgroundColor: '#C0c0c0',
         minHeight: '100vh',
         minWidth: '100vw',
         display: 'flex',
@@ -211,6 +211,7 @@ function ListSpace() {
       }}
     >
     <Box
+      className='form-container'
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -218,14 +219,17 @@ function ListSpace() {
         minHeight: '50vh',
         minWidth: '50vw',
         border: '2px solid #000',
-        borderRadius: '8px',
+        borderRadius: '10px',
         padding: '10px 20px',
-        backgroundColor: '#FFF',
+        // backgroundColor: '#FFF',
       }}
     >
         {formPage()}
-        <Box>
+        <Box
+          className='footer-container'
+        >
           <Box
+            className='footer'
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
@@ -233,16 +237,20 @@ function ListSpace() {
             }}
           >
           <Box
+            className='step-container'
             sx={{
               display: 'flex',
               alignItems: 'center'
             }}
           >
-            <Typography>
-              Step {page + 1} / 8
+            <Typography
+              className='steps text'
+            >
+              Step {page + 1} / 7
             </Typography>
           </Box>
           <Box
+            className='button-container'
             sx={{
               display: 'flex',
               alignItems: 'center'
@@ -252,7 +260,7 @@ function ListSpace() {
               page > 0 &&
               <Button
                 variant="outlined"
-                className="listing-back-button"
+                className="button-secondary button secondary"
                 sx={{
                   display: 'flex'
                 }}
@@ -260,10 +268,10 @@ function ListSpace() {
               >BACK</Button>
             }
             {
-              page < 8 &&
+              page < 7 &&
               <Button
                 variant="contained"
-                className="listing-next-button"
+                className="button-primary button primary"
                 sx={{
                   display: 'flex',
                   marginLeft: '8px'
@@ -295,8 +303,14 @@ function ListSpace() {
             </Button> */}
           </Box>
         </Box>
-      <Box>
-        <LinearProgress variant="determinate" value={((page) * 100) / (8 - 1)} />
+      <Box
+        className='progress-bar-container'
+      >
+        <LinearProgress
+          variant="determinate"
+          value={((page) * 100) / (7 - 1)}
+          className='progress-bar primary'
+        />
       </Box>
       </Box>
     </Box>

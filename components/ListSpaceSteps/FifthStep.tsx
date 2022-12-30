@@ -61,11 +61,13 @@ function Fifth({ formData, setFormData }) {
   return (
     <>
     <Box
-        sx={{
-          marginBottom: '5px'
-        }}
-      >
+      className='title-container'
+      sx={{
+        marginBottom: '5px'
+      }}
+    >
       <Typography
+        className='text main-title'
         sx={{
           display: 'flex',
           flexGrow: '1',
@@ -78,6 +80,7 @@ function Fifth({ formData, setFormData }) {
       </Typography>
     </Box>
     <Box
+      className='slider-container'
       sx={{
         display: 'flex !important',
         flexDirection: 'column !important',
@@ -98,6 +101,7 @@ function Fifth({ formData, setFormData }) {
           </Grid>
           <Grid item xs>
             <Slider
+              className='slider'
               value={typeof formData.min_stay === 'number' ? formData.min_stay : 0}
               onChange={handleSliderChange}
               aria-labelledby="input-slider"
@@ -138,6 +142,7 @@ function Fifth({ formData, setFormData }) {
           </Grid>
           <Grid item xs>
             <Slider
+              className='slider'
               value={typeof formData.max_stay === 'number' ? formData.max_stay : 0}
               onChange={handleSliderChange}
               aria-labelledby="input-slider"

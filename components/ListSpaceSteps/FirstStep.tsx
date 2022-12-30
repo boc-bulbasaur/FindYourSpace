@@ -8,8 +8,8 @@ function First({ formData, setFormData }) {
       type: e.target.name,
     });
     setTimeout(() => {
-      if (document.querySelector('.listing-next-button')) {
-        document.querySelector('.listing-next-button').click();
+      if (document.querySelector('.button-primary')) {
+        document.querySelector('.button-primary').click();
       }
     }, 250)
   }
@@ -17,7 +17,8 @@ function First({ formData, setFormData }) {
   return (
   <>
     <Typography
-    component={'h1'}
+      component={'h1'}
+      className='text main-title'
       sx={{
         display: 'flex',
         flexGrow: '1',
@@ -28,6 +29,7 @@ function First({ formData, setFormData }) {
       What type of space will guests have?
     </Typography>
     <Box
+      className='step-container'
       sx={{
         margin: '1rem 0',
       }}
@@ -42,6 +44,7 @@ function First({ formData, setFormData }) {
       >
        <Stack spacing={2}>
         <Button
+          className='select-button covered'
           value="Covered"
           name="Covered"
           variant="outlined"
@@ -53,6 +56,7 @@ function First({ formData, setFormData }) {
           onClick={handleClick}
         >
           <Typography
+            className='text button-text primary-select-text'
             sx={{
               fontSize: '14px',
               paddingBottom: '5px',
@@ -62,6 +66,7 @@ function First({ formData, setFormData }) {
             Covered Space
           </Typography>
           <Typography
+            className='text button-text secondary-select-text'
             sx={{
               fontSize: '10px',
               pointerEvents: 'none'
@@ -71,6 +76,7 @@ function First({ formData, setFormData }) {
           </Typography>
         </Button>
         <Button
+          className='select-button uncovered'
           value="Uncovered"
           name="Uncovered"
           variant="outlined"
@@ -82,6 +88,7 @@ function First({ formData, setFormData }) {
           }}
         >
            <Typography
+            className='text button-text secondary-select-text'
             sx={{
               fontSize: '14px',
               paddingBottom: '5px',
@@ -111,6 +118,7 @@ function First({ formData, setFormData }) {
           }}
         >
            <Typography
+            className='select-button uncovered'
             sx={{
               fontSize: '14px',
               paddingBottom: '5px',
@@ -120,6 +128,7 @@ function First({ formData, setFormData }) {
             Street Parking
           </Typography>
           <Typography
+            className='text button-text secondary-select-text'
             sx={{
               fontSize: '10px',
               pointerEvents: 'none'

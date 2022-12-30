@@ -9,11 +9,13 @@ function Third({ formData, setFormData}) {
   return (
     <>
       <Box
+        className='title-container'
         sx={{
           marginBottom: '5px'
         }}
       >
       <Typography
+        className='text main-title'
         sx={{
           display: 'flex',
           flexGrow: '1',
@@ -25,6 +27,7 @@ function Third({ formData, setFormData}) {
         Share a few details about your space
       </Typography>
       <Typography
+        className='text secondary-title'
         sx={{
           display: 'flex',
           flexGrow: '1',
@@ -38,6 +41,7 @@ function Third({ formData, setFormData}) {
       </Typography>
     </Box>
     <Box
+      className='form-container'
       sx={{
         margin: '0 0',
         padding: '0',
@@ -45,9 +49,10 @@ function Third({ formData, setFormData}) {
     >
       <Stack spacing={2}>
         <Box
-        sx={{
-          display: 'flex',
-        }}
+          className='form'
+          sx={{
+            display: 'flex',
+          }}
         >
           <FormGroup>
             <FormControl

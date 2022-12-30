@@ -9,6 +9,7 @@ function Sixth({ formData, setFormData }) {
   return (
   <>
     <Typography
+      className='text main-title'
       sx={{
         display: 'flex',
         flexGrow: '1',
@@ -19,6 +20,7 @@ function Sixth({ formData, setFormData }) {
       Select dates.
     </Typography>
     <Box
+      className='calender-container'
       sx={{
         margin: '1rem 0',
       }}

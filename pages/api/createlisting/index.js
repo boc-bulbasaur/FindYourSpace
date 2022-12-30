@@ -1,8 +1,8 @@
-import db from '../../../database/index.js';
+import client from '../../../database/index.js';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    const result = await db.query(
+    const result = await client.query(
       `INSERT INTO listings (
         attended,
         gated,
@@ -21,7 +21,13 @@ export default async function handler(req, res) {
         type,
         location_id,
         first_available,
-        last_available
+        last_available,
+        lat,
+        lng,
+        address,
+        coordinates,
+        first_available_timestamptz,
+        last_available_timestamptz
       ) VALUES (
           $1,
           $2,
@@ -36,11 +42,17 @@ export default async function handler(req, res) {
           $11,
           $12,
           $13,
-          1,
+          2,
           $14,
           $15,
           $16,
-          $17
+          $17,
+          $18,
+          $19,
+          $20,
+          ST_SetSRID(ST_POINT($21, $22), 4326),
+          $23,
+          $24
         ) RETURNING *`,
           [req.body.attended,
           req.body.gated,
@@ -58,7 +70,15 @@ export default async function handler(req, res) {
           req.body.type,
           req.body.location_id,
           req.body.first_available,
-          req.body.last_available]
+          req.body.last_available,
+          req.body.lat,
+          req.body.lng,
+          req.body.address,
+          req.body.lng_p,
+          req.body.lat_p,
+          req.body.first_available_tz,
+          req.body.last_available_tz
+        ]
       )
     res.send(result.rows[0])
   }
