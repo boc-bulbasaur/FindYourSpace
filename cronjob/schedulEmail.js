@@ -19,7 +19,7 @@ client.connect((err) => {
   } else {
     console.log('DB connected');
     CronStart('start')
-    CronStart('end')
+    // CronStart('end')
   }
 });
 
@@ -32,7 +32,7 @@ const CronStart=(type)=>{
   const job = new CronJob(
     `* * * * *`,
     async function() {
-      const res = await client.query(`select *, ${type}_time, EXTRACT(EPOCH FROM (now() - ${type}_time)) < 900 AS difference from bookings`)
+      const res = await client.query(`select *, ${type}_time, ABS(EXTRACT(EPOCH FROM (now() - ${type}_time))) <= 900 AS difference from bookings`)
       if(res.rows.length > 0){
         res.rows.map((row)=>{
           if (row.difference) {
@@ -50,12 +50,15 @@ const CronStart=(type)=>{
                 //  email = res2.rows[0].email
                  email = 'shzf13@gmail.com'
                  currentdate = new Date(res2.rows[0][`${type}_time`]);
-                 var time = currentdate.getDate() + "/"
-                           + (currentdate.getMonth()+1)  + "/"
-                           + currentdate.getFullYear() + " @ "
-                           + currentdate.getHours() + ":"
-                           + currentdate.getMinutes() + ":"
-                           + currentdate.getSeconds();
+                 var hours = currentdate.getHours
+                 var ampm = (hours >= 12) ? "PM" : "AM";
+                 var time =
+                 + currentdate.getFullYear() + "/"
+                 + (currentdate.getMonth()+1)  + "/"
+                 + currentdate.getDate() + " "
+                 + currentdate.getHours() + ":"
+                 + (currentdate.getMinutes()<10?'0':'') + currentdate.getMinutes()
+                 + ampm
 
                  handleEmail(email, add, time, type, name)
 
