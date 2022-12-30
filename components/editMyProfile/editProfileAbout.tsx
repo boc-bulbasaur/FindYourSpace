@@ -15,7 +15,9 @@ class editProfileAbout extends React.Component {
       number: '',
       aboutMe: '',
     };
-    this.getUsername = this.getUsername.bind(this);
+    this.getMyProfile = this.getMyProfile.bind(this);
+    this.onChangeAboutMe = this.onChangeAboutMe.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount(): void {
@@ -23,15 +25,14 @@ class editProfileAbout extends React.Component {
     console.log('get username -log session', this.props.session);
 
     if (this.props.session !== undefined) {
-      this.getUsername(this.props.session.user.user_id);
+      this.getMyProfile(this.props.session.user.user_id);
     }
   }
 
   componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<{}>, snapshot?: any): void {
   }
 
-  getUsername = async (user_id) => {
-    // const user_id = 3;
+  getMyProfile = async (user_id) => {
     console.log(`GET username FOR USER ${user_id}`);
     await fetch(`/api/editProfile?user_id=${user_id}`, {
       method: 'GET'
@@ -48,7 +49,39 @@ class editProfileAbout extends React.Component {
         aboutMe: data["aboutMe"],
       });
     })
-    //.then(response => console.log(JSON.stringify(response)))
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  }
+
+  onChangeAboutMe(event) {
+    this.setState({
+      aboutMe: event.target.value
+    });
+  }
+
+  handleSubmit = async (event, user_id) => {
+    event.preventDefault();
+    console.log('PUT-testing on handlesubmit');
+    // let user_id = this.props.session.user.user_id
+    const data = {
+      aboutMe: this.state.aboutMe} ;
+    console.log('PUT request log data here', data);
+
+    await fetch(`/api/editProfile`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log('log put request data here', data);
+      // this.setState({
+      //   aboutMe: data["aboutMe"],
+      // });
+      alert('Your profile is successfully updated.');
+    })
     .catch((error) => {
       console.error('Error:', error);
     });
@@ -59,20 +92,20 @@ class editProfileAbout extends React.Component {
       <div className="About">
         <Avatar alt="Justo Marquez" src="/static/images/avatar/1.jpg" />
         <h3>About Me</h3>
-        <form action="/send-data-here" method="post">
           <label>Name:</label>
-          <input type="text" name="name" value={this.state.name}/>
+          <input type="text" name="name" value={this.state.name} readOnly={true}/>
           <br />
           <label>Email:</label>
-          <input type="text" name="email" value={this.state.email}/>
+          <input type="text" name="email" value={this.state.email} readOnly={true}/>
           <br />
           <label>Number:</label>
-          <input type="text" name="number" value={this.state.number}/>
+          <input type="text" name="number" value={this.state.number} readOnly={true}/>
           <br />
+        <form onSubmit={this.handleSubmit}>
           <label>About me:</label>
-          <input type="text" name="aboutMe" value={this.state.aboutMe}/>
+          <input type="text" name="aboutMe" value={this.state.aboutMe} onChange={(e) => this.onChangeAboutMe(e)}/>
           <br />
-          <button type="submit">Save Profile</button>
+          <button type="submit" >Save Profile</button>
         </form>
       </div>
     )
