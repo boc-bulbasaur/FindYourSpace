@@ -78,7 +78,8 @@ export default function Search(props: SearchProps) {
         height: '10%',
         position: 'relative',
         margin: '0',
-        alignItems: 'center'
+        alignItems: 'center',
+        color: 'white'
         }} >
         <NavBar session={session}/>
       </Box>
@@ -100,7 +101,6 @@ export default function Search(props: SearchProps) {
             setStartTime={setStartTime}
             endTime={endTime}
             setEndTime={setEndTime}
-            isLoading={isLoading}
             handleSearch={handleSearch}
           />
         </Box>
