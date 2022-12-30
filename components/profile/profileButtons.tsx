@@ -8,18 +8,19 @@ class ProfileButtons extends React.Component {
     super(props);
     this.state = {
       blockLabel: 'Block',
-      favLabel: 'Favorite'
+      favLabel: 'Favorite',
+      currUser: this.props.session.user.user_id, //currUser = user from session
+      profileUser: 3
     };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
     this.handleBlockClick = this.handleBlockClick.bind(this);
   }
 
-  handleFavoriteClick = async () => {
+  handleFavoriteClick = async (e: any, userToFav: any) => {
     const body = {
-      user_id: 3,
-      blocked_user_id: 7,
+      user_id: this.state.currUser,
+      fav_user_id: userToFav,
     }
     await fetch('/api/favoriteUser', {
       method: 'POST',
@@ -38,10 +39,10 @@ class ProfileButtons extends React.Component {
     });
   }
 
-  handleBlockClick = async () => {
+  handleBlockClick = async (e: any, userToBlock: any) => {
     const body = {
-      user_id: 3,
-      blocked_user_id: 2,
+      user_id: this.state.currUser,
+      blocked_user_id: userToBlock,
     }
     await fetch('/api/blockUser', {
       method: 'POST',
@@ -60,43 +61,11 @@ class ProfileButtons extends React.Component {
     });
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const postData = async () => {
-      const data = {
-        block: '',
-        favorite: ''
-      };
-      if (e.target.name === 'block') {
-        data.block = 'username';
-      } else if (e.target.name === 'favorite') {
-        data.favorite = 'username';
-      }
-
-      const response = await fetch("/api/profile", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
-      return response.json();
-    };
-    postData().then((data) => {
-      console.log('API called');
-      console.log(data);
-    });
-
-    if (e.target.name === 'block') {
-      this.setState({blockLabel: 'Blocked'});
-    } else if (e.target.name === 'favorite') {
-      // e.target.name = 'Added to Favorites';
-      this.setState({favLabel: 'Added to Favorites'});
-    }
-  }
-
   render() {
     return (
       <>
-        <Button variant="contained" onClick={this.handleFavoriteClick} name="favorite" children={this.state.favLabel} sx={{margin: 1}}></Button>
-        <Button variant="contained" onClick={this.handleBlockClick} name="block" children={this.state.blockLabel}></Button>
+        <Button variant="contained" user={this.props.user} onClick={(e) => this.handleFavoriteClick(e, this.state.profileUser)} name="favorite" children={this.state.favLabel} sx={{margin: 1}}></Button>
+        <Button variant="contained" user={this.props.user} onClick={(e) => this.handleBlockClick(e, this.state.profileUser)} name="block" children={this.state.blockLabel}></Button>
       </>
     )
   }

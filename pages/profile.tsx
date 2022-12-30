@@ -54,7 +54,7 @@ export default function Profile() {
         <div className="profile-container">
           <h1>Profile</h1>
           <ProfileAbout name="testName"/>
-          <ProfileButtons />
+          <ProfileButtons session={session}/>
           {history}
         </div>
       </ThemeProvider>
