@@ -6,27 +6,34 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export default function ImgMediaCard() {
+export default function ImgMediaCard(props) {
+  let cardImg, address, startDate, endDate;
+  if (props.currentListing !== undefined) {
+    cardImg = props.currentListing.url;
+    address = props.currentListing.address;
+    startDate = undefined ? '' : new Date(props.currentListing.start_time).toString();
+    endDate = undefined ? '' : new Date(props.currentListing.end_time).toString();
+  }
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         component="img"
-        alt="green iguana"
+        alt="parking image"
         height="140"
-        image="/static/images/cards/contemplative-reptile.jpg"
+        image={cardImg}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
+          {address}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          Start: {startDate}<br />
+          End: {endDate}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+        {/* <Button size="small">Share</Button>
+        <Button size="small">Learn More</Button> */}
       </CardActions>
     </Card>
   );

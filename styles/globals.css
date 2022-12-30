@@ -24,13 +24,15 @@ a {
   }
   body {
     color: white;
-    background: black;
+    background: #1c1c1c;
   }
 }
 
 /* RENTAL HISTORY CSS */
 .leaflet-container {
   margin: 20px 60px 20px 60px;
+  max-width: 100%;
+  /* min-width: 400px; */
 }
 
 /* //////OWNER HISTORY CSS////// */
@@ -205,7 +207,6 @@ hr {
   width: 50%;
   margin-left: 50%;
 }
-
 
 
 

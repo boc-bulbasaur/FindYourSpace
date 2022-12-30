@@ -16,8 +16,8 @@ import { useSession, signIn, signOut, getSession } from "next-auth/react";
 
 const pages = ['Search', 'New Reservation', 'Create Listing'];
 const pagesEndpoints = ['/search', '/reservation', '/newlisting'];
-const settings = ['Profile', 'History', 'Logout'];
-const settingsEndpoints = ['/profile', '/history', '/'];
+const settings = ['Edit My Profile','Profile', 'History', 'Logout'];
+const settingsEndpoints = ['/EditMyProfile','/profile', '/history', '/'];
 
 export default function NavBar({session}) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -51,7 +51,7 @@ export default function NavBar({session}) {
               sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
-                fontFamily: 'sans-serif',
+                fontFamily: 'Sono',
                 fontWeight: 700,
                 letterSpacing: '.1rem',
                 color: 'inherit',
@@ -108,7 +108,7 @@ export default function NavBar({session}) {
                 mr: 2,
                 display: { xs: 'flex', md: 'none' },
                 flexGrow: 1,
-                fontFamily: 'sans-serif',
+                fontFamily: 'Sono',
                 fontWeight: 700,
                 letterSpacing: '.1rem',
                 color: 'inherit',
@@ -195,7 +195,7 @@ export default function NavBar({session}) {
             sx={{
               mr: 2,
               flexGrow: 1,
-              fontFamily: 'sans-serif',
+              fontFamily: 'Sono',
               fontWeight: 700,
               letterSpacing: '.1rem',
               color: 'inherit',
@@ -204,11 +204,6 @@ export default function NavBar({session}) {
           >
             find your space
           </Typography>
-          <Button
-            variant='text'
-            sx={{mr: 1, color: 'white'}}>
-            <Link href='signup'>List your Parking Space</Link>
-          </Button>
           <Button
             variant="outlined"
             sx={{ mr: 1, color: 'white', borderColor: 'white' }}

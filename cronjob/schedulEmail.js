@@ -35,7 +35,6 @@ const CronStart=(type)=>{
       const res = await client.query(`select *, ${type}_time, EXTRACT(EPOCH FROM (now() - ${type}_time)) < 900 AS difference from bookings`)
       if(res.rows.length > 0){
         res.rows.map((row)=>{
-          // console.log(row)
           if (row.difference) {
             client.query(`SELECT users.name, users.email, locations.address, bookings.${type}_time
             from bookings
