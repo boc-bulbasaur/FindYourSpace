@@ -10,13 +10,11 @@ import {
   Heading,
   Container,
 } from "@chakra-ui/react";
-import {
-  Button,
-  TextField,
-  Typography,
-  CardContent,
-  CardActions,
-} from '@mui/material';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
 
 export default function LogIn() {
   const { data: session } = useSession();
