@@ -27,10 +27,10 @@ type SearchResultsProps = {
   startTime: string;
   endTime: string;
   selected: number;
-  setSelected: Function;
+  handleClick: Function;
 }
 
-const SearchResults = ({results, isLoading, sortBy, setSortBy, startTime, endTime, selected, setSelected }: SearchResultsProps) =>{
+const SearchResults = ({results, isLoading, sortBy, setSortBy, startTime, endTime, selected, handleClick }: SearchResultsProps) =>{
   const handleChange = (e: React.MouseEvent<HTMLElement>) => {
     if (e.target.value !== null) {
       setSortBy(e.target.value);
