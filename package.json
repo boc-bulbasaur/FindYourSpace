@@ -44,25 +44,17 @@
     "node-fetch": "^3.3.0",
     "nodemailer": "^6.8.0",
     "pg": "^8.8.0",
-<<<<<<< HEAD
-=======
     "postgres": "^3.3.2",
->>>>>>> main
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-google-autocomplete": "^2.7.1",
     "react-google-recaptcha": "^2.1.0",
     "react-icons": "^4.7.1",
     "react-leaflet": "^4.2.0",
-<<<<<<< HEAD
     "styled-components": "^5.3.6",
     "typescript": "4.9.3",
-    "yup": "^0.32.11"
-=======
-    "stripe": "^11.4.0",
-    "styled-components": "^5.3.6",
-    "typescript": "4.9.3"
->>>>>>> main
+    "yup": "^0.32.11",
+    "stripe": "^11.4.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
