@@ -25,16 +25,17 @@ export default function History() {
 
   const theme = createTheme({
     palette: {
-      mode: 'light',
+      mode: 'dark',
       primary: {
         main: '#1b2139',
+        dark: '#c9c9ce',
       },
       secondary: {
         main: '#000000',
       },
-      background: {
-        default: '#f1f1f3',
-      },
+      // background: {
+      //   default: '#3B'
+      // }
     },
     typography: {
       fontFamily: ['Sono','sans-serif'].join(',')
@@ -66,7 +67,7 @@ export default function History() {
       <div>
         <NavBar session={session}/>
         <div className={styles.historyToggle} >
-          <HistoryToggle handleToggle={handleToggle} sx={{color: 'black'}}/>
+          <HistoryToggle handleToggle={handleToggle} sx={{color: 'white'}}/>
         </div>
         {history}
       </div>

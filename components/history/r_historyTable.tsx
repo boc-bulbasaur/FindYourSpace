@@ -118,17 +118,14 @@ function renderCellExpand(params: GridRenderCellParams<string>) {
 }
 
 const columns: GridColDef[] = [
-  { field: 'id', headerName: 'Conf#', width: 60, headerAlign: 'center', align: 'center' },
+  { field: 'id', headerName: 'Conf#', width: 80, headerAlign: 'center', align: 'center' },
   { field: 'name', headerName: 'Name', width: 150, headerAlign: 'center', align: 'center', renderCell: renderCellExpand },
   { field: 'address', headerName: 'Address', width: 180, headerAlign: 'center', align: 'center', renderCell: renderCellExpand },
   { field: 'detail', headerName: 'Detail', width: 150, headerAlign: 'center', align: 'center', renderCell: renderCellExpand },
-  // { field: 'city', headerName: 'City', width: 120 },
-  // { field: 'state', headerName: 'State', width: 70 },
-  // { field: 'zip', headerName: 'ZIP', width: 70 },
   { field: 'startDateTime', type: 'dateTime', headerName: 'Start DateTime', width: 220, headerAlign: 'center', align: 'center' },
   { field: 'endDateTime', type: 'dateTime', headerName: 'End DateTime', width: 220, headerAlign: 'center', align: 'center' },
   { field: 'duration', type: 'number', headerName: 'Duration', width: 100, headerAlign: 'center', align: 'center' },
-  { field: 'rebook', headerName: 'Rebook', width: 100, headerAlign: 'center', align: 'center', renderCell: (params) => <Link href={'/reservation'}><Button variant="outlined">Rebook</Button></Link>
+  { field: 'rebook', headerName: 'Rebook', width: 100, headerAlign: 'center', align: 'center', renderCell: (params) => <Link href={`/reservation`}><Button variant="outlined">Rebook</Button></Link>
  },
 ];
 
@@ -150,7 +147,7 @@ export default function HistoryTable(props: any) {
       const diffDate = diff_hours(endDate, startDate);
       console.log(props.listings);
       rows.push({id: e.id, name: e.name, address: e.address, detail: e.description,
-      startDateTime: startDate, endDateTime: endDate, duration: `${e.duration} hour(s)`, lat: e.lat, lng: e.lng});
+      startDateTime: startDate, endDateTime: endDate, duration: `${e.duration} hour(s)`, lat: e.lat, lng: e.lng, url: e.url});
     });
   }
   return (
@@ -162,7 +159,7 @@ export default function HistoryTable(props: any) {
         rowsPerPageOptions={[3]}
         checkboxSelection={false}
         onRowClick={props.handleTableClick}
-        sx={{}}
+        sx={{color: 'white'}}
       />
     </div>
   );
