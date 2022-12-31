@@ -84,11 +84,6 @@ export default RenterHistory;
 
 
 
-
-
-
-
-
 // import { format, formatDistance, formatRelative, subDays } from 'date-fns'
 // import * as React from 'react';
 // import {useState, useFetch} from 'react';

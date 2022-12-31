@@ -12,23 +12,44 @@ const columns: GridColDef[] = [
   { field: 'end_time', type: 'dateTime', headerName: 'End DateTime', width: 225, headerAlign: 'center' },
   { field: 'duration', headerName: 'Rental Duration', width: 200, headerAlign: 'center', align: 'center'},
   { field: 'address', headerName: 'Location', width: 300, sortable: false, headerAlign: 'center'},
-  { field: 'short_term_rate', headerName: 'Total', width: 128, headerAlign: 'center', align: 'center' },
+  { field: 'total', headerName: 'Total', width: 128, headerAlign: 'center', align: 'center' },
   { field: 'block', headerName: 'Block User', width: 250, sortable: false, type: 'boolean', headerAlign: 'center'}
 ];
 
 export default function O_RenderHistory(props) {
 
-  // console.log('Render History: ', props)
+  console.log('Render History: ', props)
+  let rows = [];
+
+    props.ownerHistory.forEach((record) => {
+      let start = new Date(record.start_time)
+      let end = new Date(record.end_time)
+      rows.push(
+        {
+          id: record.id,
+          name: record.name,
+          start_time: start,
+          end_time: end,
+          duration: `${record.duration} Hours`,
+          address: record.address,
+          total: `$${record.short_term_rate}.00`,
+          block: false,
+        }
+      )
+  })
+
+
 
   return (
 
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
         getRowId={(row) => row.id}
-        rows={props.ownerHistory}
+        rows={rows}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
+        onCellClick={(block) => {console.log(block)}}
         />
     </div>
   );
