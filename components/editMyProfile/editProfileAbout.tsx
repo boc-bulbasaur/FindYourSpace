@@ -91,23 +91,44 @@ class editProfileAbout extends React.Component {
   render() {
     return (
       <div className="About">
-        <Avatar alt="Justo Marquez" src="/static/images/avatar/1.jpg" />
+        <Avatar alt={this.state.name} src="/static/images/avatar/1.jpg" />
         <h3>About Me</h3>
-          <label>Name:</label>
-          <input type="text" name="name" value={this.state.name} readOnly={true}/>
-          <br />
-          <label>Email:</label>
-          <input type="text" name="email" value={this.state.email} readOnly={true}/>
-          <br />
-          <label>Number:</label>
-          <input type="text" name="number" value={this.state.number} readOnly={true}/>
-          <br />
+          <tr>
+            <th><label>Name:</label></th>
+            <th>
+              <input type="text" name="name" value={this.state.name} readOnly={true}/>
+            </th>
+          </tr>
+
+          <tr>
+            <th>
+            <label>Email:</label>
+            </th>
+            <th>
+            <input type="text" name="email" value={this.state.email} readOnly={true}/>
+            </th>
+          </tr>
+
+          <tr>
+            <th>
+            <label>Number:</label>
+            </th>
+            <th>
+            <input type="text" name="number" value={this.state.number} readOnly={true}/>
+            </th>
+          </tr>
+
+          <tr>
+            <th>
+            <label>About me:</label>
+            </th>
+            <th>
+            <input type="text" name="aboutMe" value={this.state.aboutMe} onChange={(e) => this.onChangeAboutMe(e)}/>
+            </th>
+          </tr>
+
         <form onSubmit={this.handleSubmit}>
-          <label>About me:</label>
-          <input type="text" name="aboutMe" value={this.state.aboutMe} onChange={(e) => this.onChangeAboutMe(e)}/>
-          <br />
-          <button type="submit" >Save Profile</button>
-          {/* <Button variant="contained" onClick={this.handleBlockClick} name="Save Profile" children={this.state.blockLabel}></Button> */}
+          <button type="submit" style={{marginTop: '35px'}}>Save Profile</button>
         </form>
       </div>
     )

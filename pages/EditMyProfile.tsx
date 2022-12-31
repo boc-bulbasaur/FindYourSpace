@@ -39,7 +39,10 @@ const theme = createTheme({
       <>
        <NavBar session={session}/>
        <ThemeProvider theme={theme}>
-         <div className="profile-container">
+       <div className="profile-container"
+       style={{ padding: 25 }}>
+
+
            <h1>Edit your Profile</h1>
            <EditProfileAbout session={session} />
          </div>
