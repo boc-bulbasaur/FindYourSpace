@@ -1,11 +1,18 @@
 import EditProfileAbout from "../components/editMyProfile/editProfileAbout";
 import NavBar from "../components/navBar";
 import { createTheme, ThemeProvider } from "@mui/material";
+import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
+import router from 'next/router';
 
 
 export default function EditMyProfile() {
   const { data: session, status } = useSession();
+  useEffect(()=>{
+    if (status === 'unauthenticated') {
+      router.push('/');
+    }
+  });
   console.log('status', status);
   console.log('session', session);
 

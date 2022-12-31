@@ -128,7 +128,8 @@ export default function LogIn() {
   );
 }
 
-LogIn.getInitialProps = async ({ req, res }) => {
+LogIn.getInitialProps = async (context) => {
+  let { req, res } = context;
   const session = await getSession({ req });
   if (session) {
     res.writeHead(301, {

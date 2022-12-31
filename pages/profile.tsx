@@ -18,6 +18,11 @@ export default function Profile() {
   console.log('status', status);
   console.log('session', session);
   const router = useRouter();
+  useEffect(()=>{
+    if (!session) {
+      router.push('/');
+    }
+  });
 
   const sampleListings = [
     {id: 11, name: 'Matthew McConaughey', place_id: 'Austin', lat: 30.2711286, lng: -97.7436995,
