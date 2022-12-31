@@ -27,15 +27,12 @@ export default function History() {
     palette: {
       mode: 'dark',
       primary: {
-        main: '#1b2139',
+        main: '#0724a6',
         dark: '#c9c9ce',
       },
       secondary: {
         main: '#000000',
       },
-      // background: {
-      //   default: '#3B'
-      // }
     },
     typography: {
       fontFamily: ['Sono','sans-serif'].join(',')
@@ -63,15 +60,17 @@ export default function History() {
     history = <OwnerHistory session={session}/>
   }
   return (
-    <ThemeProvider theme={theme} >
+
       <div>
         <NavBar session={session}/>
-        <div className={styles.historyToggle} >
-          <HistoryToggle handleToggle={handleToggle} sx={{color: 'white'}}/>
-        </div>
-        {history}
+        <ThemeProvider theme={theme} >
+          <div className={styles.historyToggle} >
+            <HistoryToggle handleToggle={handleToggle} sx={{color: 'white'}}/>
+          </div>
+          {history}
+        </ThemeProvider>
       </div>
-    </ThemeProvider>
+
   );
 
 }

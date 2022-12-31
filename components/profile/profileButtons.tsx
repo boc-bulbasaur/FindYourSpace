@@ -9,7 +9,7 @@ class ProfileButtons extends React.Component {
     this.state = {
       blockLabel: 'Block',
       favLabel: 'Favorite',
-      profileUser: 3
+      profileUser: this.props.user //based on URL parameter
     };
 
     this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
@@ -39,6 +39,9 @@ class ProfileButtons extends React.Component {
   }
 
   handleBlockClick = async (e: any, userToBlock: any) => {
+    if (userToBlock === undefined) {
+      return;
+    }
     const currUser = this.props.session.user.user_id; //currUser = user from session
     const body = {
       user_id: currUser,
@@ -55,6 +58,7 @@ class ProfileButtons extends React.Component {
       if (response.status === 201) {
         console.log('Success:', response);
       }
+      this.setState({blockLabel: 'Blocked'});
     })
     .catch((error) => {
       console.error('Error:', error);
@@ -64,8 +68,8 @@ class ProfileButtons extends React.Component {
   render() {
     return (
       <>
-        <Button variant="contained" user={this.props.user} onClick={(e) => this.handleFavoriteClick(e, this.state.profileUser)} name="favorite" children={this.state.favLabel} sx={{margin: 1}}></Button>
-        <Button variant="contained" user={this.props.user} onClick={(e) => this.handleBlockClick(e, this.state.profileUser)} name="block" children={this.state.blockLabel}></Button>
+        <Button variant="contained" user={this.props.user} onClick={(e) => this.handleFavoriteClick(e, this.props.user)} name="favorite" children={this.state.favLabel} sx={{margin: 1}}></Button>
+        <Button variant="contained" user={this.props.user} onClick={(e) => this.handleBlockClick(e, this.props.user)} name="block" children={this.state.blockLabel}></Button>
       </>
     )
   }

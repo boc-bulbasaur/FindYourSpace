@@ -95,7 +95,8 @@ const GridCellExpand = React.memo(function GridCellExpand(
         <Popper
           open={showFullCell && anchorEl !== null}
           anchorEl={anchorEl}
-          style={{ width, marginLeft: -17 }}
+          style={{ width: -17, borderStyle: 'solid', borderColor: 'white' }}
+          // style={{ width, marginLeft: -17 }}
         >
           <Paper
             elevation={1}
@@ -124,7 +125,6 @@ const columns: GridColDef[] = [
   { field: 'detail', headerName: 'Detail', width: 150, headerAlign: 'center', align: 'center', renderCell: renderCellExpand },
   { field: 'startDateTime', type: 'dateTime', headerName: 'Start DateTime', width: 220, headerAlign: 'center', align: 'center' },
   { field: 'endDateTime', type: 'dateTime', headerName: 'End DateTime', width: 220, headerAlign: 'center', align: 'center' },
-  { field: 'duration', type: 'number', headerName: 'Duration', width: 100, headerAlign: 'center', align: 'center' },
   { field: 'rebook', headerName: 'Rebook', width: 100, headerAlign: 'center', align: 'center', renderCell: (params) => <Link href={`/reservation`}><Button variant="outlined">Rebook</Button></Link>
  },
 ];
@@ -145,9 +145,9 @@ export default function HistoryTable(props: any) {
       const startDate = new Date(e.start_time);
       const endDate = new Date(e.end_time);
       const diffDate = diff_hours(endDate, startDate);
-      console.log(props.listings);
+      // console.log(props.listings);
       rows.push({id: e.id, name: e.name, address: e.address, detail: e.description,
-      startDateTime: startDate, endDateTime: endDate, duration: `${e.duration} hour(s)`, lat: e.lat, lng: e.lng, url: e.url});
+      startDateTime: startDate, endDateTime: endDate, lat: e.lat, lng: e.lng, url: e.url});
     });
   }
   return (
