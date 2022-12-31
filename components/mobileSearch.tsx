@@ -1,8 +1,8 @@
-import styles from '../styles/search.module.css';
 import { Box, Grid, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { useState } from 'react';
 import GoogleMapReact from 'google-map-react'
 import { IoLocation } from "react-icons/io5";
+import styles from '../styles/search.module.css';
 import SearchResult from '../components/searchResult';
 import SearchResultZoom from '../components/searchResultZoom';
 
