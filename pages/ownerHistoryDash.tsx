@@ -23,6 +23,7 @@ class RenterHistory extends React.Component {
     };
     this.liftDate = this.liftDate.bind(this);
     this.liftMonth = this.liftMonth.bind(this);
+    this.toggleBlock = this.toggleBlock.bind(this);
 
   }
 
@@ -58,6 +59,13 @@ class RenterHistory extends React.Component {
     console.log('new month: ', month);
    }
 
+   toggleBlock(e) {
+    let userId = e.id;
+    this.setState(prevState => {
+      ownerHistory: prevState.ownerHistory.map( el => el.id === userId? {...el, block: true} : el)
+    })
+   }
+
    render() {
 
       if (this.state.rentalDates.length === 0 || this.state.ownerHistory.length === 0) {
@@ -72,7 +80,7 @@ class RenterHistory extends React.Component {
               <O_RentalList ownerHistory={this.state.ownerHistory} newDate={this.state.selectedDate}/>
               <O_MonthlyBreakdown total={this.state.total}/>
             </div>
-            <O_RenderHistory  ownerHistory={this.state.ownerHistory} />
+            <O_RenderHistory  ownerHistory={this.state.ownerHistory} toggleBlock={this.toggleBlock}/>
           </>
         )
 

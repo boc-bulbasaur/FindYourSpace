@@ -20,6 +20,7 @@ const Demo = styled('div')(({ theme }) => ({
 
 export default function O_RentalList(props) {
   const [rentalHistory, setRentalHistory] = useState(props.ownerHistory)
+  const [selectedDate, setSelectedDate] = useState()
   console.log('list props: ', props)
   let matchedDates = [];
 
@@ -27,10 +28,10 @@ export default function O_RentalList(props) {
     props.ownerHistory.forEach((rental) => {
       let withTime = new Date(rental.start_time);
       let withoutTime = withTime.toISOString().split('T')[0];
-
+      //console.log('withoutTime: ', withoutTime)
       if (withoutTime === props.newDate) {
         matchedDates.push(rental)
-        // console.log('matchedDates: ', matchedDates)
+        console.log('withoutTime: ', withTime)
       }
     })
   }
@@ -60,7 +61,10 @@ export default function O_RentalList(props) {
             </ListItemAvatar>
             <ListItemText sx={{paddingLeft: '5%'}}
               primary={`${item.name} | $${item.short_term_rate}.00`}
-              secondary= {<button onClick={() => {console.log('clicked user id: ', item.id)}}>Cancel Reservation</button>}
+              secondary= {
+
+              <button onClick={() => {console.log('clicked user id: ', item.id)}}>Cancel Reservation</button>
+            }
             />
           </ListItem>
             )

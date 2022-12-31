@@ -49,7 +49,10 @@ export default function O_RenderHistory(props) {
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
-        onCellClick={(block) => {console.log(block)}}
+        onCellClick={(e) => {
+          e.row.block === true ? e.row.block = false : e.row.block = true
+          // alert(`Blocked user: ${e.row.name}`)
+        }}
         />
     </div>
   );
