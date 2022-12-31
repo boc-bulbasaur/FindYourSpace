@@ -22,6 +22,8 @@ type SearchResultProps = {
     always_available: boolean;
     high_clearance: boolean;
     description: string;
+    duration: number;
+    price: number;
   };
   startTime: string;
   endTime: string;
@@ -29,7 +31,7 @@ type SearchResultProps = {
 
 
 const SearchResultZoom = ({ location, startTime, endTime }: SearchResultProps): JSX.Element => {
-  const { address, id, distance, priceTag, url, attended, gated, type,
+  const { address, id, distance, priceTag, url, attended, gated, type, duration, price,
     electric, garage, always_available, high_clearance, description } = location;
 
   const checkMark = <span>&#10003;</span>;
@@ -70,7 +72,7 @@ const SearchResultZoom = ({ location, startTime, endTime }: SearchResultProps): 
         <Link
           href={{
             pathname: '/reservation',
-            query: { address, startTime: Date.parse(startTime), endTime: Date.parse(endTime) },
+            query: { address, startTime: Date.parse(startTime), endTime: Date.parse(endTime), duration, price },
           }}
         >
           <Button color='info'>Book Now!</Button>

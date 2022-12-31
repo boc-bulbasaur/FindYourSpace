@@ -92,6 +92,7 @@ export default function Search(props: SearchProps) {
               } else {
                 location['priceTag'] = `$${location['price']}/hr`;
               }
+              location['duration'] = duration;
             })
           }
           setSortBy('distance');
