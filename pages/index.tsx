@@ -47,39 +47,41 @@ export default function Home() {
       <NavBar session={session}/>
       <main className={styles.main}>
         <ThemeProvider theme={theme}>
-          <Typography variant="h2"
-            sx={{fontWeight: 600, display: 'flex'}
-          }>Parking made easy.</Typography>
-          <Typography variant="h5"
-            sx={{fontWeight: 600, my: 4,
-          }}>(It&apos;s like Airbnb for parking spots.)</Typography>
+          <Typography variant="h2" sx={{fontWeight: 600, display: 'flex'}}>Parking made easy.</Typography>
+          <Typography variant="h5" sx={{fontWeight: 600, my: 2 }}>(It&apos;s like Airbnb for parking spots.)</Typography>
 
           <div className={styles.grid}>
             <div className={styles.card}>
-              <h1>Convenient parking. Just clicks away.</h1>
-              <p>Find parking spaces near you, or wherever you are going. Compare the best spots by price and distance.</p>
+              <Typography variant="h4" sx={{fontWeight: 600, fontFamily: 'Sono', my: 4}}>Convenient parking. Just clicks away.</Typography>
+              <Typography variant="h6" sx={{ fontWeight: 400, lineHeight: 1.5 }}>
+                Find parking spaces near you, or wherever you are going. Compare the best spots by price and distance.
+              </Typography>
             </div>
 
             <div className={styles.card}>
-              <Image alt='' src='/../public/DALLE2_1.png' width='240' height='180'></Image>
+              <Image alt='' src='/DALLE2_1.png' width='280' height='200'></Image>
             </div>
 
             <div className={styles.card}>
-              <Image alt='' src='/../public/DALLE2_2.png' width='240' height='180'></Image>
+              <Image alt='' src='/DALLE2_2.png' width='280' height='200'></Image>
             </div>
 
             <div className={styles.card}>
-              <h1>Reserve your favorite spots ahead of time.</h1>
-              <p>Rent spots by the hour, day, week, or month. View your reservation history and save your favorites.</p>
+              <Typography variant="h4" sx={{fontWeight: 600, fontFamily: 'Sono', my: 4}}>Reserve your favorite spots ahead of time.</Typography>
+              <Typography variant="h6" sx={{ fontWeight: 400, lineHeight: 1.5 }}>
+                Rent spots by the hour, day, week, or month. View your reservation history and save your favorites.
+              </Typography>
             </div>
 
             <div className={styles.card}>
-              <h1>Rent your space and earn some cash.</h1>
-              <p>Have a parking spot? List your with us for hourly or monthly rentals. You control when and how to rent your space.</p>
+              <Typography variant="h4" sx={{fontWeight: 600, fontFamily: 'Sono', my: 4}}>Rent your space and earn some cash.</Typography>
+              <Typography variant="h6" sx={{ fontWeight: 400, lineHeight: 1.5 }}>
+                Have a parking spot? List your with us for hourly or monthly rentals. You control when and how to rent your space.
+              </Typography>
             </div>
 
             <div className={styles.card}>
-              <Image alt='' src='/../public/DALLE2_3.png' width='240' height='180'></Image>
+              <Image alt='' src='/DALLE2_3.png' width='280' height='200'></Image>
             </div>
           </div>
           <Divider variant="middle" color="white"/>
@@ -89,12 +91,11 @@ export default function Home() {
           </Typography>
           <div className={styles.grid}>
             <div className={styles.card}>
-              <p>Wow I love this app so much, it&apos;s amazing! &mdash;Taylor Swift</p>
+              <p>Wow I love this app so much, it&apos;s amazing! I use it for all my concerts. &mdash;Taylor Swift</p>
             </div>
             <div className={styles.card}>
-              <p>OMG you guys! You did it! My parking dreams come true. &mdash;Taylor Swift</p>
+              <p>OMG you guys! You did it! My parking dreams come true. &mdash;Barack Obama</p>
             </div>
-
             <div className={styles.card}>
               <p>I&apos;ve made so much money with this app. Try it now! &mdash;Taylor Swift</p>
             </div>

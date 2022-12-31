@@ -52,6 +52,7 @@ export default function LogIn() {
           justifyContent="center"
           marginTop={20}
           backgroundColor={'white'}
+          borderRadius={10}
           sx={{ p: 30, width: 400 }}
         >
           <Box margin={8} display={'flex'} flexDirection={'column'} justifyContent={'space-evenly'} alignItems={'stretch'}>
