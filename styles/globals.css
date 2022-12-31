@@ -54,7 +54,7 @@ a {
 /* adjust color of table row names */
 .MuiDataGrid-columnHeaderTitleContainerContent, .css-f3jnds-MuiDataGrid-columnHeaders {
   color: white;
-  background-color: #1b2139;
+  /* background-color: #1b2139; */
 }
 
 /* .css-1a40jv2-MuiTypography-root {
@@ -81,6 +81,11 @@ a {
 .owner-history-table, .css-1e2bxag-MuiDataGrid-root, .css-f3jnds-MuiDataGrid-columnHeaders {
   border-radius: 10px;
 }
+
+.MuiDataGrid-columnHeaders {
+  background-color: #1976D2;
+}
+
 
 /* //////RENTAL LIST COMPONENT////// */
 

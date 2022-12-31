@@ -125,7 +125,7 @@ const columns: GridColDef[] = [
   { field: 'detail', headerName: 'Detail', width: 150, headerAlign: 'center', align: 'center', renderCell: renderCellExpand },
   { field: 'startDateTime', type: 'dateTime', headerName: 'Start DateTime', width: 220, headerAlign: 'center', align: 'center' },
   { field: 'endDateTime', type: 'dateTime', headerName: 'End DateTime', width: 220, headerAlign: 'center', align: 'center' },
-  { field: 'rebook', headerName: 'Rebook', width: 100, headerAlign: 'center', align: 'center', renderCell: (params) => <Link href={`/reservation`}><Button variant="outlined">Rebook</Button></Link>
+  { field: 'rebook', headerName: 'Rebook', width: 100, headerAlign: 'center', align: 'center', renderCell: (params) => <Link href={`/reservation`}><Button variant="outlined" sx={{backgroundColor: '#1976D2'}}>Rebook</Button></Link>
  },
 ];
 
