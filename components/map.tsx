@@ -19,7 +19,7 @@ const Map = ({coordinates, results, selected, handleClick }: MapProps) =>{
     <GoogleMapReact
           bootstrapURLKeys = {{key: process.env.GOOGLE_MAP_API_KEY}}
           center = {coordinates}
-          defaultZoom = {15}
+          defaultZoom = {14.5}
           margin = {[50,50,50,50]}
           option= {''}
           onchange = {()=>{}}

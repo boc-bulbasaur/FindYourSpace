@@ -106,7 +106,7 @@ const SearchResults = ({results, isLoading, sortBy, setSortBy, startTime, endTim
             onChange={handleChange}
           >
             <ToggleButton value="distance">Distance</ToggleButton>
-            <ToggleButton value="lat">Price</ToggleButton>
+            <ToggleButton value="price">Price</ToggleButton>
           </ToggleButtonGroup>
         </Grid>
       </Grid>
