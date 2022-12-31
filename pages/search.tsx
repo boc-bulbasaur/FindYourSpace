@@ -117,11 +117,8 @@ export default function Search(props: SearchProps) {
 
   return (
     <>
-<<<<<<< HEAD
       <NavBar session={session}/>
       <ThemeProvider theme={theme} >
-=======
->>>>>>> main
         <script id="google-map-script" async defer src={scriptURL} />
         <Box sx={{
           width: '100%',
@@ -131,6 +128,7 @@ export default function Search(props: SearchProps) {
           alignItems: 'center',
           color: 'white'
           }} >
+          <NavBar session={session}/>
         </Box>
       <ThemeProvider theme={theme} >
         <Box sx={{

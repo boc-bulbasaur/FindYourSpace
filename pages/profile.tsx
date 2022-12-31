@@ -19,7 +19,7 @@ export default function Profile() {
   console.log('session', session);
   const router = useRouter();
   useEffect(()=>{
-    if (!session) {
+    if (status === 'unauthenticated') {
       router.push('/');
     }
   });
