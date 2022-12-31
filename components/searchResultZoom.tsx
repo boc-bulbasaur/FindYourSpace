@@ -12,8 +12,9 @@ type SearchResultProps = {
     address: string;
     id: number;
     distance: number;
-    price: number;
+    priceTag: number;
     url: string;
+    type: string;
     attended: boolean;
     gated: boolean;
     electric: boolean;
@@ -28,8 +29,12 @@ type SearchResultProps = {
 
 
 const SearchResultZoom = ({ location, startTime, endTime }: SearchResultProps): JSX.Element => {
-  const { address, id, distance, price, url, attended, gated,
+  const { address, id, distance, priceTag, url, attended, gated, type,
     electric, garage, always_available, high_clearance, description } = location;
+
+  const checkMark = <span>&#10003;</span>;
+
+  const crossMark = <span>&#10005;</span>;
 
   return (
     <Box sx={{
@@ -42,22 +47,23 @@ const SearchResultZoom = ({ location, startTime, endTime }: SearchResultProps): 
         <Grid item xs={12} margin={'10px'} >
           <Box className={styles.address} >Address: {address}</Box>
           <Box className={styles.distance} >Distance: {Math.round(distance)} m</Box>
-          <Box className={styles.price} >Price: ${price}/hr</Box>
+          <Box className={styles.price} >Price: {priceTag}</Box>
           <Box className={styles.description} >Description: {description}</Box>
         </Grid>
         <Grid container item xs={12} margin={'10px'}>
           <Grid container item direction={'column'} xs={6}>
             <Grid item xs={12} sm={6} >
-              <div>Attended: {attended ? 'U+2713' : ''}</div>
-              <div>Gated: {gated ? 'U+2713' : ''}</div>
-              <div>Electric Charger: {electric ? 'U+2713' : ''}</div>
-              <div>Garage Parking: {garage ? 'U+2713' : ''}</div>
-              <div>Always Available: {always_available ? 'U+2713' : ''}</div>
-              <div>High Clearance: {high_clearance ? 'U+2713' : ''}</div>
+              <div>Type: {type}</div>
+              <div>Attended: {attended ? checkMark : crossMark}</div>
+              <div>Gated: {gated ? checkMark : crossMark}</div>
+              <div>Electric Charger: {electric ? checkMark : crossMark}</div>
+              <div>Garage Parking: {garage ? checkMark : crossMark}</div>
+              <div>Always Available: {always_available ? checkMark : crossMark}</div>
+              <div>High Clearance: {high_clearance ? checkMark : crossMark}</div>
             </Grid>
           </Grid>
           <Grid item xs={12} sm={6} overflow='hidden' position={'relative'}>
-            <Image src={url} fill alt={`picture for ${address}`} />
+            <img src={url} alt={`picture for ${address}`} />
           </Grid>
         </Grid>
       </Grid>
