@@ -8,9 +8,9 @@ import { Box, TextField, TextFieldProps, Button, Grid } from '@mui/material';
 
 type SearchBarProps = {
   setCoordinates: Function;
-  startTime: String;
+  startTime: string;
   setStartTime: Function;
-  endTime: String;
+  endTime: string;
   setEndTime: Function;
   handleSearch: any;
 }
