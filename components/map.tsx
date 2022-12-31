@@ -47,7 +47,7 @@ const Map = ({coordinates, results, selected, handleClick }: MapProps) =>{
               zIndex={20}
               onClick={(e) => { handleClick(e, id) }}
              >
-              <IoLocation color='blue' fontSize={45} />
+              <IoLocation color='#29b6f6' fontSize={45} />
             </Box>)
         } else {
           return (

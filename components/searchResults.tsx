@@ -99,7 +99,7 @@ const SearchResults = ({results, isLoading, sortBy, setSortBy, startTime, endTim
           alignItems={'center'}
         >
           <ToggleButtonGroup
-            color="primary"
+            color="info"
             value={sortBy}
             exclusive
             aria-label="sortBy"

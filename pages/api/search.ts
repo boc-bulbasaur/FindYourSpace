@@ -14,7 +14,7 @@ export default async function handler(
   }
   const duration = (Date.parse(endTime) - Date.parse(startTime)) / 3600000;
   let price;
-  if (duration > 24) {
+  if (duration >= 24) {
     price = 'long_term_rate';
   } else {
     price = 'short_term_rate';

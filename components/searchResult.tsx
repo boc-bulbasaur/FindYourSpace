@@ -27,8 +27,8 @@ const SearchResult = ({location}: SearchResultProps): JSX.Element => {
           <Box className={styles.address} >Address: {address}</Box>
           <Box className={styles.distance} >Distance: {Math.round(distance)} m</Box>
         </Grid>
-        <Grid item xs={12} sm={2.5} color={'lightGreen'} margin={'auto'}>
-          <Box className={styles.price} >Price: {priceTag}</Box>
+        <Grid item xs={12} sm={2.5} margin={'auto'}>
+          <Box className={styles.price} color='#29b6f6'>Price: {priceTag}</Box>
         </Grid>
       </Grid>
     </Box>
