@@ -8,17 +8,17 @@ import Typography from '@mui/material/Typography';
 
 export default function ImgMediaCard(props) {
   let cardImg, address, startDate, endDate;
-  if (props.listings[1] !== undefined) {
-    cardImg = props.listings[1].url;
-    address = props.listings[1].address;
-    startDate = undefined ? '' : new Date(props.listings[1].start_time).toString();
-    endDate = undefined ? '' : new Date(props.listings[1].end_time).toString();
+  if (props.currentListing !== undefined) {
+    cardImg = props.currentListing.url;
+    address = props.currentListing.address;
+    startDate = undefined ? '' : new Date(props.currentListing.start_time).toString();
+    endDate = undefined ? '' : new Date(props.currentListing.end_time).toString();
   }
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         component="img"
-        alt="green iguana"
+        alt="parking image"
         height="140"
         image={cardImg}
       />
@@ -32,8 +32,8 @@ export default function ImgMediaCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+        {/* <Button size="small">Share</Button>
+        <Button size="small">Learn More</Button> */}
       </CardActions>
     </Card>
   );

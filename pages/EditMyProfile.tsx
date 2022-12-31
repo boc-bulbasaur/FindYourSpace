@@ -1,4 +1,4 @@
-import ProfileAbout from "../components/profile/profileAbout";
+import EditProfileAbout from "../components/editMyProfile/editProfileAbout";
 import NavBar from "../components/navBar";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { useSession } from 'next-auth/react';
@@ -33,7 +33,7 @@ const theme = createTheme({
         <NavBar session={session}/>
         <div className="profile-container">
           <h1>Edit your Profile</h1>
-          <ProfileAbout name="testName"/>
+          <EditProfileAbout session={session} />
         </div>
       </ThemeProvider>
      </>

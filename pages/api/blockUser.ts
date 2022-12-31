@@ -23,7 +23,7 @@ export default async function handler(
     const user = rows[0];
     console.log('user', user);
     if (user !== undefined) {
-      res.status(200).json({ error: 'User is already blocked.' });
+      res.status(200).json({ notification: 'User is already blocked.' });
     } else {
       const values = [user_id, blocked_user_id];
       const { rows } = await client.query(`INSERT INTO blocked

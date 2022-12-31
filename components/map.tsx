@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import GoogleMapReact from 'google-map-react'
 import { IoLocation } from "react-icons/io5";
 
-
 type MapProps = {
   coordinates: {
     lat: number;
@@ -11,15 +10,16 @@ type MapProps = {
   };
   results: {}[];
   selected: number;
+  handleClick: Function;
 }
 
-const Map = ({coordinates, results, selected }: MapProps) =>{
+const Map = ({coordinates, results, selected, handleClick }: MapProps) =>{
   return (
   <Box position={'absolute'} right={0} width={'60%'} height = {'100%'}>
     <GoogleMapReact
           bootstrapURLKeys = {{key: process.env.GOOGLE_MAP_API_KEY}}
           center = {coordinates}
-          defaultZoom = {12}
+          defaultZoom = {14.5}
           margin = {[50,50,50,50]}
           option= {''}
           onchange = {()=>{}}
@@ -45,8 +45,9 @@ const Map = ({coordinates, results, selected }: MapProps) =>{
               lng = {lng}
               position={'relative'}
               zIndex={20}
+              onClick={(e) => { handleClick(e, id) }}
              >
-              <IoLocation color='blue' fontSize={40} />
+              <IoLocation color='#29b6f6' fontSize={45} />
             </Box>)
         } else {
           return (
@@ -57,6 +58,7 @@ const Map = ({coordinates, results, selected }: MapProps) =>{
               lng = {lng}
               position={'relative'}
               zIndex={10}
+              onClick={(e) => { handleClick(e, id) }}
              >
               <IoLocation color='black' fontSize={40} />
             </Box>)

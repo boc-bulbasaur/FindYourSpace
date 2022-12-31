@@ -20,11 +20,11 @@ a {
 
 @media (prefers-color-scheme: dark) {
   html {
-    color-scheme: dark;
+    color-scheme: light;
   }
   body {
     color: white;
-    background: black;
+    background: #1c1c1c;
   }
 }
 
@@ -37,63 +37,27 @@ a {
 
 /* //////OWNER HISTORY CSS////// */
 
-/* +++++CALENDAR STYLING+++++++ */
-
 /* Disables unwanted calendar features */
 .css-hlj6pa-MuiDialogActions-root, .css-z3au5x-MuiButtonBase-root-MuiIconButton-root-MuiPickersToolbar-penIconButton,
-.css-1hbyad5-MuiTypography-root {
+.css-1hbyad5-MuiTypography-root, .css-sgf601-MuiTypography-root {
   display: none !important
 }
 
-/* Center Calendar Date */
-.css-jhsfre-MuiGrid-root-MuiPickersToolbar-content {
-  justify-content: center !important;
-  color: white;
-  background-color: #2196f3;
-  /* padding: 1rem; */
-}
-
-/* adjust padding and alignment of calendar date */
-.css-1eurbeq-MuiPickersToolbar-root-MuiDatePickerToolbar-root {
-  padding: 0px;
-  height: 80px;
-}
-
-/* Calendar size and shadow */
-.css-u0soqy-MuiPickerStaticWrapper-root {
-  margin: 20px 0px 20px 60px;
-  height: 425px;
-  width: 410px;
-  box-shadow: 3px 2px 10px 5px #888888 !important;
-}
-
-/* display calendar and rental list in a row */
-.calendar-list-view{
-  display: flex;
-  flex-direction: row;
-}
-
-/* +++++++ HISTORY STYLING+++++++ */
-
-/* history breakdown styling */
-.css-1e2bxag-MuiDataGrid-root {
-  margin: 0px 60px 10px 60px;
-  box-shadow: 3px 2px 10px 5px #888888 !important;
-}
-
-/* set color of top row */
-.css-gl260s-MuiDataGrid-columnHeadersInner {
+.css-58prr7-MuiTypography-root-MuiDatePickerToolbar-title {
+  width: 25rem;
+  border-radius: 10px;
+  padding: .5rem;
   background-color: #1b2139;
-  /* background-color: red; */
+  color: white;
 }
 
 /* adjust color of table row names */
-.MuiDataGrid-columnHeaderTitleContainerContent {
+.MuiDataGrid-columnHeaderTitleContainerContent, .css-f3jnds-MuiDataGrid-columnHeaders {
   color: white;
   background-color: #1b2139;
 }
 
-.css-1a40jv2-MuiTypography-root {
+/* .css-1a40jv2-MuiTypography-root {
   margin: 0;
   color: white;
   background-color: #2196f3;;
@@ -105,7 +69,7 @@ a {
   text-align: center;
   width: 425px;
   height: 82px;
-}
+} */
 
 /* rounds rental history and calendar components */
 .css-399ykn, .owner-rental-list, .css-1a40jv2-MuiTypography-root,

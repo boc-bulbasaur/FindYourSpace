@@ -12,11 +12,10 @@ type SearchBarProps = {
   setStartTime: Function;
   endTime: String;
   setEndTime: Function;
-  isLoading: Boolean;
   handleSearch: any;
 }
 
-const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTime, isLoading, handleSearch }: SearchBarProps)=>{
+const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTime, handleSearch }: SearchBarProps)=>{
   const [autocomplete, setAuotcomplete] = useState(null)
   const onLoad = (autoC: any) => setAuotcomplete(autoC);
   const onPlaceChanged = ()=>{
@@ -25,6 +24,7 @@ const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTim
     setCoordinates({lat,lng})
   }
   let now = new Date();
+
   return (
     <Box>
       <Grid container direction="row" justifyContent='flex-start' alignItems='center' >
@@ -77,6 +77,7 @@ const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTim
             variant="contained"
             onClick={handleSearch}
             fullWidth
+            color='info'
           >
             Search
           </Button>

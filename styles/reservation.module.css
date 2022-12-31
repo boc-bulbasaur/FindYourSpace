@@ -1,15 +1,32 @@
 /*NEW RESERVATION STYLES*/
 .newRes {
+  display: flex;
+  flex-direction: row;
   text-align: center;
+  width: 100%;
+  margin-bottom: 5%;
+}
+
+.timer {
+  text-align: right;
+  margin-bottom: 0;
+  margin-top: 0;
+  margin-right: 5%;
+}
+
+.rightHalf, .leftHalf {
+  width: 50%;
 }
 
 .checkout {
   font-size: 64px;
-  margin: 0;
+  text-align: center;
+  margin-top: 0;
 }
 
 .back {
  vertical-align: middle;
+ margin-bottom: 0;
 }
 
 .billing {
@@ -17,7 +34,7 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  width: 40%;
+  width: 50%;
   margin: auto;
 }
 
@@ -101,4 +118,20 @@
 
 .noIcons {
   margin-bottom: 2px;
+}
+
+.bottom {
+  margin-bottom: 5%;
+}
+
+.parkIcons {
+  display: inline;
+  text-align: left;
+  margin-left: 5%;
+}
+
+.cancellation {
+  width: 50%;
+  margin: auto;
+  text-align: left;
 }
