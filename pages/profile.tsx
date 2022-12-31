@@ -79,19 +79,22 @@ export default function Profile() {
       console.error('Error:', error);
     });
   }
+  if (status === 'authenticated') {
+    return (
+      <>
+       <ThemeProvider theme={theme}>
+         <NavBar session={session}/>
+         <div className="profile-container">
+           <h1>Profile</h1>
+           <ProfileAbout name="testName"/>
+           <ProfileButtons session={session}/>
+           {history}
+         </div>
+       </ThemeProvider>
+      </>
 
-  return (
-     <>
-      <ThemeProvider theme={theme}>
-        <NavBar session={session}/>
-        <div className="profile-container">
-          <h1>Profile</h1>
-          <ProfileAbout name="testName"/>
-          <ProfileButtons session={session}/>
-          {history}
-        </div>
-      </ThemeProvider>
-     </>
-
-  )
+   )
+  } else {
+    return (<></>)
+  }
 }

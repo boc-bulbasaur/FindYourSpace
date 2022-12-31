@@ -7,11 +7,18 @@ import HistoryToggle from "../components/history/historyToggle";
 // MUI default Robot font
 import styles from '../styles/history.module.css';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
+import router from 'next/router';
 // import '../styles/history.module.css';
 
 export default function History() {
   const { data: session, status } = useSession();
+  useEffect(()=>{
+    if (status === 'unauthenticated') {
+      router.push('/');
+    }
+  });
   console.log('status', status);
   console.log('session', session);
 
@@ -62,16 +69,21 @@ export default function History() {
   } else {
     history = <OwnerHistory session={session}/>
   }
-  return (
-    <ThemeProvider theme={theme} >
-      <div>
-        <NavBar session={session}/>
-        <div className={styles.historyToggle} >
-          <HistoryToggle handleToggle={handleToggle} sx={{color: 'white'}}/>
+  if (status === 'authenticated') {
+    return (
+      <ThemeProvider theme={theme} >
+        <div>
+          <NavBar session={session}/>
+          <div className={styles.historyToggle} >
+            <HistoryToggle handleToggle={handleToggle} sx={{color: 'white'}}/>
+          </div>
+          {history}
         </div>
-        {history}
-      </div>
-    </ThemeProvider>
-  );
+      </ThemeProvider>
+    );
+  } else {
+    return (<></>)
+  }
+
 
 }
