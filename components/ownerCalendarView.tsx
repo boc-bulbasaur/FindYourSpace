@@ -18,7 +18,7 @@ const isWeekend = (date) => {
 };
 
 export default function DatePicker(props) {
-  const [value, setValue] = React.useState(new Date('2022-12-28'));
+  const [value, setValue] = React.useState(new Date('2022-12-31'));
   const [highlightedDays, setHighlightedDays] = React.useState(props.dates);
   console.log('Calendar Dates: ', props.dates)
 
@@ -57,7 +57,7 @@ export default function DatePicker(props) {
               <Badge
                 key={day.toString()}
                 overlap="circular"
-                badgeContent={isSelected ? <FiberManualRecordIcon sx={{ color: '#0266F9' }} /> : undefined}
+                badgeContent={isSelected ? <FiberManualRecordIcon sx={{ color: '#9c27b0' }} /> : undefined}
               >
                 <PickersDay {...DayComponentProps} />
               </Badge>

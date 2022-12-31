@@ -187,23 +187,22 @@
   width: 25rem;
   height: 10rem;
   border-radius: 10px;
-  background-color: white;
 }
 
 .mb_annual_revenue_container, .mb_occupancy_percentage_container {
   height: 80%;
   width: 90%;
-  margin: 10% 5% 10% 5%;
-  background-color: #f5f5f5;
+  margin: 0% 0% 10% 0%;
+  /* color: white; */
   border-radius: 10px;
   /* box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%); */
 }
 
 .mb_ar_title, .mb_op_title {
-  background-color: #1b2139;
+  background-color: #1976d2;
   height: 2rem;
   border-radius: 10px;
-  margin: 10px 0px 10px 0px;
+  /* margin: 10px 0px 10px 0px; */
   text-align: center;
   color: white;
   padding: 5px;
@@ -212,7 +211,7 @@
 .mb_ar_data, .mb_op_data {
   font-size: xx-large;
   text-align: center;
+  color: white;
   padding: 3%;
-  color: #1b2139;
 }
 

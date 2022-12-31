@@ -47,33 +47,35 @@ a {
   width: 25rem;
   border-radius: 10px;
   padding: .5rem;
-  background-color: #1b2139;
+  /* background-color: #1b2139; */
   color: white;
 }
 
 /* adjust color of table row names */
 .MuiDataGrid-columnHeaderTitleContainerContent, .css-f3jnds-MuiDataGrid-columnHeaders {
   color: white;
-  background-color: #1b2139;
+  /* background-color: #1976d2; */
 }
 
-/* .css-1a40jv2-MuiTypography-root {
-  margin: 0;
-  color: white;
-  background-color: #2196f3;;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 400;
-  font-size: 2.125rem;
-  line-height: 1.235;
-  letter-spacing: 0.00735em;
-  text-align: center;
-  width: 425px;
-  height: 82px;
+.MuiDataGrid-columnHeaders {
+  background-color: #1976D2;
+}
+
+/* adjust table record background color */
+/* .css-s1v7zr-MuiDataGrid-virtualScrollerRenderZone {
+  background-color: white;
 } */
+
 
 /* rounds rental history and calendar components */
 .css-399ykn, .owner-rental-list, .css-1a40jv2-MuiTypography-root,
 .css-u0soqy-MuiPickerStaticWrapper-root, .css-xelq0e-MuiPickerStaticWrapper-content {
+  border-radius: 10px;
+}
+
+/* Adjust Calendar Header Color */
+.css-1eurbeq-MuiPickersToolbar-root-MuiDatePickerToolbar-root {
+  background-color: #1976d2;
   border-radius: 10px;
 }
 
@@ -103,55 +105,7 @@ a {
   width: 50px;
 }
 
-.monthly-breakdown-container {
-  margin: 20px 0px 20px 60px;
-  max-width: 425px;
-  height: 425px;
-  width: 300px;
-  /* box-shadow: 3px 2px 10px 5px #888888 !important; */
-}
 
-.mb-annual-revenue-container {
-  margin: 20px 0px 20px 20px;
-  max-width: 180px;
-  height: 180px;
-  width: 300px;
-  box-shadow: 3px 2px 10px 5px #888888 !important;
-  border-radius: 10px;
-}
-
-.mb-occupancy-percentage-container {
-  margin: 20px 20px 20px 20px;
-  max-width: 180px;
-  height: 180px;
-  width: 300px;
-  box-shadow: 3px 2px 10px 5px #888888 !important;
-  border-radius: 10px;
-}
-
-.mb-ar-title, .mb-op-title {
-  margin: 0;
-  color: white;
-  background-color: #2196f3;;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 400;
-  font-size: 1.2rem;
-  line-height: 1.235;
-  letter-spacing: 0.00735em;
-  text-align: center;
-  width: 100%;
-  height: 45px;
-  border-radius: 10px;
-}
-
-.mb-ar-data, .mb-op-data {
-  margin: 32.5px 12.5px 32.5px 12.5px;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-weight: 400;
-  font-size: 2rem;
-  line-height: 1.235;
-  color: green
-}
 /*NEW RESERVATION STYLES*/
 .newRes h1, .newRes h3, footer {
   text-align: center;

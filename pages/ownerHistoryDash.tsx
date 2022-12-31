@@ -27,6 +27,7 @@ class RenterHistory extends React.Component {
 
   }
 
+
   async componentDidMount() {
 
     const response = await fetch(`http://localhost:3000/api/ownerHistory`)
@@ -68,6 +69,22 @@ class RenterHistory extends React.Component {
 
    render() {
 
+      const theme = createTheme({
+        palette: {
+          mode: 'dark',
+          primary: {
+            main: '#1b2139',
+            dark: '#c9c9ce',
+          },
+          secondary: {
+            main: '#000000',
+          },
+        },
+        typography: {
+          fontFamily: ['Sono','sans-serif'].join(',')
+        },
+      });
+
       if (this.state.rentalDates.length === 0 || this.state.ownerHistory.length === 0) {
         return <div />;
       }
@@ -75,12 +92,14 @@ class RenterHistory extends React.Component {
     return (
           <>
             <NavBar session={undefined} />
-            <div className={styles.owner_top_container}>
-              <DatePicker liftDate={this.liftDate} liftMonth={this.liftMonth} dates={this.state.rentalDates}/>
-              <O_RentalList ownerHistory={this.state.ownerHistory} newDate={this.state.selectedDate}/>
-              <O_MonthlyBreakdown total={this.state.total}/>
-            </div>
-            <O_RenderHistory  ownerHistory={this.state.ownerHistory} toggleBlock={this.toggleBlock}/>
+            <ThemeProvider theme={theme} >
+              <div className={styles.owner_top_container}>
+                <DatePicker liftDate={this.liftDate} liftMonth={this.liftMonth} dates={this.state.rentalDates}/>
+                <O_RentalList ownerHistory={this.state.ownerHistory} newDate={this.state.selectedDate}/>
+                <O_MonthlyBreakdown total={this.state.total}/>
+              </div>
+              <O_RenderHistory  ownerHistory={this.state.ownerHistory} toggleBlock={this.toggleBlock}/>
+            </ThemeProvider>
           </>
         )
 

@@ -33,7 +33,7 @@ export default function O_RentalList(props) {
       if (withoutTime === props.newDate) {
         currentDay = withTime;
         matchedDates.push(rental)
-        // console.log('current Time: ', withTime < new Date())
+        console.log('current Time: ', withTime < new Date('2022-12-30'))
       }
     })
     if (currentDay < new Date()) {
@@ -46,7 +46,7 @@ export default function O_RentalList(props) {
     <Box className={styles.owner_history_table}>
       <Typography sx={{
         color: 'white',
-        backgroundColor: '#1b2139',
+        backgroundColor: '#1976d2',
         padding: '1rem',
         textAlign: 'center',
         borderRadius: '10px',
@@ -58,14 +58,14 @@ export default function O_RentalList(props) {
             matchedDates.map((item) => {
             return (
             <ListItem sx={{
-            backgroundColor: '#F5F5F5',
+            backgroundColor: '#c9c9ce',
             borderRadius: '10px',
             margin: '15px 0px 10px 0px',
           }} key={item.id}>
             <ListItemAvatar>
-              <AccountCircleRoundedIcon fontSize="large" sx={{height: '50px', width: '50px'}}></AccountCircleRoundedIcon>
+              <AccountCircleRoundedIcon fontSize="large" sx={{height: '50px', width: '50px', color: 'black'}}></AccountCircleRoundedIcon>
             </ListItemAvatar>
-            <ListItemText sx={{paddingLeft: '5%'}}
+            <ListItemText sx={{color: 'black', paddingLeft: '5%'}}
               primary={`${item.name} | $${item.short_term_rate}.00`}
               secondary= {
               secondaryText || <button onClick={() => {console.log('clicked user id: ', item.id)}}>Cancel Reservation</button>

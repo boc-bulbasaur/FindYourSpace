@@ -63,15 +63,15 @@ export default function History() {
     history = <OwnerHistory session={session}/>
   }
   return (
-    <ThemeProvider theme={theme} >
-      <div>
+    <div>
         <NavBar session={session}/>
+        <ThemeProvider theme={theme} >
         <div className={styles.historyToggle} >
           <HistoryToggle handleToggle={handleToggle} sx={{color: 'white'}}/>
         </div>
         {history}
+      </ThemeProvider>
       </div>
-    </ThemeProvider>
   );
 
 }
