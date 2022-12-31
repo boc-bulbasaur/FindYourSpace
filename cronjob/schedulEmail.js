@@ -19,7 +19,7 @@ client.connect((err) => {
   } else {
     console.log('DB connected');
     CronStart('start')
-    // CronStart('end')
+    CronStart('end')
   }
 });
 
@@ -32,7 +32,7 @@ const CronStart=(type)=>{
   const job = new CronJob(
     `* * * * *`,
     async function() {
-      const res = await client.query(`select *, ${type}_time, ABS(EXTRACT(EPOCH FROM (now() - ${type}_time))) <= 900 AS difference from bookings`)
+      const res = await client.query(`select *, ${type}_time, EXTRACT(EPOCH FROM (${type}_time - now())) BETWEEN -200 AND 901 AS difference from bookings`)
       if(res.rows.length > 0){
         res.rows.map((row)=>{
           if (row.difference) {
