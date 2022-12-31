@@ -1,8 +1,10 @@
 import React from 'react';
 import HistoryTable from '../components/history/r_historyTable';
+import ImgMediaCard from '../components/history/r_historyCard';
 import dynamic from 'next/dynamic'
 import { GridEventListener } from '@mui/x-data-grid';
 import { Box, Card, Typography } from '@mui/material';
+import styles from '../styles/history.module.css';
 
 class RenterHistory extends React.Component {
 
@@ -12,8 +14,8 @@ class RenterHistory extends React.Component {
       listings: [],
       currentLoc: [40.7128,-74.0060], //default to NYC
       timeRange: '',
-      numListings: ''
-
+      numListings: '',
+      currentListing: {}
     };
     this.handleTableClick = this.handleTableClick.bind(this);
     this.calculateTimeRange = this.calculateTimeRange.bind(this);
@@ -109,7 +111,11 @@ class RenterHistory extends React.Component {
     details, // GridCallbackDetails
   ) => {
     event.preventDefault();
-    this.setState({currentLoc: [params.row.lat,params.row.lng]});
+    console.log(params.row);
+    this.setState({
+      currentLoc: [params.row.lat,params.row.lng],
+      currentListing: params.row
+    });
   };
 
   render() {
@@ -120,11 +126,11 @@ class RenterHistory extends React.Component {
         ssr: false
       }
     );
-    let timeRange;
+    let timeRange, mediaCard;
     if (this.state.timeRange !== '') {
-      timeRange = <Card sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)', padding: 2, margin: 2, width: '50%'}}>
+      timeRange = <Card sx={{ mx: '2px', transform: 'scale(0.8)', padding: 2, margin: 2, border: 'groove', borderWidth: '10px'}}>
         <Typography variant="h4" component="div">
-          Quick stats:
+          At a Glance:
           <Typography sx={{ fontSize: 20 }} color="text.secondary">
             {this.state.numListings} reservations over<br />
             {this.state.timeRange[0]} year(s)<br />
@@ -135,14 +141,23 @@ class RenterHistory extends React.Component {
 
         </Card>
     }
+    if (Object.keys(this.state.currentListing).length !== 0) {
+      mediaCard = <ImgMediaCard currentListing={this.state.currentListing}/>
+    }
     return (
       <>
         <h1>My Rental History</h1>
-        <HistoryTable listings={this.state.listings} handleTableClick={this.handleTableClick} />
-        {timeRange}
-        <Box >Current Position: {}
+        <div className={styles.historyTable}>
+          <HistoryTable listings={this.state.listings} handleTableClick={this.handleTableClick} />
+        </div>
+        <div className={styles.historySummary}>
+          {timeRange}
+          {mediaCard}
+        </div>
+        {/* <Box > */}
+          <h2>Current Selection:</h2>
           <LeafMap position={this.state.currentLoc} />
-        </Box>
+        {/* </Box> */}
       </>
     )
   }

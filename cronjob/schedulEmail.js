@@ -32,33 +32,35 @@ const CronStart=(type)=>{
   const job = new CronJob(
     `* * * * *`,
     async function() {
-      const res = await client.query(`select *, ${type}_time, EXTRACT(EPOCH FROM (now() - ${type}_time)) < 900 AS difference from bookings`)
+      const res = await client.query(`select *, EXTRACT(EPOCH FROM (${type}_time - now())) BETWEEN -20000 AND 9000000 AS difference from bookings`)
       if(res.rows.length > 0){
         res.rows.map((row)=>{
-          // console.log(row)
           if (row.difference) {
-            client.query(`SELECT users.name, users.email, locations.address, bookings.${type}_time
+            client.query(`SELECT *
             from bookings
-            JOIN locations
-            on bookings.address_id = locations.id
+            JOIN listings
+            on bookings.listing_id = listings.id
             JOIN users
-            on bookings.userid = users.user_id  where locations.id =${row.address_id}`, (err, res2) => {
+            on bookings.userid = users.user_id  where bookings.id =${row.id}`, (err, res2) => {
               if(err){
                 console.log(err)
               } else{
-                 name = res2.rows[0].name
-                 add = res2.rows[0].address
-                //  email = res2.rows[0].email
-                 email = 'shzf13@gmail.com'
-                 currentdate = new Date(res2.rows[0][`${type}_time`]);
-                 var time = currentdate.getDate() + "/"
-                           + (currentdate.getMonth()+1)  + "/"
-                           + currentdate.getFullYear() + " @ "
-                           + currentdate.getHours() + ":"
-                           + currentdate.getMinutes() + ":"
-                           + currentdate.getSeconds();
-
-                 handleEmail(email, add, time, type, name)
+                name = res2.rows[0].name
+                add = res2.rows[0].address
+                special = res2.rows[0].special_information || 'None'
+                email = res2.rows[0].email
+                currentdate = new Date(res2.rows[0][`${type}_time`]);
+                var hours = currentdate.getHours
+                var ampm = (hours >= 12) ? "PM" : "AM";
+                var time =
+                + currentdate.getFullYear() + "/"
+                + (currentdate.getMonth()+1)  + "/"
+                + currentdate.getDate() + " "
+                + currentdate.getHours() + ":"
+                + (currentdate.getMinutes()<10?'0':'') + currentdate.getMinutes()
+                + ampm
+                // console.log(email, add, time, type, name, special)
+                handleEmail(email, add, time, type, name, special)
 
               }
             })

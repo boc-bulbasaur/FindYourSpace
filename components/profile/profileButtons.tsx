@@ -8,18 +8,18 @@ class ProfileButtons extends React.Component {
     super(props);
     this.state = {
       blockLabel: 'Block',
-      favLabel: 'Favorite'
+      favLabel: 'Favorite',
+      profileUser: this.props.user //based on URL parameter
     };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
     this.handleBlockClick = this.handleBlockClick.bind(this);
   }
 
-  handleFavoriteClick = async () => {
+  handleFavoriteClick = async (e: any, userToFav: any) => {
     const body = {
-      user_id: 3,
-      blocked_user_id: 7,
+      user_id: this.state.currUser,
+      fav_user_id: userToFav,
     }
     await fetch('/api/favoriteUser', {
       method: 'POST',
@@ -38,10 +38,14 @@ class ProfileButtons extends React.Component {
     });
   }
 
-  handleBlockClick = async () => {
+  handleBlockClick = async (e: any, userToBlock: any) => {
+    if (userToBlock === undefined) {
+      return;
+    }
+    const currUser = this.props.session.user.user_id; //currUser = user from session
     const body = {
-      user_id: 3,
-      blocked_user_id: 2,
+      user_id: currUser,
+      blocked_user_id: userToBlock,
     }
     await fetch('/api/blockUser', {
       method: 'POST',
@@ -54,49 +58,18 @@ class ProfileButtons extends React.Component {
       if (response.status === 201) {
         console.log('Success:', response);
       }
+      this.setState({blockLabel: 'Blocked'});
     })
     .catch((error) => {
       console.error('Error:', error);
     });
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const postData = async () => {
-      const data = {
-        block: '',
-        favorite: ''
-      };
-      if (e.target.name === 'block') {
-        data.block = 'username';
-      } else if (e.target.name === 'favorite') {
-        data.favorite = 'username';
-      }
-
-      const response = await fetch("/api/profile", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
-      return response.json();
-    };
-    postData().then((data) => {
-      console.log('API called');
-      console.log(data);
-    });
-
-    if (e.target.name === 'block') {
-      this.setState({blockLabel: 'Blocked'});
-    } else if (e.target.name === 'favorite') {
-      // e.target.name = 'Added to Favorites';
-      this.setState({favLabel: 'Added to Favorites'});
-    }
-  }
-
   render() {
     return (
       <>
-        <Button variant="contained" onClick={this.handleFavoriteClick} name="favorite" children={this.state.favLabel} sx={{margin: 1}}></Button>
-        <Button variant="contained" onClick={this.handleBlockClick} name="block" children={this.state.blockLabel}></Button>
+        <Button variant="contained" user={this.props.user} onClick={(e) => this.handleFavoriteClick(e, this.props.user)} name="favorite" children={this.state.favLabel} sx={{margin: 1}}></Button>
+        <Button variant="contained" user={this.props.user} onClick={(e) => this.handleBlockClick(e, this.props.user)} name="block" children={this.state.blockLabel}></Button>
       </>
     )
   }

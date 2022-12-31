@@ -4,30 +4,36 @@ import SearchResult from './searchResult';
 import SearchResultZoom from './searchResultZoom';
 import styles from '../styles/search.module.css';
 
+type Location = {
+  address: string;
+  id: number;
+  distance: number;
+  price: number;
+  url: string;
+  attended: boolean;
+  gated: boolean;
+  electric: boolean;
+  garage: boolean;
+  always_available: boolean;
+  high_clearance: boolean;
+  description: string;
+}
 
 type SearchResultsProps = {
-  results: {}[];
+  results: Location[];
   isLoading: boolean;
   sortBy: string;
   setSortBy: Function;
   startTime: string;
   endTime: string;
   selected: number;
-  setSelected: Function;
+  handleClick: Function;
 }
 
-const SearchResults = ({results, isLoading, sortBy, setSortBy, startTime, endTime, selected, setSelected }: SearchResultsProps) =>{
+const SearchResults = ({results, isLoading, sortBy, setSortBy, startTime, endTime, selected, handleClick }: SearchResultsProps) =>{
   const handleChange = (e: React.MouseEvent<HTMLElement>) => {
     if (e.target.value !== null) {
       setSortBy(e.target.value);
-    }
-  }
-
-  const handleClick = (e: React.MouseEvent<HTMLElement>, id: number) => {
-    if (selected !== id) {
-      setSelected(id);
-    } else {
-      setSelected(-1);
     }
   }
 
@@ -93,25 +99,25 @@ const SearchResults = ({results, isLoading, sortBy, setSortBy, startTime, endTim
           alignItems={'center'}
         >
           <ToggleButtonGroup
-            color="primary"
+            color="info"
             value={sortBy}
             exclusive
             aria-label="sortBy"
             onChange={handleChange}
           >
             <ToggleButton value="distance">Distance</ToggleButton>
-            <ToggleButton value="lat">Price</ToggleButton>
+            <ToggleButton value="price">Price</ToggleButton>
           </ToggleButtonGroup>
         </Grid>
       </Grid>
       <Grid container direction={'column'} columnSpacing={1}>
         {
-          results.length !== 0 && results.map((location: Object): JSX.Element => {
+          results.length !== 0 && results.map((location: Location): JSX.Element => {
             const id = location.id;
             if (id === selected) {
               return (
                 <Grid key={id} onClick={(e) => { handleClick(e, id) }} >
-                  <SearchResultZoom location={location} startTime={startTime} endTime={endTime} />
+                  <SearchResultZoom location={location} startTime={startTime} endTime={endTime}/>
                 </Grid>
               )
             } else {

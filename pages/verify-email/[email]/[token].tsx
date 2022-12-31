@@ -1,53 +1,83 @@
-import React from 'react';
-import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 import {
   Box,
   Heading,
-  Input,
   Container,
 } from "@chakra-ui/react";
-import { signIn } from "next-auth/react";
-// import utils from '../../lib/crypto.js';
 import client from '../../../database/db.js';
+import { Button, Typography, } from '@mui/material';
+import Link from 'next/link';
 
 export default function EmailVerification({ email, isVerified }) {
-  console.log('first step', email, isVerified);
-  const [loading, setLoading] = React.useState(false);
+  const [message, setMessage] = useState('Your link is invalid or may have expired.');
 
-  const handleNewLink = () => {
-    //FILL ME IN
+  const handleNewLink = async () => {
+    await fetch('/api/resend-verification-email', {
+      method: 'POST',
+      body: email,
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        setMessage('Verification link resent. Please check your email.');
+      }
+      if (response.status === 500 || response.status === 422) {
+        setMessage('An error has occurred. If this problem perists please contact us.');
+      }
+    })
   };
-
-  return (
-    <Container maxW="xl" centerContent>
-      <Heading as="h1" textAlign="center" marginTop={50}>
-        Email verification.
-      </Heading>
-      <Box
-        alignContent="center"
-        justifyContent="center"
-        marginTop={20}
-        backgroundColor={'white'}
-        sx={{ p: 30, width: 400 }}
-      >
-        <Box margin={8} display={'flex'} flexDirection={'column'} justifyContent={'space-evenly'} alignItems={'stretch'}>
-          {!isVerified && <Typography color={'error'} textAlign="center" sx={{ m: 1.2 }}>Your link is invalid or may have expired.</Typography>}
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{ p: 1, m: 1 }}
-            onClick={handleNewLink}
-          >
-            Send New Link
-          </Button>
-          <Typography color={'primary'} textAlign="center" margin={1}><Link href='/login'>Go back to log in</Link></Typography>
+  if (isVerified === null) {
+    return (
+      <Container maxW="xl" centerContent>
+        <Heading as="h1" textAlign="center" marginTop={50}>
+          Verifying your email...
+        </Heading>
+        <Box
+          alignContent="center"
+          justifyContent="center"
+          marginTop={20}
+          backgroundColor={'white'}
+          sx={{ p: 30, width: 400 }}
+        >
+          <Box margin={8} display={'flex'} flexDirection={'column'} justifyContent={'space-evenly'} alignItems={'stretch'}>
+            <Typography color={'error'} textAlign="center" sx={{ m: 1.2 }}>One moment please...</Typography>
+            <Typography color={'primary'} textAlign="center" margin={1}><Link href='/login'>Go back to log in</Link></Typography>
+          </Box>
         </Box>
-      </Box>
-    </Container>
-  );
+      </Container>
+    )
+  }
+  if (isVerified === false) {
+    return (
+      <Container maxW="xl" centerContent>
+        <Heading as="h1" textAlign="center" marginTop={50}>
+          Email verification.
+        </Heading>
+        <Box
+          alignContent="center"
+          justifyContent="center"
+          marginTop={20}
+          backgroundColor={'white'}
+          sx={{ p: 30, width: 400 }}
+        >
+          <Box margin={8} display={'flex'} flexDirection={'column'} justifyContent={'space-evenly'} alignItems={'stretch'}>
+            <Typography color={'error'} textAlign="center" sx={{ m: 1.2 }}>{message}</Typography>
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{ p: 1, m: 1 }}
+              onClick={handleNewLink}
+            >
+              Send New Link
+            </Button>
+            <Typography color={'primary'} textAlign="center" margin={1}><Link href='/login'>Go back to log in</Link></Typography>
+          </Box>
+        </Box>
+      </Container>
+    );
+  }
 };
 
-export async function getServerSideProps({ query, req, res }) {
+export async function getServerSideProps({ query, res }) {
   const email = decodeURIComponent(query.email);
   const { token } = query;
   const isVerified = await client.query(`SELECT * FROM users WHERE email = $1 AND token = $2`,

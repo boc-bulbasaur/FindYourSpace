@@ -7,6 +7,8 @@ import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 import Badge from '@mui/material/Badge';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import styles from '../styles/ownerHistoryDash.module.css';
 
 const isWeekend = (date) => {
   const day = date.day();
@@ -14,21 +16,28 @@ const isWeekend = (date) => {
   return day === 0 || day === 6;
 };
 
-export default function DatePicker() {
-  const [value, setValue] = React.useState(new Date('2022-04-07'));
-  console.log('selected Value: ', value)
-  const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15]);
+export default function DatePicker(props) {
+  const [value, setValue] = React.useState(new Date('2022-12-28'));
+  //console.log('Calendar Props: ', props)
+  const [highlightedDays, setHighlightedDays] = React.useState(props.dates);
 
   return (
     <div>
-      <LocalizationProvider className="owner-calendar-view" dateAdapter={AdapterDayjs}>
+      <LocalizationProvider className={styles.owner_calendar_view} dateAdapter={AdapterDayjs}>
         <StaticDatePicker
           orientation="portrait"
           openTo="day"
           value={value}
           onChange={(newValue) => {
+            let day, reformat;
+            if(newValue.$D <= 9) {
+              day = `0${newValue.$D}`
+            }
+            reformat = `${newValue.$y}-${newValue.$M + 1}-${day || newValue.$D }`;
+            props.liftDate(reformat);
             setValue(newValue);
           }}
+          onMonthChange={(e) => {console.log('New Month Event: ', e)}}
           renderInput={(params) => <TextField {...params} />}
           renderDay={(day, _value, DayComponentProps) => {
             const isSelected =
@@ -39,7 +48,7 @@ export default function DatePicker() {
               <Badge
                 key={day.toString()}
                 overlap="circular"
-                badgeContent={isSelected ? <RocketLaunchIcon sx={{ color: '#0266F9' }} /> : undefined}
+                badgeContent={isSelected ? <FiberManualRecordIcon sx={{ color: '#0266F9' }} /> : undefined}
               >
                 <PickersDay {...DayComponentProps} />
               </Badge>
