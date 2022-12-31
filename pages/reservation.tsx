@@ -33,8 +33,8 @@ async function addData(listingId, location, start, end, email, code) {
 export default async function NewReservation(props) {
   let location;
   const router = useRouter()
-  const {query: {address, startTime, endTime, id, price}} = router
-  const timeFormat = (t) => {
+  const {query: {address, startTime, endTime, id, duration, price}} = router
+  const timeFormat = (t) =>{
     let currentdate = new Date(Number(t));
     var hours = new Date().getHours();
     var ampm = (hours >= 12) ? "PM" : "AM";
