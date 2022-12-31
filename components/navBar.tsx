@@ -17,7 +17,7 @@ import { useSession, signIn, signOut, getSession } from "next-auth/react";
 const pages = ['Search', 'New Reservation', 'Create Listing'];
 const pagesEndpoints = ['/search', '/reservation', '/newlisting'];
 const settings = ['Edit My Profile','Profile', 'History', 'Logout'];
-const settingsEndpoints = ['/EditMyProfile','/profile', '/history', '/'];
+const settingsEndpoints = ['/EditMyProfile','/profile?user=3', '/history', '/'];
 
 export default function NavBar({session}) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);

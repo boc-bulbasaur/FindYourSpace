@@ -30,7 +30,8 @@ export default async function handler(
     FROM listings a
     JOIN images b ON b.id = a.image_id
     WHERE
-      ST_Distance(a.coordinates, ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326)) < 10000
+      ST_Distance(a.coordinates, ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326)) < 1000 AND
+      a.first_available_timestamptz <= timestamp '${startTime}' AND a.last_available_timestamptz >= timestamp '${endTime}'
     ORDER BY distance;`);
     console.log(rows);
     res.status(200).send(rows);

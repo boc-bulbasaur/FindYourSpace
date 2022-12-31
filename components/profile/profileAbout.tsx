@@ -6,30 +6,33 @@ class ProfileAbout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: this.props.name,
-      email: this.props.email,
-      number: this.props.number,
-      about: this.props.about
     };
 
   }
 
   render() {
+    let name, email, number, about;
+    if (this.props.profileData !== undefined) {
+      name = this.props.profileData[0].name;
+      email = this.props.profileData[0].email;
+      number = this.props.profileData[0].phoneNumber;
+      about = this.props.profileData[0].aboutMe;
+    }
     return (
       <div className="About">
-        <Avatar alt="Matthew McConaughey" src="/static/images/avatar/1.jpg" />
+        <Avatar alt={name} src="/static/images/avatar/1.jpg" />
         <h3>About Me</h3>
-          {/* Name: {this.state.name}<br />
-          Email:{this.state.email}<br />
-          Number: {this.state.number}<br />
-          About: {this.state.about}<br /> */}
+          Name: {name}<br />
+          Email:{email}<br />
+          Number: {number}<br />
+          About: {about}<br />
 
           {/* hardcode just for now */}
-          Name: Matthew<br />
+          {/* Name: Matthew<br />
           Email: matthew.mcconaughey@gmail.com<br />
           Number: 512-123-4567<br />
-          About: I live in Austin and am a big fan of concerts. <br />
-        <div>Extra Info</div>
+          About: I live in Austin and am a big fan of concerts. <br /> */}
+        {/* <div>Extra Info</div> */}
       </div>
     )
   }
