@@ -20,7 +20,8 @@ const Demo = styled('div')(({ theme }) => ({
 
 export default function O_RentalList(props) {
   const [rentalHistory, setRentalHistory] = useState(props.ownerHistory)
-  const [selectedDate, setSelectedDate] = useState()
+  let currentDay;
+  let secondaryText;
   console.log('list props: ', props)
   let matchedDates = [];
 
@@ -28,13 +29,18 @@ export default function O_RentalList(props) {
     props.ownerHistory.forEach((rental) => {
       let withTime = new Date(rental.start_time);
       let withoutTime = withTime.toISOString().split('T')[0];
-      //console.log('withoutTime: ', withoutTime)
+
       if (withoutTime === props.newDate) {
+        currentDay = withTime;
         matchedDates.push(rental)
-        console.log('withoutTime: ', withTime)
+        // console.log('current Time: ', withTime < new Date())
       }
     })
+    if (currentDay < new Date()) {
+      secondaryText = <></>
+    }
   }
+
 
   return (
     <Box className={styles.owner_history_table}>
@@ -62,8 +68,7 @@ export default function O_RentalList(props) {
             <ListItemText sx={{paddingLeft: '5%'}}
               primary={`${item.name} | $${item.short_term_rate}.00`}
               secondary= {
-
-              <button onClick={() => {console.log('clicked user id: ', item.id)}}>Cancel Reservation</button>
+              secondaryText || <button onClick={() => {console.log('clicked user id: ', item.id)}}>Cancel Reservation</button>
             }
             />
           </ListItem>
