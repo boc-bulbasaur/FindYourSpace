@@ -9,6 +9,19 @@ const nextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'maps.googleapis.com',
+        port: '',
+        pathname: '/**',
+      },
+    ]
+  },
+  env: {
+    BASE_URL: process.env.BASE_URL,
+  }
 }
 
 module.exports = nextConfig

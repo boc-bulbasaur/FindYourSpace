@@ -88,9 +88,9 @@ class Payment extends React.Component {
     return (
       <div>
         <div className={styles.price}>
-          <h4 className="right-price">$8.00 / hr X 4 Hours</h4>
+          <h4 className="right-price">$45.00 / hr X 2 Hours</h4>
           <hr className={styles.horLine}/>
-          <h4 className="right-price">Total Price: $32.00</h4>
+          <h4 className="right-price">Total Price: $90.00</h4>
         </div>
 
         <h3>Billing Address</h3>

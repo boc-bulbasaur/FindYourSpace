@@ -12,28 +12,32 @@ export default async function handler(
 
   if (req.method === 'POST') {
     try {
+      let body = JSON.parse(req.body);
       let booking = {
-        listing: req.query.listingId,
-        email: req.body.email,
-        address: req.body.address,
-        start: req.body.startTime,
-        end: req.body.endTime,
-        code: req.body.code
+        listing: body.listingId,
+        email: body.email,
+        start: body.startTime,
+        end: body.endTime,
+        code: body.code
       }
-      const result = await client.query(`
-        INSERT INTO public.bookings (userid, listing_id, conf_code, start_time, end_time)
-        VALUES (
-          (SELECT user_id FROM public.users
-           WHERE email=${booking.email}),
-           ${booking.listing},
-           ${booking.code},
-           ${booking.start},
-           ${booking.end}
-        )
-      `);
+      console.log('email', booking.email);
+      // const result = await client.query(`
+      //   INSERT INTO bookings (userid, listing_id, conf_code, start_time, end_time)
+      //   VALUES (
+      //     (SELECT user_id FROM users
+      //      WHERE email=${booking.email}),
+      //      ${booking.listing},
+      //      ${booking.code},
+      //      ${booking.start},
+      //      ${booking.end},
+      //      8,
+      //      2
+      //   )
+      //   ON CONFLICT DO NOTHING
+      // `);
       res.status(201).json({ message: "successfully added booking"});
     } catch (err: any) {
-      console.log(err);
+      console.log('post', err);
       res.status(500).send(err);
     }
   } else {

@@ -88,7 +88,9 @@
 
 .parkDetails {
   width: 45%;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
   text-align: center;
 }
 
@@ -125,13 +127,21 @@
 }
 
 .parkIcons {
-  display: inline;
+  display: flex;
   text-align: left;
+  justify-content: space-between;
   margin-left: 5%;
+  margin-top:10%;
 }
 
 .cancellation {
   width: 50%;
   margin: auto;
   text-align: left;
+}
+
+.iconD {
+  margin-left: 3%;
+  width: 30%;
+  text-align: center;
 }

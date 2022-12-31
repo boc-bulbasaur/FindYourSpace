@@ -10,6 +10,7 @@ import FenceIcon from '@mui/icons-material/Fence';
 import Person4Icon from '@mui/icons-material/Person4';
 import HeightIcon from '@mui/icons-material/Height';
 import TimelapseIcon from '@mui/icons-material/Timelapse';
+import config from './config';
 
 class Booking extends React.Component {
   constructor(props) {
@@ -19,37 +20,38 @@ class Booking extends React.Component {
       startTime: '',
       endTime: '',
       price: '',
-      description: '',
+      description: 'This spot has it all',
       garage: true,
       ev: true,
       gated: true,
-      attended: true,
+      attended: false,
       clearance: true,
-      available: true,
-      info: ''
+      available: false,
+      info: 'Gate code is 8321'
     }
   }
 
   componentDidMount () {
-    fetch(`/api/getListing?listing_id=${this.props.listing}`, {
-      method: 'POST'
-    })
-      .then((results) => {
-        this.setState({
-          address: results.address,
-          description: results.description,
-          garage: results.garage,
-          ev: results.electric_charger,
-          gated: results.gated,
-          attended: results.attended,
-          clearance: results.high_clearance,
-          available: results.always_available,
-          info: results.special_information
-        })
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    // fetch(`/api/getListing?listing=${this.props.listing}`, {
+    //   method: 'GET'
+    // })
+    //   .then((results) => {
+    //     console.log("get", results.body);
+    //     this.setState({
+    //       address: results.address,
+    //       description: results.description,
+    //       garage: results.garage,
+    //       ev: results.electric_charger,
+    //       gated: results.gated,
+    //       attended: results.attended,
+    //       clearance: results.high_clearance,
+    //       available: results.always_available,
+    //       info: results.special_information
+    //     })
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   })
   }
 
   render () {
@@ -60,22 +62,22 @@ class Booking extends React.Component {
         <div className={styles.price}>
           <div className={styles.details}>
             <Image
-              src="/../public/map.png"
+              src={`https://maps.googleapis.com/maps/api/staticmap?center=3210+Grand+Avenue%2C+Phoenix%2C+Az%2C+USA&zoom=7&scale=2&size=350x250&maptype=roadmap&format=png&key=AIzaSyBQN_j5grb1Zt4kj1avpZ_zteCinE2o8m0&markers=size:mid%7Ccolor:0x472e5c%7Clabel:1%7C3210%20Grand%20Avenue%2C%20Phoenix%2C%20Az%2C%20USA`}
               alt="map"
               className="map"
-              width={350}
-              height={250}
+              width="350"
+              height="250"
             />
-            <div className={styles.parkIcons}>
-              <div>{this.state.garage === true ? <div><GarageIcon></GarageIcon><p>This parking spot is in a garage</p></div> : <p style={{visibility:'hidden'}}>&#x00AB;</p>}</div>
-              <div>{this.state.ev === true ? <div><EvStationIcon></EvStationIcon><p>This parking spot has EV charging</p></div> : <p style={{visibility:'hidden'}}>&#x00AB;</p>}</div>
-              <div>{this.state.gated === true ? <div><FenceIcon></FenceIcon><p>This parking spot is gated</p></div> : <p style={{visibility:'hidden'}}>&#x00AB;</p>}</div>
-              <div>{this.state.attended === true ? <div><Person4Icon></Person4Icon><p>This parking spot is attended</p></div> : <p style={{visibility:'hidden'}}>&#x00AB;</p>}</div>
-              <div>{this.state.clearance === true ? <div><HeightIcon></HeightIcon><p>This parking spot has high clearance</p></div> : <p style={{visibility:'hidden'}}>&#x00AB;</p>}</div>
-              <div>{this.state.available === true ? <div><TimelapseIcon></TimelapseIcon><p>This parking spot is available 24/7</p></div> : <p style={{visibility:'hidden'}}>&#x00AB;</p>}</div>
-            </div>
           </div>
-          <p className={styles.parkDetails}>{this.state.info}</p>
+          <div className={styles.parkIcons}>
+              <div className={styles.iconD}>{this.state.garage === true ? <div><GarageIcon></GarageIcon><p>This parking spot is in a garage</p></div> : <p style={{visibility:'hidden'}}>&#x00AB;</p>}</div>
+              <div className={styles.iconD}>{this.state.ev === true ? <div><EvStationIcon></EvStationIcon><p>This parking spot has EV charging</p></div> : <p style={{visibility:'hidden'}}>&#x00AB;</p>}</div>
+              <div className={styles.iconD}>{this.state.gated === true ? <div><FenceIcon></FenceIcon><p>This parking spot is gated</p></div> : <p style={{visibility:'hidden'}}>&#x00AB;</p>}</div>
+              <div className={styles.iconD}>{this.state.attended === true ? <div><Person4Icon></Person4Icon><p>This parking spot is attended</p></div> : <p style={{visibility:'hidden'}}>&#x00AB;</p>}</div>
+              <div className={styles.iconD}>{this.state.clearance === true ? <div><HeightIcon></HeightIcon><p>This parking spot has high clearance</p></div> : <p style={{visibility:'hidden'}}>&#x00AB;</p>}</div>
+              <div className={styles.iconD}>{this.state.available === true ? <div><TimelapseIcon></TimelapseIcon><p>This parking spot is available 24/7</p></div> : <p style={{visibility:'hidden'}}>&#x00AB;</p>}</div>
+            </div>
+          <p className={styles.parkDetails}>{this.state.description}</p>
         </div>
       </div>
     )

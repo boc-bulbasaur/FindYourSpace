@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { createTheme } from '@mui/material/styles';
 import NavBar from "../components/navBar";
@@ -11,29 +11,10 @@ import { useSession } from 'next-auth/react';
 import Timer from '../components/reservation/countdownTimer';
 import generator from '../components/reservation/confirmationcode';
 
-async function addData(listingId, location, start, end, email, code) {
-  fetch(`api/reservation?listingId=${listingId}`, {
-    method: 'POST',
-    body: {
-      address: location,
-      startTime: start,
-      endTime: end,
-      email: email,
-      code: code
-    }
-  })
-    .then(() => {
-      console.log('successfully added to db');
-    })
-    .catch(err => {
-      console.log(err);
-    })
-}
-
-export default async function NewReservation(props) {
+export default function NewReservation(props) {
   let location;
   const router = useRouter()
-  const {query: {address, startTime, endTime, id, price}} = router
+  const {query: {address, startTime, endTime, id, price, url}} = router
   const timeFormat = (t) => {
     let currentdate = new Date(Number(t));
     var hours = new Date().getHours();
@@ -73,7 +54,8 @@ export default async function NewReservation(props) {
           price: price,
           start: start,
           end: end,
-          address: location
+          address: location,
+          totalPrice: 90
         })
       }
       );
@@ -83,7 +65,29 @@ export default async function NewReservation(props) {
     }
   };
 
-  const data = await addData(id, location, start, end, userEmail, orderNumber);
+  useEffect(() => {
+    const body = {
+      listingId: id,
+      startTime: start,
+      endTime: end,
+      email: userEmail,
+      code: orderNumber
+    }
+    console.log(body.email);
+    const addBook = async () => {
+    const data = await fetch(`api/reservation`, {
+      method: 'POST',
+      body: JSON.stringify(body)
+    })
+    }
+    addBook()
+      .then(() => {
+        console.log('successfully added to db');
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  })
 
   return (
     <div>
@@ -95,7 +99,7 @@ export default async function NewReservation(props) {
       <h1 className={styles.checkout}>CHECKOUT</h1>
       <div className={styles.newRes}>
         <div className={styles.rightHalf}>
-          <Booking address={address} start={start} end={end} userId={props.userId} listing={id}/>
+          <Booking address={address} start={start} end={end} userId={props.userId} listing={id} url={url}/>
           <h3>Cancellation Policy</h3>
           <p className={styles.cancellation}>To receive a full refund, renters must cancel at least 1 hour before their rental start time. Renters can also get a full refund within 2 hours of booking if the cancellation occurs at least 24 hours before the rental start time. If the renter cancels less than an hour before the rental start time, they will pay the owner 50% for the entire rental duration.</p>
         </div>
