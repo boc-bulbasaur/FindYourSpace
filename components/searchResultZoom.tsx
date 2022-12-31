@@ -48,7 +48,7 @@ const SearchResultZoom = ({ location, startTime, endTime }: SearchResultProps): 
       <Grid container key={id} spacing={0.25} margin={'auto'}>
         <Grid item xs={12} margin={'10px'} >
           <Box className={styles.address} >Address: {address}</Box>
-          <Box className={styles.distance} >Distance: {Math.round(distance)} m</Box>
+          <Box className={styles.distance} >Distance: {Math.round(distance * 1000 / 1609.34) / 1000} mile</Box>
           <Box className={styles.price} >Price: {priceTag}</Box>
           <Box className={styles.description} >Description: {description}</Box>
         </Grid>
@@ -72,9 +72,7 @@ const SearchResultZoom = ({ location, startTime, endTime }: SearchResultProps): 
         <Link
           href={{
             pathname: '/reservation',
-
-            query: { address, startTime: Date.parse(startTime), endTime: Date.parse(endTime), duration, id, price},
-
+            query: { address, startTime: Date.parse(startTime), endTime: Date.parse(endTime), duration, id, price },
           }}
         >
           <Button color='info'>Book Now!</Button>
