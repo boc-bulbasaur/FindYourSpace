@@ -15,23 +15,20 @@ export default async function handler(
   }
   try {
     let user_id = req.query.user;
-    let blocked_user_id = req.query.blocked_user;
     console.log('params', req.query);
-    console.log(`Retrieving blockings for user combo ${user_id}-${blocked_user_id}`);
+    console.log(`Retrieving profile for user ${user_id}`);
     const { rows } = await client.query(`
       SELECT
         *
-      FROM blocked
-      WHERE blocked.user_id = ${user_id} AND
-            blocked.blocked_user_id = ${blocked_user_id}`);
-    if (rows[0] !== undefined) {
-      console.log('blocked!');
-      res.status(200).json(rows);
+      FROM Users
+      WHERE Users.user_id = ${user_id}`);
+    if (rows[0] === undefined) {
+      res.status(200).json({ warning: `No data found for user ${user_id}`});
     } else {
-      console.log('NOT blocked!');
-      res.status(404).send(rows);
+      res.status(200).json(rows);
     }
   } catch (err: any) {
+    console.log(err);
     res.status(500).send(err);
   }
 }
