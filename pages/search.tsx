@@ -42,13 +42,15 @@ export default function Search(props: SearchProps) {
       secondary: {
         main: '#000000',
       },
-      background: {
-        default: '#3B'
+      info: {
+        main: '#1976D2',
       }
     },
     typography: {
       fontFamily: ['Sono','sans-serif'].join(',')
     },
+    components: {
+    }
   });
 
   useEffect(()=>{
@@ -64,15 +66,14 @@ export default function Search(props: SearchProps) {
   }, [sortBy]);
 
 
-  const handleSearch = async () => {
+  const handleSearch = () => {
     console.log("search button clicked");
     if (startTime !== '' && endTime !== '' && coordinates.lat && coordinates.lng) {
       setIsLoading(true);
       console.log('start search');
       console.log(startTime, endTime, coordinates.lat, coordinates.lng);
       const info = {startTime, endTime, coordinates};
-      try {
-        fetch('api/search', {
+      return fetch('api/search', {
           method: 'POST',
           body: JSON.stringify(info)
         })
@@ -90,6 +91,7 @@ export default function Search(props: SearchProps) {
               } else {
                 location['priceTag'] = `$${location['price']}/hr`;
               }
+              location['duration'] = duration;
             })
           }
           setSortBy('distance');
@@ -97,10 +99,10 @@ export default function Search(props: SearchProps) {
           setResults(data);
           setIsLoading(false);
         })
-      }
-      catch (err) {
-        console.log(err);
-      }
+        .catch(err => {
+          console.log(err);
+          setIsLoading(false);
+        })
     }
   }
   const handleClick = (e: React.MouseEvent<HTMLElement>, id: number) => {
@@ -115,8 +117,11 @@ export default function Search(props: SearchProps) {
 
   return (
     <>
+<<<<<<< HEAD
       <NavBar session={session}/>
       <ThemeProvider theme={theme} >
+=======
+>>>>>>> main
         <script id="google-map-script" async defer src={scriptURL} />
         <Box sx={{
           width: '100%',
@@ -127,6 +132,7 @@ export default function Search(props: SearchProps) {
           color: 'white'
           }} >
         </Box>
+      <ThemeProvider theme={theme} >
         <Box sx={{
           justifyContent: 'center',
           alignItems: 'center',

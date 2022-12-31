@@ -99,14 +99,14 @@ const SearchResults = ({results, isLoading, sortBy, setSortBy, startTime, endTim
           alignItems={'center'}
         >
           <ToggleButtonGroup
-            color="primary"
+            color="info"
             value={sortBy}
             exclusive
             aria-label="sortBy"
             onChange={handleChange}
           >
             <ToggleButton value="distance">Distance</ToggleButton>
-            <ToggleButton value="lat">Price</ToggleButton>
+            <ToggleButton value="price">Price</ToggleButton>
           </ToggleButtonGroup>
         </Grid>
       </Grid>

@@ -22,6 +22,8 @@ type SearchResultProps = {
     always_available: boolean;
     high_clearance: boolean;
     description: string;
+    duration: number;
+    price: number;
   };
   startTime: string;
   endTime: string;
@@ -29,7 +31,7 @@ type SearchResultProps = {
 
 
 const SearchResultZoom = ({ location, startTime, endTime }: SearchResultProps): JSX.Element => {
-  const { address, id, distance, priceTag, url, attended, gated, type,
+  const { address, id, distance, priceTag, url, attended, gated, type, duration, price,
     electric, garage, always_available, high_clearance, description } = location;
 
   const checkMark = <span>&#10003;</span>;
@@ -41,7 +43,7 @@ const SearchResultZoom = ({ location, startTime, endTime }: SearchResultProps): 
       border: 'solid 2px black',
       borderRadius: '10px',
       marginTop: '5px',
-
+      borderColor: '#1976D2',
     }}>
       <Grid container key={id} spacing={0.25} margin={'auto'}>
         <Grid item xs={12} margin={'10px'} >
@@ -63,17 +65,19 @@ const SearchResultZoom = ({ location, startTime, endTime }: SearchResultProps): 
             </Grid>
           </Grid>
           <Grid item xs={12} sm={6} overflow='hidden' position={'relative'}>
-            <img src={url} alt={`picture for ${address}`} />
+            <img src={url} alt={`picture for ${address}`} width={'100%'} height={'auto'}/>
           </Grid>
         </Grid>
       </Grid>
         <Link
           href={{
             pathname: '/reservation',
-            query: { address, startTime: Date.parse(startTime), endTime: Date.parse(endTime) },
+
+            query: { address, startTime: Date.parse(startTime), endTime: Date.parse(endTime), duraction, id, price},
+
           }}
         >
-          <Button>Book Now!</Button>
+          <Button color='info'>Book Now!</Button>
         </Link>
 
     </Box>

@@ -19,7 +19,7 @@ const Map = ({coordinates, results, selected, handleClick }: MapProps) =>{
     <GoogleMapReact
           bootstrapURLKeys = {{key: process.env.GOOGLE_MAP_API_KEY}}
           center = {coordinates}
-          defaultZoom = {15}
+          defaultZoom = {14.5}
           margin = {[50,50,50,50]}
           option= {''}
           onchange = {()=>{}}
@@ -47,7 +47,7 @@ const Map = ({coordinates, results, selected, handleClick }: MapProps) =>{
               zIndex={20}
               onClick={(e) => { handleClick(e, id) }}
              >
-              <IoLocation color='blue' fontSize={45} />
+              <IoLocation color='#29b6f6' fontSize={45} />
             </Box>)
         } else {
           return (
