@@ -11,8 +11,8 @@ export default function ImgMediaCard(props) {
   if (props.currentListing !== undefined) {
     cardImg = props.currentListing.url;
     address = props.currentListing.address;
-    startDate = undefined ? '' : new Date(props.currentListing.start_time).toString();
-    endDate = undefined ? '' : new Date(props.currentListing.end_time).toString();
+    startDate = new Date(props.currentListing.startDateTime).toString();
+    endDate = new Date(props.currentListing.endDateTime).toString();
   }
   return (
     <Card sx={{ maxWidth: 345, border: 'groove', borderWidth: '10px' }}>

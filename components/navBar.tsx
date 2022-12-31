@@ -17,8 +17,8 @@ import { signOut } from "next-auth/react";
 
 const pages = ['Search', 'Create Listing'];
 const pagesEndpoints = ['/search', '/newlisting'];
-const settings = ['Edit My Profile','Profile', 'History', 'Logout'];
-const settingsEndpoints = ['/EditMyProfile','/profile?user=3', '/history', '/'];
+const settings = ['Edit My Profile','Profile-Keren DEMO', 'Profile-Justo DEMO','History', 'Logout'];
+const settingsEndpoints = ['/EditMyProfile','/profile?user=3', '/profile?user=2','/history', '/'];
 
 const theme = responsiveFontSizes(createTheme());
 

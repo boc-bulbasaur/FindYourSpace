@@ -24,6 +24,10 @@ export default function Profile() {
     }
   });
 
+  const refreshData = () => {
+    router.replace(router.asPath);
+  }
+
   const [isBlocked, setIsBlocked] = useState(true);
   const [profileData, setProfileData] = useState(undefined);
 
@@ -91,7 +95,8 @@ export default function Profile() {
         .then(response=>response.json())
         .then(data=> {
           console.log(data);
-          setProfileData(data)
+          setProfileData(data);
+          //refreshData();
         });
         return false;
       }
