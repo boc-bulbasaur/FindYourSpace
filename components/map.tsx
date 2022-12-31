@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box} from '@chakra-ui/react'
+import Box from '@mui/material/Box';
 import GoogleMapReact from 'google-map-react'
 import { IoLocation } from "react-icons/io5";
 
@@ -9,41 +9,60 @@ type MapProps = {
     lng: number;
   };
   results: {}[];
+  selected: number;
+  handleClick: Function;
 }
 
-const Map = ({coordinates, results}: MapProps) =>{
+const Map = ({coordinates, results, selected, handleClick }: MapProps) =>{
   return (
-  <Box position={'absolute'} right={0} width={'60%'} height = {'95%'}>
+  <Box position={'absolute'} right={0} width={'60%'} height = {'100%'}>
     <GoogleMapReact
           bootstrapURLKeys = {{key: process.env.GOOGLE_MAP_API_KEY}}
           center = {coordinates}
-          defaultZoom = {15}
+          defaultZoom = {14.5}
           margin = {[50,50,50,50]}
           option= {''}
           onchange = {()=>{}}
           onChildClick = {()=>{}}
     >
       <Box
-        lat = {coordinates.lat}
-        lng = {coordinates.lng}
+        component='span'
+        lat={coordinates.lat}
+        lng={coordinates.lng}
         position={'relative'}
-        cursor = 'poniter'
-       >
+        zIndex={100}
+      >
           <IoLocation color = 'red' fontSize={40} />
       </Box>
       {results && results.map((location):JSX.Element => {
-        const { lat, lng, price, id } = location;
-        return (
-        <Box
-          key={id}
-          lat = {lat}
-          lng = {lng}
-          position={'relative'}
-          cursor = 'poniter'
-          text={price}
-         >
-          <IoLocation color = 'black' fontSize={40} />
-        </Box>)
+        const { lat, lng, id } = location;
+        if (id === selected) {
+          return (
+            <Box
+              component='span'
+              key={id}
+              lat = {lat}
+              lng = {lng}
+              position={'relative'}
+              zIndex={20}
+              onClick={(e) => { handleClick(e, id) }}
+             >
+              <IoLocation color='#29b6f6' fontSize={45} />
+            </Box>)
+        } else {
+          return (
+            <Box
+              component='span'
+              key={id}
+              lat = {lat}
+              lng = {lng}
+              position={'relative'}
+              zIndex={10}
+              onClick={(e) => { handleClick(e, id) }}
+             >
+              <IoLocation color='black' fontSize={40} />
+            </Box>)
+        }
       })}
     </GoogleMapReact>
   </Box>)

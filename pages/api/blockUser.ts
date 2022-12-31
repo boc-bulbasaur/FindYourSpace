@@ -9,43 +9,36 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  let {
-    name,
-    email,
-    password,
-  } = JSON.parse(req.body);
   if (req.method !== 'POST') {
-    res.status(400).json({ error: 'Improper request.' });
+    res.status(400).json({ error: 'Improper request. Expecting POST.' });
     res.end();
   }
   try {
-    console.log('inputs', name, email, password);
-    const { rows } = await client.query(`SELECT * FROM users WHERE email = '${email}'`);
+    let {
+      user_id,
+      blocked_user_id,
+    } = JSON.parse(req.body);
+    console.log('inputs', user_id, blocked_user_id);
+    const { rows } = await client.query(`SELECT * FROM blocked WHERE user_id = '${user_id}' AND blocked_user_id = '${blocked_user_id}'`);
     const user = rows[0];
     console.log('user', user);
     if (user !== undefined) {
-      res.status(422).json({ error: 'Cannot create user.' });
+      res.status(200).json({ notification: 'User is already blocked.' });
     } else {
-      const salt = await utils.createRandom32String();
-      password = await utils.createHash(password, salt);
-      const token = await utils.createRandom32String();
-      const registered_at = new Date();
-      const token_expires = new Date(registered_at.getTime() + 1000 * 60 * 60 * 24);
-      const values = [name, email, password, salt, registered_at, token_expires, token];
-      const { rows } = await client.query(`INSERT INTO users
-        (name, email, password, salt, registered_at, token_expires, token)
-        VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+      const values = [user_id, blocked_user_id];
+      const { rows } = await client.query(`INSERT INTO blocked
+        (user_id, blocked_user_id)
+        VALUES ($1, $2) RETURNING *`,
         values);
-      const newUser = rows[0];
-      console.log('newUser:', newUser);
-      if (!newUser) {
+      const responseData = rows[0];
+      console.log('result: ', responseData);
+      if (!responseData) {
         throw new Error;
       } else {
-        sendVerificationEmail(name, email, newUser.token);
-        res.status(201).json({ message: 'User successfully created. Please check your email.' });
+        res.status(201).json({ message: 'User successfully blocked.' });
       }
     }
-  } catch (err) {
+  } catch (err: any) {
     console.log(err);
     res.status(500).send(err);
   }

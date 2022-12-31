@@ -5,7 +5,9 @@ import PersonIcon from '@mui/icons-material/Person';
 import HomeIcon from '@mui/icons-material/Home';
 import Button from '@mui/material/Button';
 import LockIcon from '@mui/icons-material/Lock';
+import EmailIcon from '@mui/icons-material/Email';
 import styles from '../../styles/reservation.module.css';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 class Payment extends React.Component {
   constructor (props) {
@@ -25,6 +27,8 @@ class Payment extends React.Component {
     }
 
     this.handleChange = this.handleChange.bind(this);
+    this.onReCAPTCHAChange = this.onReCAPTCHAChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -45,9 +49,50 @@ class Payment extends React.Component {
     });
   }
 
+
+  handleSubmit(event) {
+    event.preventDefault();
+    // Execute the reCAPTCHA when the form is submitted
+    const recaptchaRef = React.useRef(null);
+    recaptchaRef.current.execute();
+  };
+
+  async onReCAPTCHAChange(captchaCode) {
+    // If the reCAPTCHA code is null or undefined indicating that
+    // the reCAPTCHA was expired then return early
+    if (!captchaCode) {
+      return;
+    }
+    try {
+      const response = await fetch("/api/reCaptcha", {
+        method: "POST",
+        body: JSON.stringify({ captcha: captchaCode }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        // If the response is ok than show the success alert
+        // alert("successful reCAPTCHA verification");
+        console.log("successful reCAPTCHA verification");
+      } else {
+        const error = await response.json();
+        throw new Error(error.message)
+      }
+    } catch (error) {
+      alert("Something went wrong");
+    }
+  };
+
   render () {
     return (
-      <div className={styles.newRes}>
+      <div>
+        <div className={styles.price}>
+          <h4 className="right-price">$8.00 / hr X 4 Hours</h4>
+          <hr className={styles.horLine}/>
+          <h4 className="right-price">Total Price: $32.00</h4>
+        </div>
+
         <h3>Billing Address</h3>
         <form /*onSubmit={onSubmit}*/>
           <div className={styles.billing}>
@@ -86,6 +131,14 @@ class Payment extends React.Component {
               <div className={`${styles.billingCol} ${styles.rightCol}`}>
                 <label className={styles.noIcons}>Zip Code</label>
                 <input type="text" defaultValue={this.state.zip} onChange={this.handleChange} name="zip" placeholder="77777"/>
+              </div>
+            </div>
+            <br />
+            <div className={styles.billingRow}>
+              <div className={`${styles.billingCol} ${styles.fullCol}`}>
+                <label><EmailIcon className={styles.label}></EmailIcon>Email Address</label>
+                <input type="text" defaultValue={this.state.add_2} onChange={this.handleChange} name="email" placeholder="johndoe@gmail.com" />
+                <br/>
               </div>
             </div>
           </div>
@@ -138,9 +191,18 @@ class Payment extends React.Component {
             </div>
           </div>
           <br/>
+
+          <form onSubmit={this.handleSubmit}>
+            <ReCAPTCHA
+              size="normal"
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+              onChange={this.onReCAPTCHAChange}
+            />
+          </form>
+
           {/* <button type="submit">CHECKOUT</button> */}
           <div className={`${styles.billingCol} ${styles.fullCol}`}>
-            <Button color="primary" variant="contained">Checkout</Button>
+            <Button color="primary" variant="contained" onClick={this.props.confirmationEmail}>Checkout</Button>
           </div>
         </div>
       </form>

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import router from 'next/router';
 import NavBar from "../components/navBar";
-import { signIn, useSession, getSession, getProviders, getCsrfToken } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Link from 'next/link';
 import {
   Box,
@@ -9,7 +8,6 @@ import {
   Container,
 } from "@chakra-ui/react";
 import { Button, TextField, Typography, } from '@mui/material';
-import { PasswordOutlined } from "@mui/icons-material";
 
 export default function ForgotPassword() {
   const { data: session } = useSession();
