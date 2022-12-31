@@ -9,7 +9,7 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const {email, name, orderNumber, price, start, end, address} = JSON.parse(req.body)
+  const {email, name, orderNumber, price, start, end, address,} = JSON.parse(req.body)
   const data = {
     to : `${email}`,
     from : 'noreply@findyourspace.app',
@@ -38,5 +38,4 @@ export default function handler(
           res.status(500).end(error)
           return Promise.resolve(error)
         })
-//  return console.log('Mail sent successfully')
 }

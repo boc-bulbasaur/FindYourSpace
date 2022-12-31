@@ -30,7 +30,7 @@ async function addData(listingId, location, start, end, email, code) {
     })
 }
 
-export default async function NewReservation(props) {
+export default function NewReservation(props) {
   let location;
   const router = useRouter()
   const {query: {address, startTime, endTime, id, duration, price}} = router
@@ -52,13 +52,13 @@ export default async function NewReservation(props) {
   let start = timeFormat(startTime)
   let end = timeFormat(endTime)
   const { data: session } = useSession();
-  let userEmail = session.user.email;
+  // let userEmail = session.user.email;
   let userName = session.user.name;
   if (address){
     location = address.toString()
   }
   let orderNumber = generator();
-  // let userEmail = 'test@gmail.com'
+  let userEmail = 'shzf13@gmail.com'
 
   const confirmationEmail = async () =>{
     console.log('clicked')
@@ -70,10 +70,11 @@ export default async function NewReservation(props) {
           email: userEmail,
           name: userName,
           orderNumber: orderNumber,
-          price: price,
+          price: totalPrice,
           start: start,
           end: end,
           address: location
+
         })
       }
       );
@@ -83,8 +84,8 @@ export default async function NewReservation(props) {
     }
   };
 
-  const data = await addData(id, location, start, end, userEmail, orderNumber);
-
+  // const data = await addData(id, location, start, end, userEmail, orderNumber);
+  const totalPrice = Number(price) * Number(duration)
   return (
     <div>
       <NavBar session={session}/>
@@ -100,7 +101,7 @@ export default async function NewReservation(props) {
           <p className={styles.cancellation}>To receive a full refund, renters must cancel at least 1 hour before their rental start time. Renters can also get a full refund within 2 hours of booking if the cancellation occurs at least 24 hours before the rental start time. If the renter cancels less than an hour before the rental start time, they will pay the owner 50% for the entire rental duration.</p>
         </div>
         <div className={styles.leftHalf}>
-          <Payment confirmationEmail={confirmationEmail}/>
+          <Payment confirmationEmail={confirmationEmail} price={price} duration={duration} totalPrice={totalPrice}/>
         </div>
       </div>
     </div>
