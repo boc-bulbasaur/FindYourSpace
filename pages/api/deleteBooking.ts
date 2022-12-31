@@ -12,11 +12,11 @@ export default async function handler(
 
   if (req.method === 'DELETE') {
     try {
-      let booking_id = req.body.id;
-      console.log('id', booking_id);
+      let conf_code = req.body.code;
+      console.log('id', conf_code);
       const result = await client.query(`
         DELETE FROM public.bookings
-        WHERE id = ${booking_id}
+        WHERE conf_code = ${conf_code}
         RETURNING *
       `);
       res.status(200).json({ message: "successfully deleted"});

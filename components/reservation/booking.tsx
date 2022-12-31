@@ -29,6 +29,18 @@ class Booking extends React.Component {
     }
   }
 
+  componentDidMount () {
+    fetch(`/api/startTime?listing_id=${this.props.listing}`, {
+      method: 'POST'
+    })
+      .then(() => {
+        console.log('successfully added to db')
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
   render () {
     return (
       <div>

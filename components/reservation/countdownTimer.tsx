@@ -10,7 +10,9 @@ export default class Timer extends React.Component {
       minutes: 15,
       seconds: 0,
       live: true,
-      bookingId: ''
+      bookingId: 0,
+      userId: 0,
+      listingId: 0
     }
   }
 
@@ -48,9 +50,11 @@ export default class Timer extends React.Component {
     if (this.state.live !== prevState.live) {
       console.log('Time\'s up!');
       let contact = {
-        id: this.state.bookingId
+        code: this.props.code
       }
-      fetch('/api/deleteBooking', contact)
+      fetch('/api/deleteBooking', {
+        body: contact
+      })
         .then(() => {
           console.log('Successfully deleted');
         })
