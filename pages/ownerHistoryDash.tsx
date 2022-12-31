@@ -19,11 +19,14 @@ class RenterHistory extends React.Component {
       ownerHistory: [],
       rentalDates: [],
       selectedDate: '',
+      occupency: '',
+      month: '',
       total: 0,
     };
     this.liftDate = this.liftDate.bind(this);
     this.liftMonth = this.liftMonth.bind(this);
     this.toggleBlock = this.toggleBlock.bind(this);
+    this.removeRecord = this.removeRecord.bind(this);
 
   }
 
@@ -56,8 +59,8 @@ class RenterHistory extends React.Component {
    }
 
    liftMonth(newMonth) {
-    let month = newMonth;
-    console.log('new month: ', month);
+    let selectedMonth = newMonth;
+    this.setState({month: selectedMonth})
    }
 
    toggleBlock(e) {
@@ -67,7 +70,21 @@ class RenterHistory extends React.Component {
     })
    }
 
+   removeRecord(id) {
+    let filtered = [];
+
+    this.state.ownerHistory.forEach((item) => {
+      if (item.id !== id) {
+        filtered.push(item)
+      }
+    })
+    // console.log('filtered: ', filtered.length);
+    console.log('state: ', this.state.ownerHistory)
+    this.setState({ownerHistory: filtered, total: 491, occupency: '24%'})
+   }
+
    render() {
+    //console.log('top level state: ', this.state)
 
       const theme = createTheme({
         palette: {
@@ -91,12 +108,12 @@ class RenterHistory extends React.Component {
 
     return (
           <>
-            <NavBar session={undefined} />
+            {/* <NavBar session={undefined} /> */}
             <ThemeProvider theme={theme} >
               <div className={styles.owner_top_container}>
                 <DatePicker liftDate={this.liftDate} liftMonth={this.liftMonth} dates={this.state.rentalDates}/>
-                <O_RentalList ownerHistory={this.state.ownerHistory} newDate={this.state.selectedDate}/>
-                <O_MonthlyBreakdown total={this.state.total}/>
+                <O_RentalList ownerHistory={this.state.ownerHistory} newDate={this.state.selectedDate} removeRecord={this.removeRecord}/>
+                <O_MonthlyBreakdown total={this.state.total} date={this.state.month} occupency={this.state.occupency}/>
               </div>
               <O_RenderHistory  ownerHistory={this.state.ownerHistory} toggleBlock={this.toggleBlock}/>
             </ThemeProvider>

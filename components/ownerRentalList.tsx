@@ -22,8 +22,9 @@ export default function O_RentalList(props) {
   const [rentalHistory, setRentalHistory] = useState(props.ownerHistory)
   let currentDay;
   let secondaryText;
-  console.log('list props: ', props)
+  //console.log('list props: ', props)
   let matchedDates = [];
+  let dummyDates = [];
 
   if (props.newDate) {
     props.ownerHistory.forEach((rental) => {
@@ -33,14 +34,13 @@ export default function O_RentalList(props) {
       if (withoutTime === props.newDate) {
         currentDay = withTime;
         matchedDates.push(rental)
-        console.log('current Time: ', withTime < new Date('2022-12-30'))
+        // console.log('current Time: ', withTime < new Date('2022-12-30'))
       }
     })
-    if (currentDay < new Date()) {
+    if (currentDay < new Date('2022-12-30')) {
       secondaryText = <></>
     }
   }
-
 
   return (
     <Box className={styles.owner_history_table}>
@@ -56,6 +56,7 @@ export default function O_RentalList(props) {
       <List sx={{borderRadius: '10px'}}>
           {
             matchedDates.map((item) => {
+
             return (
             <ListItem sx={{
             backgroundColor: '#c9c9ce',
@@ -68,7 +69,7 @@ export default function O_RentalList(props) {
             <ListItemText sx={{color: 'black', paddingLeft: '5%'}}
               primary={`${item.name} | $${item.short_term_rate}.00`}
               secondary= {
-              secondaryText || <button onClick={() => {console.log('clicked user id: ', item.id)}}>Cancel Reservation</button>
+              secondaryText || <button onClick={() => {props.removeRecord(item.id)}}>Cancel Reservation</button>
             }
             />
           </ListItem>

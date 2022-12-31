@@ -18,7 +18,7 @@ const isWeekend = (date) => {
 };
 
 export default function DatePicker(props) {
-  const [value, setValue] = React.useState(new Date('2022-12-31'));
+  const [value, setValue] = React.useState(new Date('2022-12-30'));
   const [highlightedDays, setHighlightedDays] = React.useState(props.dates);
   console.log('Calendar Dates: ', props.dates)
 
@@ -43,9 +43,10 @@ export default function DatePicker(props) {
             if(e.$M < 9) {
               month = `0${e.$M + 1}`;
             }
-            let reformat = month || e.$M + 1;
-            console.log('reformat: ', reformat);
-            console.log('props: ', props)
+            let reformatMonth = month || e.$M + 1;
+            let date = `${e.$y}-${reformatMonth}`
+            console.log('e', date)
+            props.liftMonth(date)
           }}
           renderInput={(params) => <TextField {...params} />}
           renderDay={(day, _value, DayComponentProps) => {

@@ -18,7 +18,7 @@ const columns: GridColDef[] = [
 
 export default function O_RenderHistory(props) {
 
-  console.log('Render History: ', props)
+  //console.log('Render History: ', props)
   let rows = [];
 
     props.ownerHistory.forEach((record) => {
@@ -51,7 +51,9 @@ export default function O_RenderHistory(props) {
         rowsPerPageOptions={[5]}
         onCellClick={(e) => {
           e.row.block === true ? e.row.block = false : e.row.block = true
-          // alert(`Blocked user: ${e.row.name}`)
+          alert(
+            e.row.block === true ? `Blocked User ${e.row.name}` : `Unblocked User ${e.row.name}`
+            )
         }}
         />
     </div>
