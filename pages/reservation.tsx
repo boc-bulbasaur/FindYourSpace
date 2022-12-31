@@ -11,7 +11,7 @@ import { useSession } from 'next-auth/react';
 export default function NewReservation() {
   let location;
   const router = useRouter()
-  const {query: {address, startTime, endTime}} = router
+  const {query: {address, startTime, endTime, duration, price}} = router
   const timeFormat = (t) =>{
     let currentdate = new Date(Number(t));
     var hours = new Date().getHours();
@@ -36,7 +36,7 @@ export default function NewReservation() {
     location = address.toString()
   }
   let orderNumber = 8888
-  let price = '40'
+  // let pricetest = '40'
   // let userEmail = 'test@gmail.com'
 
   const confirmationEmail = async () =>{
