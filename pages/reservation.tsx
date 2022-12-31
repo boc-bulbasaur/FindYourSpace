@@ -36,12 +36,17 @@ export default async function NewReservation(props) {
   const {query: {address, startTime, endTime, id, price}} = router
   const timeFormat = (t) => {
     let currentdate = new Date(Number(t));
-    var time = currentdate.getDate() + "/"
+    var hours = new Date().getHours();
+    var ampm = (hours >= 12) ? "PM" : "AM";
+    var time =
+              + currentdate.getFullYear() + "/"
               + (currentdate.getMonth()+1)  + "/"
-              + currentdate.getFullYear() + " @ "
+              + currentdate.getDate() + " "
               + currentdate.getHours() + ":"
-              + currentdate.getMinutes() + ":"
-              + currentdate.getSeconds();
+              // + currentdate.getMinutes()
+              + (currentdate.getMinutes()<10?'0':'') + currentdate.getMinutes()
+              + ampm
+              // + currentdate.getSeconds();
     return time
   }
   let start = timeFormat(startTime)
