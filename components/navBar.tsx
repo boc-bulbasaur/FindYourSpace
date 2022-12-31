@@ -110,8 +110,9 @@ export default function NavBar({session}) {
                 flexGrow: 1,
                 fontFamily: 'Sono',
                 fontWeight: 700,
+                fontSize: 'h6.fontSize',
                 letterSpacing: '.1rem',
-                color: 'inherit',
+                color: 'error',
                 textDecoration: 'none',
               }}
             >

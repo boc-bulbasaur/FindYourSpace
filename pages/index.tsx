@@ -48,8 +48,42 @@ export default function Home() {
 
       <NavBar session={session}/>
       <main className={styles.main}>
-        <h1 className={styles.title}>Parking made easy.</h1>
-        <p className={styles.description}>(It&apos;s like Airbnb for parking spots.)</p>
+        <Typography variant="h1"
+          sx={{display: { xs: 'none', sm: 'none', md: 'none', lg: 'flex', xl: 'flex' },
+          fontWeight: 600}
+        }>Parking made easy.</Typography>
+        <Typography variant="h2"
+          sx={{display: { xs: 'none', sm: 'none', md: 'flex', lg: 'none', xl: 'none' },
+          fontWeight: 600}
+        }>Parking made easy.</Typography>
+        <Typography variant="h3"
+          sx={{display: { xs: 'none', sm: 'flex', md: 'none' },
+          fontWeight: 600}
+        }>Parking made easy.</Typography>
+        <Typography variant="h4"
+          sx={{display: { xs: 'flex', sm: 'none', md: 'none' },
+          fontWeight: 600}
+        }>Parking made easy.</Typography>
+        <Typography variant="h4"
+          sx={{display: { xs: 'none', sm: 'none', md: 'none', lg: 'flex', xl: 'flex' },
+          fontWeight: 600,
+          my: 4,
+        }}>(It&apos;s like Airbnb for parking spots.)</Typography>
+        <Typography variant="h5"
+          sx={{display: { xs: 'none', sm: 'none', md: 'flex', lg: 'none', xl: 'none' },
+          fontWeight: 600,
+          my: 4,
+        }}>(It&apos;s like Airbnb for parking spots.)</Typography>
+        <Typography variant="h6"
+          sx={{display: { xs: 'none', sm: 'flex', md: 'none' },
+          fontWeight: 600,
+          my: 3,
+        }}>(It&apos;s like Airbnb for parking spots.)</Typography>
+        <Typography variant="subtitle2"
+          sx={{display: { xs: 'flex', sm: 'none', md: 'none' },
+          fontWeight: 600,
+          my: 3,
+        }}>(It&apos;s like Airbnb for parking spots.)</Typography>
 
         <div className={styles.grid}>
           <div className={styles.card}>
