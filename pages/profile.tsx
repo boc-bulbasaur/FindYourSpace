@@ -106,7 +106,7 @@ export default function Profile() {
   let blockTest = <>Click <Link href={`/`}>here</Link> to return Home.</>
   if (!isBlocked) {
     blockTest =
-      <div className="profile-container">
+      <div className="profile-container" style={{ padding: 25 }}>
         <h1>My Profile</h1>
         <ProfileAbout name="testName" profileData={profileData} />
         <ProfileButtons session={session} user={router.query.user}/>
