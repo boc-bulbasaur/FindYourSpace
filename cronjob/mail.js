@@ -12,6 +12,7 @@ const handleEmail= (email, locations, time, type, name)=> {
             <h2>Hi, ${name} </h2>
             <div>Your Parking time will ${type} in 15 mins at ${time}</div>
             <p>Location: ${locations}</p>
+            <p>Special Instruction: ${special}</p>
             `,
   }
   mail.send(data)
