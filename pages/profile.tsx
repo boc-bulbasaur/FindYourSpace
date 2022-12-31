@@ -79,6 +79,7 @@ export default function Profile() {
       if (response.status === 200) { //200 = block entry found
         return true;
       } else { //404 = no block entry
+        console.log(`getting profile of user ${router.query.user}`);
         const profileResponse = await fetch(`/api/profileData?user=${router.query.user}`, {
           method: 'GET',
         })
@@ -105,7 +106,7 @@ export default function Profile() {
         <h1>My Profile</h1>
         <ProfileAbout name="testName" profileData={profileData} />
         <ProfileButtons session={session} user={router.query.user}/>
-        {history}
+        {/* {history} */}
       </div>
   }
 

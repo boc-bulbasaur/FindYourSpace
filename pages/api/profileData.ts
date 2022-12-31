@@ -27,8 +27,10 @@ export default async function handler(
     } else {
       res.status(200).json(rows);
     }
+    client.release();
   } catch (err: any) {
     console.log(err);
     res.status(500).send(err);
+    client.release();
   }
 }
