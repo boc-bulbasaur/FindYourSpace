@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -9,55 +10,62 @@ import ListItemText from '@mui/material/ListItemText';
 // import Avatar from '@mui/material/Avatar';
 // import IconButton from '@mui/material/IconButton';
 import FormGroup from '@mui/material/FormGroup';
-import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import FolderIcon from '@mui/icons-material/Folder';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
-
-function generate(element) {
-  return [0, 1, 2].map((value) =>
-    React.cloneElement(element, {
-      key: value,
-    }),
-  );
-}
+import styles from '../styles/ownerHistoryDash.module.css';
 
 const Demo = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
 
-export default function O_RentalList() {
-  const [secondary, setSecondary] = React.useState(false);
+export default function O_RentalList(props) {
+  const [rentalHistory, setRentalHistory] = useState(props.ownerHistory)
+  let matchedDates = [];
+
+  if (props.newDate) {
+    props.ownerHistory.forEach((rental) => {
+      let withTime = new Date(rental.start_time);
+      let withoutTime = withTime.toISOString().split('T')[0];
+
+      if (withoutTime === props.newDate) {
+        matchedDates.push(rental)
+        // console.log('matchedDates: ', matchedDates)
+      }
+    })
+  }
 
   return (
-    <Box className="owner-history-table" sx={{ flexGrow: 1, maxWidth: 752 }}>
-      <FormGroup row>
-      </FormGroup>
-
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
-          <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-            Scheduled Rentals
-          </Typography>
-          <Demo>
-            <List>
-              {generate(
-                <ListItem>
-                  <ListItemAvatar>
-                    <AccountCircleRoundedIcon fontSize="large">
-                      <FolderIcon />
-                    </AccountCircleRoundedIcon>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="Full Name | $25.00"
-                    secondary="Cancel Reservation"
-                  />
-                </ListItem>,
-              )}
-            </List>
-          </Demo>
-        </Grid>
-      </Grid>
+    <Box className={styles.owner_history_table}>
+      <Typography sx={{
+        color: 'white',
+        backgroundColor: '#1b2139',
+        padding: '1rem',
+        textAlign: 'center',
+        borderRadius: '10px',
+        }} variant="h6" component="div">
+        Scheduled Rentals
+      </Typography>
+      <List sx={{borderRadius: '10px'}}>
+          {
+            matchedDates.map((item) => {
+            return (
+            <ListItem sx={{
+            backgroundColor: '#F5F5F5',
+            borderRadius: '10px',
+            margin: '15px 0px 10px 0px',
+          }} key={item.id}>
+            <ListItemAvatar>
+              <AccountCircleRoundedIcon fontSize="large" sx={{height: '50px', width: '50px'}}></AccountCircleRoundedIcon>
+            </ListItemAvatar>
+            <ListItemText sx={{paddingLeft: '5%'}}
+              primary={`${item.name} | $${item.short_term_rate}.00`}
+              secondary= {<button onClick={() => {console.log('clicked user id: ', item.id)}}>Cancel Reservation</button>}
+            />
+          </ListItem>
+            )
+            })
+          }
+      </List>
     </Box>
   );
 }
