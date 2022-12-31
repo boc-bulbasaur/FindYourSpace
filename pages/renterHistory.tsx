@@ -126,11 +126,11 @@ class RenterHistory extends React.Component {
         ssr: false
       }
     );
-    let timeRange;
+    let timeRange, mediaCard;
     if (this.state.timeRange !== '') {
-      timeRange = <Card sx={{ mx: '2px', transform: 'scale(0.8)', padding: 2, margin: 2}}>
+      timeRange = <Card sx={{ mx: '2px', transform: 'scale(0.8)', padding: 2, margin: 2, border: 'groove', borderWidth: '10px'}}>
         <Typography variant="h4" component="div">
-          Quick stats:
+          At a Glance:
           <Typography sx={{ fontSize: 20 }} color="text.secondary">
             {this.state.numListings} reservations over<br />
             {this.state.timeRange[0]} year(s)<br />
@@ -141,6 +141,9 @@ class RenterHistory extends React.Component {
 
         </Card>
     }
+    if (Object.keys(this.state.currentListing).length !== 0) {
+      mediaCard = <ImgMediaCard currentListing={this.state.currentListing}/>
+    }
     return (
       <>
         <h1>My Rental History</h1>
@@ -149,7 +152,7 @@ class RenterHistory extends React.Component {
         </div>
         <div className={styles.historySummary}>
           {timeRange}
-          <ImgMediaCard currentListing={this.state.currentListing}/>
+          {mediaCard}
         </div>
         {/* <Box > */}
           <h2>Current Selection:</h2>
