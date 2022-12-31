@@ -15,7 +15,16 @@ type MapProps = {
 
 const Map = ({coordinates, results, selected, handleClick }: MapProps) =>{
   return (
-  <Box position={'absolute'} right={0} width={'60%'} height = {'100%'}>
+  <Box sx={{
+    position: 'absolute',
+    right: 0,
+    minWidth: '60%',
+    height: '100%',
+    display: {
+      xs: 'none',
+      sm: 'block'
+    }
+  }}>
     <GoogleMapReact
           bootstrapURLKeys = {{key: process.env.GOOGLE_MAP_API_KEY}}
           center = {coordinates}

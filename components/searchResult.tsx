@@ -24,11 +24,11 @@ const SearchResult = ({location}: SearchResultProps): JSX.Element => {
       marginTop: '5px',
     }}>
       <Grid container key={id} spacing={0.25} margin={'auto'}>
-        <Grid item xs={12} sm={8.5} margin={'10px'} >
+        <Grid item xs={12} sm={12} md={8} margin={'10px'} >
           <Box className={styles.address} >Address: {address}</Box>
           <Box className={styles.distance} >Distance: {Math.round(distance * 1000 / 1609.34) / 1000} mile</Box>
         </Grid>
-        <Grid item xs={12} sm={2.5} margin={'auto'} >
+        <Grid item xs={12} sm={12} md={3} margin={'auto'} >
           <Typography className={styles.price} color='#1976D2' >Price: {priceTag}</Typography>
         </Grid>
       </Grid>

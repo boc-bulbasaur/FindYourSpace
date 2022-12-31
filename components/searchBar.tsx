@@ -6,6 +6,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Stack } from '@mui/system';
 import { Box, TextField, TextFieldProps, Button, Grid } from '@mui/material';
 
+
 type SearchBarProps = {
   setCoordinates: Function;
   startTime: string;

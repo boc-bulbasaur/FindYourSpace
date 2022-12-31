@@ -49,6 +49,10 @@ const SearchResults = ({results, isLoading, sortBy, setSortBy, startTime, endTim
       zIndex: 1,
       overflow: 'hidden',
       px: 2,
+      display: {
+        xs: 'none',
+        sm: 'block'
+      }
     }} >
       <Stack>
         <br></br>
@@ -83,9 +87,12 @@ const SearchResults = ({results, isLoading, sortBy, setSortBy, startTime, endTim
       position: 'absolute',
       left: 0,
       top: 0,
-      zindex: 1,
       overflow: 'scroll',
       px: 2,
+      display: {
+        xs: 'none',
+        sm: 'block'
+      }
     }} className={styles.searchresults} >
       <Grid container direction={'row'} justifyContent={'flex-end'} alignItems={'center'} >
         <Grid
@@ -130,7 +137,7 @@ const SearchResults = ({results, isLoading, sortBy, setSortBy, startTime, endTim
           })
         }
         {
-          results.length === 0 && <div>No available results</div>
+          results.length === 0 && <Box marginTop={'20px'}>No available results</Box>
         }
       </Grid>
     </Box>
