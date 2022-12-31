@@ -16,16 +16,16 @@ const columns: GridColDef[] = [
   { field: 'block', headerName: 'Block User', width: 250, sortable: false, type: 'boolean', headerAlign: 'center'}
 ];
 
-export default function O_RenderHistory({ ownerHistory }) {
+export default function O_RenderHistory(props) {
 
-  //console.log('Render History: ', ownerHistory.userHistory)
+  // console.log('Render History: ', props)
 
   return (
 
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
         getRowId={(row) => row.id}
-        rows={ownerHistory.userHistory}
+        rows={props.ownerHistory}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}

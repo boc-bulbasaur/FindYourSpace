@@ -8,6 +8,7 @@ import Badge from '@mui/material/Badge';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import getServerSideProps from '../pages/ownerHistoryDash.tsx'
 import styles from '../styles/ownerHistoryDash.module.css';
 
 const isWeekend = (date) => {
@@ -18,8 +19,8 @@ const isWeekend = (date) => {
 
 export default function DatePicker(props) {
   const [value, setValue] = React.useState(new Date('2022-12-28'));
-  //console.log('Calendar Props: ', props)
   const [highlightedDays, setHighlightedDays] = React.useState(props.dates);
+  console.log('Calendar Dates: ', props.dates)
 
   return (
     <div>
@@ -37,7 +38,15 @@ export default function DatePicker(props) {
             props.liftDate(reformat);
             setValue(newValue);
           }}
-          onMonthChange={(e) => {console.log('New Month Event: ', e)}}
+          onMonthChange={(e) => {
+            let month;
+            if(e.$M < 9) {
+              month = `0${e.$M + 1}`;
+            }
+            let reformat = month || e.$M + 1;
+            console.log('reformat: ', reformat);
+            console.log('props: ', props)
+          }}
           renderInput={(params) => <TextField {...params} />}
           renderDay={(day, _value, DayComponentProps) => {
             const isSelected =

@@ -20,6 +20,7 @@ const Demo = styled('div')(({ theme }) => ({
 
 export default function O_RentalList(props) {
   const [rentalHistory, setRentalHistory] = useState(props.ownerHistory)
+  console.log('list props: ', props)
   let matchedDates = [];
 
   if (props.newDate) {
