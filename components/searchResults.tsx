@@ -4,16 +4,30 @@ import SearchResult from './searchResult';
 import SearchResultZoom from './searchResultZoom';
 import styles from '../styles/search.module.css';
 
+type Location = {
+  address: string;
+  id: number;
+  distance: number;
+  price: number;
+  url: string;
+  attended: boolean;
+  gated: boolean;
+  electric: boolean;
+  garage: boolean;
+  always_available: boolean;
+  high_clearance: boolean;
+  description: string;
+}
 
 type SearchResultsProps = {
-  results: {}[];
+  results: Location[];
   isLoading: boolean;
   sortBy: string;
   setSortBy: Function;
   startTime: string;
   endTime: string;
   selected: number;
-  setSelected: Function;
+  handleClick: Function;
 }
 
 const SearchResults = ({results, isLoading, sortBy, setSortBy, startTime, endTime, selected, handleClick }: SearchResultsProps) =>{
@@ -85,7 +99,7 @@ const SearchResults = ({results, isLoading, sortBy, setSortBy, startTime, endTim
           alignItems={'center'}
         >
           <ToggleButtonGroup
-            color="primary"
+            color="info"
             value={sortBy}
             exclusive
             aria-label="sortBy"
@@ -98,7 +112,7 @@ const SearchResults = ({results, isLoading, sortBy, setSortBy, startTime, endTim
       </Grid>
       <Grid container direction={'column'} columnSpacing={1}>
         {
-          results.length !== 0 && results.map((location: Object): JSX.Element => {
+          results.length !== 0 && results.map((location: Location): JSX.Element => {
             const id = location.id;
             if (id === selected) {
               return (
