@@ -65,7 +65,7 @@ const SearchResultZoom = ({ location, startTime, endTime }: SearchResultProps): 
             </Grid>
           </Grid>
           <Grid item xs={12} sm={6} overflow='hidden' position={'relative'}>
-            <img src={url} alt={`picture for ${address}`} />
+            <img src={url} alt={`picture for ${address}`} width={'100%'} height={'auto'}/>
           </Grid>
         </Grid>
       </Grid>
