@@ -20,7 +20,18 @@ const pagesEndpoints = ['/search', '/newlisting'];
 const settings = ['Edit My Profile','Profile', 'History', 'Logout'];
 const settingsEndpoints = ['/EditMyProfile','/profile?user=3', '/history', '/'];
 
-const theme = responsiveFontSizes(createTheme());
+const theme = responsiveFontSizes(createTheme({
+  components: {
+    MuiButton: {
+      variants: [
+        {
+          props: { size: "extraSmall" },
+          style: { fontSize: 8, padding: "4px 2px" }
+        }
+      ]
+    }
+  }
+}));
 
 export default function NavBar({session}) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -195,16 +206,16 @@ export default function NavBar({session}) {
           <Toolbar disableGutters>
             <ThemeProvider theme={theme}>
               <Typography
-                variant="h6"
+                variant="subtitle1"
                 noWrap
                 component="a"
                 href="/"
                 sx={{
-                  mr: 2,
+                  mr: 1,
                   flexGrow: 1,
                   fontFamily: 'Sono',
                   fontWeight: 700,
-                  letterSpacing: '.1rem',
+                  letterSpacing: '.05rem',
                   color: 'inherit',
                   textDecoration: 'none',
                   display: {xs: 'flex', sm: 'none'}
@@ -230,26 +241,46 @@ export default function NavBar({session}) {
               >
                 find your space
               </Typography>
+              <Button
+                variant="outlined"
+                size="large"
+                sx={{ mr: 1, color: 'white', borderColor: 'white', display: {xs: 'none', sm: 'none', md: 'none', lg: 'none', xl: 'flex'} }}
+              >
+                <Link href={'/login'}>Log in</Link>
+              </Button>
+              <Button
+                variant="outlined"
+                sx={{ mr: 1, color: 'white', borderColor: 'white', display: {xs: 'none', sm: 'none', md: 'flex', lg: 'flex', xl: 'none'} }}
+              >
+                <Link href={'/login'}>Log in</Link>
+              </Button>
+              <Button
+                variant="outlined"
+                size="small"
+                sx={{ mr: 1, color: 'white', borderColor: 'white', display: {xs: 'none', sm: 'flex', md: 'none', lg: 'none', xl: 'none'} }}
+              >
+                <Link href={'/login'}>Log in</Link>
+              </Button>
+              <Button
+                variant="outlined"
+                size="extraSmall"
+                sx={{ mr: 1, color: 'white', borderColor: 'white', display: {xs: 'flex', sm: 'none'} }}
+              >
+                <Link href={'/login'}>Log in</Link>
+              </Button>
+              <Button variant="contained" color="secondary" size="large" sx={{mr: 1, display: {xs: 'none', sm: 'none', md: 'none', lg: 'none', xl: 'flex'}}}>
+                <Link href={'/signup'}>Sign up</Link>
+              </Button>
+              <Button variant="contained" color="secondary" sx={{mr: 1, display: {xs: 'none', sm: 'none', md: 'flex', lg: 'flex', xl: 'none'}}}>
+                <Link href={'/signup'}>Sign up</Link>
+              </Button>
+              <Button variant="contained" color="secondary" size="small" sx={{mr: 1, display: {xs: 'none', sm: 'flex', md: 'none', lg: 'none', xl: 'none'}}}>
+                <Link href={'/signup'}>Sign up</Link>
+              </Button>
+              <Button variant="contained" color="secondary" size="extraSmall" sx={{mr: 1, display: {xs: 'flex', sm: 'none'}}}>
+                <Link href={'/signup'}>Sign up</Link>
+              </Button>
             </ThemeProvider>
-            <Button
-              variant="outlined"
-              sx={{ mr: 1, color: 'white', borderColor: 'white', display: {xs: 'none', sm: 'flex'} }}
-            >
-              <Link href={'/login'}>Log in</Link>
-            </Button>
-            <Button
-              variant="outlined"
-              size="small"
-              sx={{ mr: 1, color: 'white', borderColor: 'white', display: {xs: 'flex', sm: 'none'} }}
-            >
-              <Link href={'/login'}>Log in</Link>
-            </Button>
-            <Button variant="contained" color="secondary" sx={{mr: 1, display: {xs: 'none', sm: 'flex'}}}>
-              <Link href={'/signup'}>Sign up</Link>
-            </Button>
-            <Button variant="contained" color="secondary" size="small" sx={{mr: 1, display: {xs: 'flex', sm: 'none'}}}>
-              <Link href={'/signup'}>Sign up</Link>
-            </Button>
           </Toolbar>
         </Container>
       </AppBar>
