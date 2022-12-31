@@ -43,7 +43,7 @@ export default function Search(props: SearchProps) {
         main: '#000000',
       },
       info: {
-        main: '#29b6f6',
+        main: '#1976D2',
       }
     },
     typography: {
@@ -66,15 +66,14 @@ export default function Search(props: SearchProps) {
   }, [sortBy]);
 
 
-  const handleSearch = async () => {
+  const handleSearch = () => {
     console.log("search button clicked");
     if (startTime !== '' && endTime !== '' && coordinates.lat && coordinates.lng) {
       setIsLoading(true);
       console.log('start search');
       console.log(startTime, endTime, coordinates.lat, coordinates.lng);
       const info = {startTime, endTime, coordinates};
-      try {
-        fetch('api/search', {
+      return fetch('api/search', {
           method: 'POST',
           body: JSON.stringify(info)
         })
@@ -100,10 +99,10 @@ export default function Search(props: SearchProps) {
           setResults(data);
           setIsLoading(false);
         })
-      }
-      catch (err) {
-        console.log(err);
-      }
+        .catch(err => {
+          console.log(err);
+          setIsLoading(false);
+        })
     }
   }
   const handleClick = (e: React.MouseEvent<HTMLElement>, id: number) => {
@@ -118,7 +117,6 @@ export default function Search(props: SearchProps) {
 
   return (
     <>
-      <ThemeProvider theme={theme} >
         <script id="google-map-script" async defer src={scriptURL} />
         <Box sx={{
           width: '100%',
@@ -130,6 +128,7 @@ export default function Search(props: SearchProps) {
           }} >
           <NavBar session={session}/>
         </Box>
+      <ThemeProvider theme={theme} >
         <Box sx={{
           justifyContent: 'center',
           alignItems: 'center',

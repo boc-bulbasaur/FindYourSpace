@@ -28,7 +28,7 @@ const SearchResult = ({location}: SearchResultProps): JSX.Element => {
           <Box className={styles.distance} >Distance: {Math.round(distance)} m</Box>
         </Grid>
         <Grid item xs={12} sm={2.5} margin={'auto'}>
-          <Box className={styles.price} color='#29b6f6'>Price: {priceTag}</Box>
+          <Box className={styles.price} color='#1976D2'>Price: {priceTag}</Box>
         </Grid>
       </Grid>
     </Box>
