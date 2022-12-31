@@ -18,6 +18,11 @@ export default function Profile() {
   const { data: session, status } = useSession();
   console.log('status', status);
   const router = useRouter();
+  useEffect(()=>{
+    if (status === 'unauthenticated') {
+      router.push('/');
+    }
+  });
 
   const [isBlocked, setIsBlocked] = useState(true);
   const [profileData, setProfileData] = useState(undefined);
@@ -108,14 +113,16 @@ export default function Profile() {
         {history}
       </div>
   }
-
-  return (
-     <>
-      <NavBar session={session}/>
-      <ThemeProvider theme={theme}>
-        {blockTest}
-      </ThemeProvider>
-     </>
-
-  )
+  if (status === 'authenticated') {
+    return (
+      <>
+        <NavBar session={session}/>
+        <ThemeProvider theme={theme}>
+          {blockTest}
+        </ThemeProvider>
+       </>
+   )
+  } else {
+    return (<></>)
+  }
 }

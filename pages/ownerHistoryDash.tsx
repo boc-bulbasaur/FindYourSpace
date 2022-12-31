@@ -10,9 +10,20 @@ import O_RenderHistory from "../components/ownerRenderHistory"
 import O_RentalList from "../components/ownerRentalList"
 import styles from '../styles/ownerHistoryDash.module.css';
 import handler from '/api/ownerHistory.ts';
+import { useEffect } from 'react';
+import { useSession } from 'next-auth/react';
+import router from 'next/router';
 
 export default function OwnerHistory( props ) {
-  //console.log('Main History Dashboard props: ', props)
+  //console.log('Main History Dashboard props: ', props);
+  const { data: session, status } = useSession();
+  useEffect(()=>{
+    if (status === 'unauthenticated') {
+      router.push('/');
+    }
+  });
+  console.log('status', status);
+  console.log('session', session);
   const [date, setDate] = useState();
 
   const theme = createTheme({
@@ -38,7 +49,7 @@ export default function OwnerHistory( props ) {
   setDate(newDate);
   //console.log('date hook: ', newDate)
  }
-
+ if (status === 'authenticated') {
   return (
     <ThemeProvider theme={theme}>
       <NavBar session={undefined} />
@@ -50,6 +61,9 @@ export default function OwnerHistory( props ) {
       <O_RenderHistory  ownerHistory={props} />
     </ThemeProvider>
   )
+} else {
+  return (<></>)
+}
 }
 
 export async function getServerSideProps() {

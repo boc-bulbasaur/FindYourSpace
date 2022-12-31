@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Formik } from 'formik';
+import * as yup from 'yup';
 import NavBar from "../components/navBar";
 import { useSession } from "next-auth/react";
 import Link from 'next/link';
@@ -7,42 +9,25 @@ import {
   Heading,
   Container,
 } from "@chakra-ui/react";
-import { Button, TextField, Typography, } from '@mui/material';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
 
 export default function ForgotPassword() {
   const { data: session } = useSession();
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [emailHelper, setEmailHelper] = useState('');
   const [message, setMessage] = useState('');
-  const [disabledButton, setDisabledButton ] = useState(true);
 
-  const handleEmailChange = (e) => {
-    if (emailError) {
-      setEmailError(false);
-    }
-    setEmail(e.target.value);
-    if (email.length && email.indexOf('@') !== -1) {
-      setDisabledButton(false);
-      setEmailHelper('');
-      setEmailError(false);
-    } else {
-      setDisabledButton(true);
-    }
+  const initialValues = {
+    email: '',
+
   };
-  const handleEmailBlur = () => {
-    if (email.length > 4 && email.indexOf('@') === -1) {
-      console.log('Please enter a valid email address');
-      setEmailHelper('Please enter a valid email address');
-      setEmailError(true);
-      setDisabledButton(true);
-    }
-    else {
-      setEmailHelper('');
-      setEmailError(false);
-    }
-  };
-  const handleResetPassword = async () => {
+  const validationSchema = yup.object().shape({
+    email: yup.string().email("Please enter a valid email").required("Email is required"),
+  });
+
+  const handleSubmit = async ({email}) => {
     if (email.indexOf('@') !== -1) {
       await fetch('/api/password-reset-email', {
         method: 'POST',
@@ -50,7 +35,6 @@ export default function ForgotPassword() {
       })
       .then((response) => {
         setMessage('Please check your email for the reset password link.');
-        setEmail('');
       })
       .catch((error) => {
         setMessage('An error has occurred. If the problem persists, please contact us.')
@@ -74,28 +58,52 @@ export default function ForgotPassword() {
           sx={{ p: 30, width: 400 }}
         >
           <Box margin={8} display={'flex'} flexDirection={'column'} justifyContent={'space-evenly'} alignItems={'stretch'}>
-            <TextField
-              id="email"
-              label="Email"
-              variant="outlined"
-              value={email}
-              required={true}
-              error={emailError}
-              onBlur={handleEmailBlur}
-              helperText={emailHelper}
-              sx={{ p: 1.5 }}
-              onChange={handleEmailChange}
-            />
-            <Typography color={'error'} textAlign="center" sx={{ m: 1.2 }}>{message}</Typography>
-            <Button
-              type="submit"
-              variant="contained"
-              sx={{ p: 1, m: 1 }}
-              onClick={handleResetPassword}
-              disabled={disabledButton}
+          <Formik
+              initialValues={{ ...initialValues }}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
             >
-              Send Password Reset Link
-            </Button>
+              {({
+                errors,
+                handleBlur,
+                handleChange,
+                handleSubmit,
+                isValid,
+                touched,
+                values
+              }) => (
+                <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+                  <CardContent display={'flex'} flexDirection={'column'} justifyContent={'space-evenly'} alignItems={'stretch'}>
+                    <TextField
+                      error={Boolean(touched.email && errors.email)}
+                      fullWidth
+                      required
+                      helperText={touched.email && errors.email}
+                      label="Email"
+                      name="email"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      type="text"
+                      value={values.email}
+                      variant="outlined"
+                      sx={{ py: 1.2 }}
+                    />
+                    <Typography color={'error'} textAlign="center" sx={{ m: 1.2 }}>{message}</Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button
+                      color="primary"
+                      disabled={Boolean(!isValid)}
+                      type="submit"
+                      variant="contained"
+                      sx={{width: '100%'}}
+                    >
+                      Send Password Reset Link
+                    </Button>
+                  </CardActions>
+                </form>
+              )}
+            </Formik>
             <Typography color={'primary'} textAlign="center" margin={1}><Link href='/login'>Go back to log in</Link></Typography>
           </Box>
         </Box>

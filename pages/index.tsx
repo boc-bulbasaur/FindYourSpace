@@ -9,11 +9,11 @@ import '@fontsource/roboto/700.css';
 import NavBar from "../components/navBar";
 import { useSession } from 'next-auth/react';
 import Divider from '@mui/material/Divider';
-import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
 
-const theme = createTheme({
+let theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
@@ -26,10 +26,8 @@ const theme = createTheme({
       default: '#fbfbfb',
     },
   },
-  typography: {
-    fontFamily: ['Sono','sans-serif'].join(',')
-  },
 });
+theme = responsiveFontSizes(theme);
 
 export default function Home() {
   const { data: session } = useSession();
@@ -48,41 +46,60 @@ export default function Home() {
 
       <NavBar session={session}/>
       <main className={styles.main}>
-        <h1 className={styles.title}>Parking made easy.</h1>
-        <p className={styles.description}>(It&apos;s like Airbnb for parking spots.)</p>
+        <ThemeProvider theme={theme}>
+          <Typography variant="h2"
+            sx={{fontWeight: 600, display: 'flex'}
+          }>Parking made easy.</Typography>
+          <Typography variant="h5"
+            sx={{fontWeight: 600, my: 4,
+          }}>(It&apos;s like Airbnb for parking spots.)</Typography>
 
-        <div className={styles.grid}>
-          <div className={styles.card}>
-            <h1>Convenient parking. Just clicks away.</h1>
-            <p>Find parking spaces near you, or wherever you are going. Compare the best spots by price and distance.</p>
-          </div>
+          <div className={styles.grid}>
+            <div className={styles.card}>
+              <h1>Convenient parking. Just clicks away.</h1>
+              <p>Find parking spaces near you, or wherever you are going. Compare the best spots by price and distance.</p>
+            </div>
 
-          <div className={styles.card}>
-            <Image alt='' src='/../public/DALLE2_1.png' width='240' height='180'></Image>
-          </div>
+            <div className={styles.card}>
+              <Image alt='' src='/../public/DALLE2_1.png' width='240' height='180'></Image>
+            </div>
 
-          <div className={styles.card}>
-            <Image alt='' src='/../public/DALLE2_2.png' width='240' height='180'></Image>
-          </div>
+            <div className={styles.card}>
+              <Image alt='' src='/../public/DALLE2_2.png' width='240' height='180'></Image>
+            </div>
 
-          <div className={styles.card}>
-            <h1>Reserve your favorite spots ahead of time.</h1>
-            <p>Rent spots by the hour, day, week, or month. View your reservation history and save your favorites.</p>
-          </div>
+            <div className={styles.card}>
+              <h1>Reserve your favorite spots ahead of time.</h1>
+              <p>Rent spots by the hour, day, week, or month. View your reservation history and save your favorites.</p>
+            </div>
 
-          <div className={styles.card}>
-            <h1>Rent your space and earn some cash.</h1>
-            <p>Have a parking spot? List your with us for hourly or monthly rentals. You control when and how to rent your space.</p>
-          </div>
+            <div className={styles.card}>
+              <h1>Rent your space and earn some cash.</h1>
+              <p>Have a parking spot? List your with us for hourly or monthly rentals. You control when and how to rent your space.</p>
+            </div>
 
-          <div className={styles.card}>
-            <Image alt='' src='/../public/DALLE2_3.png' width='240' height='180'></Image>
+            <div className={styles.card}>
+              <Image alt='' src='/../public/DALLE2_3.png' width='240' height='180'></Image>
+            </div>
           </div>
-        </div>
-        <Divider variant="middle" color="white"/>
-        <Box>
-          <h1>Testimonials</h1>
-        </Box>
+          <Divider variant="middle" color="white"/>
+          <Typography variant="h4"
+                sx={{fontWeight: 600, display: 'flex', my: 4}
+              }>Testimonials
+          </Typography>
+          <div className={styles.grid}>
+            <div className={styles.card}>
+              <p>Wow I love this app so much, it&apos;s amazing! &mdash;Taylor Swift</p>
+            </div>
+            <div className={styles.card}>
+              <p>OMG you guys! You did it! My parking dreams come true. &mdash;Taylor Swift</p>
+            </div>
+
+            <div className={styles.card}>
+              <p>I&apos;ve made so much money with this app. Try it now! &mdash;Taylor Swift</p>
+            </div>
+          </div>
+        </ThemeProvider>
       </main>
 
       <footer className={styles.footer}>
