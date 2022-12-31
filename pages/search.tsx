@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import Box from '@mui/material/Box';
 import Map from '../components/map';
@@ -117,8 +116,6 @@ export default function Search(props: SearchProps) {
 
   return (
     <>
-      <NavBar session={session}/>
-      <ThemeProvider theme={theme} >
         <script id="google-map-script" async defer src={scriptURL} />
         <Box sx={{
           width: '100%',
