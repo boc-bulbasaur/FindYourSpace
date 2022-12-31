@@ -9,7 +9,7 @@ import '@fontsource/roboto/700.css';
 import NavBar from "../components/navBar";
 import { useSession } from 'next-auth/react';
 import Divider from '@mui/material/Divider';
-import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
 
@@ -83,9 +83,22 @@ export default function Home() {
             </div>
           </div>
           <Divider variant="middle" color="white"/>
-          <Box>
-            <h1>Testimonials</h1>
-          </Box>
+          <Typography variant="h4"
+                sx={{fontWeight: 600, display: 'flex', my: 4}
+              }>Testimonials
+          </Typography>
+          <div className={styles.grid}>
+            <div className={styles.card}>
+              <p>Wow I love this app so much, it&apos;s amazing! &mdash;Taylor Swift</p>
+            </div>
+            <div className={styles.card}>
+              <p>OMG you guys! You did it! My parking dreams come true. &mdash;Taylor Swift</p>
+            </div>
+
+            <div className={styles.card}>
+              <p>I&apos;ve made so much money with this app. Try it now! &mdash;Taylor Swift</p>
+            </div>
+          </div>
         </ThemeProvider>
       </main>
 
