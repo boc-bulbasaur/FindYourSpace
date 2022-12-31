@@ -42,13 +42,15 @@ export default function Search(props: SearchProps) {
       secondary: {
         main: '#000000',
       },
-      background: {
-        default: '#3B'
+      info: {
+        main: '#29b6f6',
       }
     },
     typography: {
       fontFamily: ['Sono','sans-serif'].join(',')
     },
+    components: {
+    }
   });
 
   useEffect(()=>{

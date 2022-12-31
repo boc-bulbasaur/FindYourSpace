@@ -77,6 +77,7 @@ const SearchBar = ({ setCoordinates, startTime, setStartTime, endTime, setEndTim
             variant="contained"
             onClick={handleSearch}
             fullWidth
+            color='info'
           >
             Search
           </Button>

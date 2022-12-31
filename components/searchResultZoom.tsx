@@ -73,7 +73,7 @@ const SearchResultZoom = ({ location, startTime, endTime }: SearchResultProps): 
             query: { address, startTime: Date.parse(startTime), endTime: Date.parse(endTime) },
           }}
         >
-          <Button>Book Now!</Button>
+          <Button color='info'>Book Now!</Button>
         </Link>
 
     </Box>
