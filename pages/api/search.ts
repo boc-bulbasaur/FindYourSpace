@@ -7,7 +7,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  // console.log(req.body);
   let { startTime, endTime, coordinates: {lat, lng } } = JSON.parse(req.body);
   if (req.method !== 'POST') {
     res.status(400).json({ error: 'Improper request.' });
@@ -21,20 +20,19 @@ export default async function handler(
     price = 'short_term_rate';
   }
   try {
-    // console.log('inputs', startTime, endTime, lat, lng);
+    console.log('inputs', startTime, endTime, lat, lng);
     const { rows } = await client.query(`SELECT a.id as id, a.address as address, a.lat as lat,
       a.lng as lng, a.${price} as price, b.url as url, a.attended as attended, a.gated as gated,
       a.electric_charger as electric, a.garage as garage, a.always_available as always_available,
       a.high_clearance as high_clearance, a.description as description, a.special_information as
-       special_information, a.user_id as owner_id,
+       special_information, a.user_id as owner_id, a.type as type,
       ST_Distance(a.coordinates, ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326)) AS distance
     FROM listings a
     JOIN images b ON b.id = a.image_id
     WHERE
-      ST_Distance(a.coordinates, ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326)) < 10000 AND
-      (a.first_available - startTime) < 0 AND (a.last_available - endTime) > 0
+      ST_Distance(a.coordinates, ST_SetSRID(ST_MakePoint(${lng}, ${lat}), 4326)) < 10000
     ORDER BY distance;`);
-    // console.log(rows);
+    console.log(rows);
     res.status(200).send(rows);
   } catch (err) {
     console.log(err);
