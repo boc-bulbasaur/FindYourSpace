@@ -9,6 +9,7 @@ import EvStationIcon from '@mui/icons-material/EvStation';
 import FenceIcon from '@mui/icons-material/Fence';
 import Person4Icon from '@mui/icons-material/Person4';
 import HeightIcon from '@mui/icons-material/Height';
+import TimelapseIcon from '@mui/icons-material/Timelapse';
 
 class Booking extends React.Component {
   constructor(props) {
@@ -20,21 +21,31 @@ class Booking extends React.Component {
       price: '',
       description: '',
       garage: true,
-      streetside: true,
-      covered: true,
       ev: true,
       gated: true,
       attended: true,
-      clearance: true
+      clearance: true,
+      available: true,
+      info: ''
     }
   }
 
   componentDidMount () {
-    fetch(`/api/startTime?listing_id=${this.props.listing}`, {
+    fetch(`/api/getListing?listing_id=${this.props.listing}`, {
       method: 'POST'
     })
-      .then(() => {
-        console.log('successfully added to db')
+      .then((results) => {
+        this.setState({
+          address: results.address,
+          description: results.description,
+          garage: results.garage,
+          ev: results.electric_charger,
+          gated: results.gated,
+          attended: results.attended,
+          clearance: results.high_clearance,
+          available: results.always_available,
+          info: results.special_information
+        })
       })
       .catch(err => {
         console.log(err);
@@ -56,17 +67,15 @@ class Booking extends React.Component {
               height={250}
             />
             <div className={styles.parkIcons}>
-              <GarageIcon></GarageIcon><p>This parking spot is in a garage</p>
-              <AddRoadIcon></AddRoadIcon><p>This parking spot is streetside</p>
-              <RoofingIcon></RoofingIcon><p>This parking spot is covered</p>
-              <EvStationIcon></EvStationIcon><p>This parking spot has EV charging</p>
-              <FenceIcon></FenceIcon><p>This parking spot is gated</p>
-              <Person4Icon></Person4Icon><p>This parking spot is attended</p>
-              <HeightIcon></HeightIcon><p>This parking spot has low clearance</p>
+              <div>{this.state.garage === true ? <div><GarageIcon></GarageIcon><p>This parking spot is in a garage</p></div> : <p style={{visibility:'hidden'}}>&#x00AB;</p>}</div>
+              <div>{this.state.ev === true ? <div><EvStationIcon></EvStationIcon><p>This parking spot has EV charging</p></div> : <p style={{visibility:'hidden'}}>&#x00AB;</p>}</div>
+              <div>{this.state.gated === true ? <div><FenceIcon></FenceIcon><p>This parking spot is gated</p></div> : <p style={{visibility:'hidden'}}>&#x00AB;</p>}</div>
+              <div>{this.state.attended === true ? <div><Person4Icon></Person4Icon><p>This parking spot is attended</p></div> : <p style={{visibility:'hidden'}}>&#x00AB;</p>}</div>
+              <div>{this.state.clearance === true ? <div><HeightIcon></HeightIcon><p>This parking spot has high clearance</p></div> : <p style={{visibility:'hidden'}}>&#x00AB;</p>}</div>
+              <div>{this.state.available === true ? <div><TimelapseIcon></TimelapseIcon><p>This parking spot is available 24/7</p></div> : <p style={{visibility:'hidden'}}>&#x00AB;</p>}</div>
             </div>
           </div>
-          <p className={styles.parkDetails}>Extra details provided by the owner</p>
-
+          <p className={styles.parkDetails}>{this.state.info}</p>
         </div>
       </div>
     )
