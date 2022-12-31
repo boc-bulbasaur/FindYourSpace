@@ -72,9 +72,7 @@ const SearchResultZoom = ({ location, startTime, endTime }: SearchResultProps): 
         <Link
           href={{
             pathname: '/reservation',
-
-            query: { address, startTime: Date.parse(startTime), endTime: Date.parse(endTime), duraction, id, price},
-
+            query: { address, startTime: Date.parse(startTime), endTime: Date.parse(endTime), duration, id, price },
           }}
         >
           <Button color='info'>Book Now!</Button>

@@ -21,19 +21,16 @@ export default async function handler(
       SELECT
         bookings.conf_code as id,
         users.name,
-        locations.lat,
-        locations.lng,
-        locations.address,
+        listings.lat,
+        listings.lng,
+        listings.address,
         listings.description,
         bookings.start_time,
         bookings.end_time,
-        bookings.duration,
         images.url
       FROM bookings
       JOIN listings
         ON bookings.listing_id = listings.id
-	    JOIN locations
-        ON bookings.address_id = locations.id
       JOIN users
         ON listings.user_id = users.user_id
       LEFT OUTER JOIN images

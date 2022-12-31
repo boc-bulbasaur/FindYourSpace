@@ -15,7 +15,7 @@ export default function ImgMediaCard(props) {
     endDate = undefined ? '' : new Date(props.currentListing.end_time).toString();
   }
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, border: 'groove', borderWidth: '10px' }}>
       <CardMedia
         component="img"
         alt="parking image"
