@@ -37,7 +37,7 @@ export default async function handler(
       // TODO: need to change query with UPDATE ... SET...
       const { rows } = await client.query(`
         UPDATE users SET "aboutMe"='${aboutMe}'
-        WHERE user_id = 2
+        WHERE user_id = 3
       `);
         // ${user_id}
       alert('Your profile is successfully updated.');

@@ -43,12 +43,12 @@ const SearchResultZoom = ({ location, startTime, endTime }: SearchResultProps): 
       border: 'solid 2px black',
       borderRadius: '10px',
       marginTop: '5px',
-      borderColor: '#29b6f6',
+      borderColor: '#1976D2',
     }}>
       <Grid container key={id} spacing={0.25} margin={'auto'}>
         <Grid item xs={12} margin={'10px'} >
           <Box className={styles.address} >Address: {address}</Box>
-          <Box className={styles.distance} >Distance: {Math.round(distance)} m</Box>
+          <Box className={styles.distance} >Distance: {Math.round(distance * 1000 / 1609.34) / 1000} mile</Box>
           <Box className={styles.price} >Price: {priceTag}</Box>
           <Box className={styles.description} >Description: {description}</Box>
         </Grid>
@@ -65,16 +65,14 @@ const SearchResultZoom = ({ location, startTime, endTime }: SearchResultProps): 
             </Grid>
           </Grid>
           <Grid item xs={12} sm={6} overflow='hidden' position={'relative'}>
-            <img src={url} alt={`picture for ${address}`} />
+            <img src={url} alt={`picture for ${address}`} width={'100%'} height={'auto'}/>
           </Grid>
         </Grid>
       </Grid>
         <Link
           href={{
             pathname: '/reservation',
-
-            query: { address, startTime: Date.parse(startTime), endTime: Date.parse(endTime), duraction, id, price},
-
+            query: { address, startTime: Date.parse(startTime), endTime: Date.parse(endTime), duration, id, price },
           }}
         >
           <Button color='info'>Book Now!</Button>

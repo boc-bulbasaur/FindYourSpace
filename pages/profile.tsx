@@ -18,6 +18,11 @@ export default function Profile() {
   const { data: session, status } = useSession();
   console.log('status', status);
   const router = useRouter();
+  useEffect(()=>{
+    if (status === 'unauthenticated') {
+      router.push('/');
+    }
+  });
 
   const [isBlocked, setIsBlocked] = useState(true);
   const [profileData, setProfileData] = useState(undefined);
@@ -102,21 +107,23 @@ export default function Profile() {
   let blockTest = <>Click <Link href={`/`}>here</Link> to return Home.</>
   if (!isBlocked) {
     blockTest =
-      <div className="profile-container">
+      <div className="profile-container" style={{ padding: 25 }}>
         <h1>My Profile</h1>
         <ProfileAbout name="testName" profileData={profileData} />
         <ProfileButtons session={session} user={router.query.user}/>
         {/* {history} */}
       </div>
   }
-
-  return (
-     <>
-      <NavBar session={session}/>
-      <ThemeProvider theme={theme}>
-        {blockTest}
-      </ThemeProvider>
-     </>
-
-  )
+  if (status === 'authenticated') {
+    return (
+      <>
+        <NavBar session={session}/>
+        <ThemeProvider theme={theme}>
+          {blockTest}
+        </ThemeProvider>
+       </>
+   )
+  } else {
+    return (<></>)
+  }
 }

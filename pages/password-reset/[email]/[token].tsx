@@ -1,50 +1,41 @@
 import React, { useState }  from 'react';
-import router from 'next/router';
+import { Formik } from 'formik';
+import * as yup from 'yup';
 import {
   Box,
   Heading,
-  Input,
   Container,
 } from "@chakra-ui/react";
-import { Button, TextField, Typography, } from '@mui/material';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
 import { signIn } from "next-auth/react";
-import utils from '../../../lib/crypto.js';
 import client from '../../../database/db.js';
 
 export default function PasswordReset({ email, validToken, token }) {
   const [message, setMessage] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordHelper, setPasswordHelper] = useState('');
-  const [passwordError, setPasswordError] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [disabledButton, setDisabledButton ] = useState(true);
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-    if (e.target.value > 5) {
-      setPasswordHelper('Password must contain at least 8 lowercase and uppercase letters, numbers, and symbols.');
-    }
+  const initialValues = {
+    password: '',
+    confirmPassword: ''
   };
-  const handlePasswordBlur = () => {
-    if (password.length < 8) {
-      setPasswordHelper('Password must contain at least 8 lowercase and uppercase letters, numbers, and symbols.');
-      setPasswordError(true);
-      setDisabledButton(true);
-    }
-    else {
-      setPasswordHelper('');
-      setPasswordError(false);
-    }
-  };
-  const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
-    if (password.length && password === e.target.value) {
-      setDisabledButton(false);
-    } else {
-      setDisabledButton(true);
-    }
-  };
-  const handleResetPassword = async () => {
+  const validationSchema = yup.object().shape({
+    password: yup
+      .string()
+      .required("Please enter your password")
+      .matches(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+        'Password must contain a combination of 8 lowercase and uppercase letters, numbers, and special characters'
+      ),
+    confirmPassword: yup
+      .string()
+      .required('Please reenter your password')
+      .oneOf([yup.ref('password'), null], "Passwords don\'t match")
+  });
+
+  const handleSubmit = async ({password}) => {
     const credentials = {
       email,
       password,
@@ -93,41 +84,66 @@ export default function PasswordReset({ email, validToken, token }) {
           sx={{ p: 30, width: 400 }}
         >
           <Box margin={8} display={'flex'} flexDirection={'column'} justifyContent={'space-evenly'} alignItems={'stretch'}>
-          <TextField
-              id="password1"
-              label="Password"
-              type="password"
-              variant="outlined"
-              value={password}
-              required={true}
-              error={false}
-              helperText={passwordHelper}
-              sx={{ p: 1.2 }}
-              onChange={handlePasswordChange}
-              onBlur={handlePasswordBlur}
-            />
-            <TextField
-              id="confirmPassword"
-              label="Confirm Password"
-              type="password"
-              variant="outlined"
-              value={confirmPassword}
-              required={true}
-              error={false}
-              helperText={''}
-              sx={{ p: 1.2 }}
-              onChange={handleConfirmPasswordChange}
-            />
-            <Typography color={'error'} textAlign="center" sx={{ m: 1.2 }}>{message}</Typography>
-            <Button
-              type="submit"
-              variant="contained"
-              sx={{ p: 1, m: 1 }}
-              onClick={handleResetPassword}
-              disabled={disabledButton}
+            <Formik
+              initialValues={{ ...initialValues }}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
             >
-              Reset Password
-            </Button>
+              {({
+                errors,
+                handleBlur,
+                handleChange,
+                handleSubmit,
+                isValid,
+                touched,
+                values
+              }) => (
+                <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+                  <CardContent display={'flex'} flexDirection={'column'} justifyContent={'space-evenly'} alignItems={'stretch'}>
+                    <TextField
+                      error={Boolean(touched.password && errors.password)}
+                      fullWidth
+                      required
+                      helperText={touched.password && errors.password}
+                      label="Password"
+                      name="password"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      type="password"
+                      value={values.password}
+                      variant="outlined"
+                      sx={{ py: 1.2 }}
+                    />
+                    <TextField
+                      error={Boolean(touched.confirmPassword && errors.confirmPassword)}
+                      fullWidth
+                      required
+                      helperText={touched.confirmPassword && errors.confirmPassword}
+                      label="Confirm Password"
+                      name="confirmPassword"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      type="password"
+                      value={values.confirmPassword}
+                      variant="outlined"
+                      sx={{ py: 1.2 }}
+                    />
+                    <Typography color={'error'} textAlign="center" sx={{ m: 1.2 }}>{message}</Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button
+                      color="primary"
+                      disabled={Boolean(!isValid)}
+                      type="submit"
+                      variant="contained"
+                      sx={{width: '100%'}}
+                    >
+                      Reset Password
+                    </Button>
+                  </CardActions>
+                </form>
+              )}
+            </Formik>
           </Box>
         </Box>
       </Container>

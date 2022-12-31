@@ -19,7 +19,7 @@ const Map = ({coordinates, results, selected, handleClick }: MapProps) =>{
     <GoogleMapReact
           bootstrapURLKeys = {{key: process.env.GOOGLE_MAP_API_KEY}}
           center = {coordinates}
-          defaultZoom = {15}
+          defaultZoom = {14.5}
           margin = {[50,50,50,50]}
           option= {''}
           onchange = {()=>{}}
@@ -32,7 +32,7 @@ const Map = ({coordinates, results, selected, handleClick }: MapProps) =>{
         position={'relative'}
         zIndex={100}
       >
-          <IoLocation color = 'red' fontSize={40} />
+          <IoLocation color = 'red' fontSize={30} />
       </Box>
       {results && results.map((location):JSX.Element => {
         const { lat, lng, id } = location;
@@ -47,7 +47,7 @@ const Map = ({coordinates, results, selected, handleClick }: MapProps) =>{
               zIndex={20}
               onClick={(e) => { handleClick(e, id) }}
              >
-              <IoLocation color='#29b6f6' fontSize={45} />
+              <IoLocation color='#1976D2' fontSize={40} />
             </Box>)
         } else {
           return (
@@ -60,7 +60,7 @@ const Map = ({coordinates, results, selected, handleClick }: MapProps) =>{
               zIndex={10}
               onClick={(e) => { handleClick(e, id) }}
              >
-              <IoLocation color='black' fontSize={40} />
+              <IoLocation color='black' fontSize={30} />
             </Box>)
         }
       })}

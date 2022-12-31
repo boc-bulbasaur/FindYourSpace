@@ -30,7 +30,8 @@ export default function Search(props: SearchProps) {
   const [selected, setSelected] = useState(-1)
 
   const { data: session } = useSession();
-  // console.log(session);
+  const user_id = session?.user?.user_id;
+  // console.log(session.user.user_id);
 
   const theme = createTheme({
     palette: {
@@ -43,7 +44,7 @@ export default function Search(props: SearchProps) {
         main: '#000000',
       },
       info: {
-        main: '#29b6f6',
+        main: '#1976D2',
       }
     },
     typography: {
@@ -66,15 +67,14 @@ export default function Search(props: SearchProps) {
   }, [sortBy]);
 
 
-  const handleSearch = async () => {
+  const handleSearch = () => {
     console.log("search button clicked");
     if (startTime !== '' && endTime !== '' && coordinates.lat && coordinates.lng) {
       setIsLoading(true);
       console.log('start search');
       console.log(startTime, endTime, coordinates.lat, coordinates.lng);
-      const info = {startTime, endTime, coordinates};
-      try {
-        fetch('api/search', {
+      const info = {startTime, endTime, coordinates, user_id};
+      return fetch('api/search', {
           method: 'POST',
           body: JSON.stringify(info)
         })
@@ -88,9 +88,11 @@ export default function Search(props: SearchProps) {
             data.forEach((location: Object) => {
               const duration = (Date.parse(endTime) - Date.parse(startTime)) / 3600000;
               if (duration > 24) {
-                location['priceTag'] = `$${location['price']}/day`;
+                location['priceTag'] = `$${location['long_term_rate']}/day`;
+                location['price'] = location['long_term_rate'];
               } else {
-                location['priceTag'] = `$${location['price']}/hr`;
+                location['priceTag'] = `$${location['short_term_rate']}/hr`;
+                location['price'] = location['short_term_rate'];
               }
               location['duration'] = duration;
             })
@@ -100,10 +102,10 @@ export default function Search(props: SearchProps) {
           setResults(data);
           setIsLoading(false);
         })
-      }
-      catch (err) {
-        console.log(err);
-      }
+        .catch(err => {
+          console.log(err);
+          setIsLoading(false);
+        })
     }
   }
   const handleClick = (e: React.MouseEvent<HTMLElement>, id: number) => {
@@ -118,7 +120,6 @@ export default function Search(props: SearchProps) {
 
   return (
     <>
-      <ThemeProvider theme={theme} >
         <script id="google-map-script" async defer src={scriptURL} />
         <Box sx={{
           width: '100%',
@@ -130,6 +131,7 @@ export default function Search(props: SearchProps) {
           }} >
           <NavBar session={session}/>
         </Box>
+      <ThemeProvider theme={theme} >
         <Box sx={{
           justifyContent: 'center',
           alignItems: 'center',
