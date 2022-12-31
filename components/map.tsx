@@ -2,7 +2,6 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import GoogleMapReact from 'google-map-react'
 import { IoLocation } from "react-icons/io5";
-import { WidthFull, WidthNormal } from '@mui/icons-material';
 
 type MapProps = {
   coordinates: {
