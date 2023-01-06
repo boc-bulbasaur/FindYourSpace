@@ -143,6 +143,7 @@ export default function HistoryTable(props: any) {
     props.listings.forEach((e: any, idx: number) => {
       // console.log(e);
       const startDate = new Date(e.start_time);
+      console.log(e.start_time);
       const endDate = new Date(e.end_time);
       const diffDate = diff_hours(endDate, startDate);
       // console.log(props.listings);

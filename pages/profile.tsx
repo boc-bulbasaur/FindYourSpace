@@ -32,8 +32,8 @@ export default function Profile() {
   const [profileData, setProfileData] = useState(undefined);
 
   const sampleListings = [
-    {id: 11, name: 'Matthew McConaughey', place_id: 'Austin', lat: 30.2711286, lng: -97.7436995,
-        address: '123 Alright St', timeRangeStart: '2022-04-25 8:00', timeRangeEnd: '2022-04-25 12:00', rebook: true}
+    {id: 11, name: 'Keren Liu', lat: 30.2711286, lng: -97.7436995,
+        address: '117 Spring St, Elizabeth, NJ 07201', start_time: '2022-12-31T10:30:00.602Z', end_time: '2022-12-31T20:30:00.602Z', rebook: true}
   ]
   let history;
   if (hasHistory(true, '', '')) {
@@ -116,7 +116,7 @@ export default function Profile() {
         <h1>My Profile</h1>
         <ProfileAbout name="testName" profileData={profileData} />
         <ProfileButtons session={session} user={router.query.user}/>
-        {/* {history} */}
+        {history}
       </div>
   }
   if (status === 'authenticated') {
