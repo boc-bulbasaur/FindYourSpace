@@ -65,11 +65,12 @@
 }
 
 .grid {
+  padding: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 800px;
+  max-width: 1300px;
 }
 
 .card {
@@ -78,7 +79,7 @@
   text-align: left;
   color: inherit;
   text-decoration: none;
-  max-width: 400px;
+  max-width: 500px;
 }
 
 .card h1 {

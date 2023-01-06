@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import Box from '@mui/material/Box';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Map from '../components/map';
 import SearchBar from '../components/searchBar';
 import SearchResults from '../components/searchResults';
 import NavBar from '../components/navBar';
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import MobileSearch from '../components/mobileSearch';
 
 
 
@@ -138,12 +139,13 @@ export default function Search(props: SearchProps) {
           width: '90vw',
           height: '90vh',
           maxWidth: '100vw',
-          maxHeight: '90vh',
+          maxHeight: '88vh',
           margin: '0 auto',
           position: 'relative',
           flexDirection: 'column'
         }} >
-          <Box width={'100%'} height={'10%'} position={'relative'} marginTop={'20px'} justifyContent={'center'} alignItems={'center'}>
+          <Box width={'100%'} height={'10%'} position={'relative'} marginTop={'20px'}
+            justifyContent={'center'} alignItems={'center'} zIndex={100}>
             <SearchBar
               setCoordinates={setCoordinates}
               startTime={startTime}
@@ -153,10 +155,13 @@ export default function Search(props: SearchProps) {
               handleSearch={handleSearch}
             />
           </Box>
-          <Box width={'100%'} height={'85%'} position={'relative'} marginTop={'10px'}>
+          <Box width={'100%'} height={'85%'} position={'relative'} marginTop={'10px'} zIndex={50}>
             <SearchResults results={results} isLoading={isLoading} sortBy={sortBy} setSortBy={setSortBy}
               startTime={startTime} endTime={endTime} selected={selected} handleClick={handleClick}/>
             <Map coordinates={coordinates} results={results} selected={selected} handleClick={handleClick}/>
+            <MobileSearch results={results} isLoading={isLoading} sortBy={sortBy} setSortBy={setSortBy}
+              startTime={startTime} endTime={endTime} selected={selected} handleClick={handleClick}
+              coordinates={coordinates}/>
           </Box>
         </Box>
       </ThemeProvider>
