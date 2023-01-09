@@ -71,16 +71,33 @@ class RenterHistory extends React.Component {
    }
 
    removeRecord(id) {
-    let filtered = [];
+    // let filtered = [];
 
-    this.state.ownerHistory.forEach((item) => {
-      if (item.id !== id) {
-        filtered.push(item)
-      }
+    // this.state.ownerHistory.forEach((item) => {
+    //   if (item.id !== id) {
+    //     filtered.push(item)
+    //   }
+    // })
+    // console.log('id: ', id)
+    // console.log('state: ', this.state.ownerHistory)
+    // this.setState({ownerHistory: filtered, total: 491, occupency: '24%'})
+    console.log('id: ', id)
+    fetch('/api/deleteBooking', {
+      method: 'DELETE',
+      body: id
     })
-    // console.log('filtered: ', filtered.length);
-    console.log('state: ', this.state.ownerHistory)
-    this.setState({ownerHistory: filtered, total: 491, occupency: '24%'})
+      .then(async () => {
+        console.log('Successfully deleted');
+        const response = await fetch(`http://localhost:3000/api/ownerHistory`)
+        const json = await response.json();
+        this.setState({
+          ownerHistory: json
+        })
+      })
+      .catch((err) => {
+        console.log('error: ', err)
+        console.error(err);
+      });
    }
 
    render() {
