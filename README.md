@@ -87,7 +87,7 @@ Blue Ocean Capstone project as part of the Hack Reactor Software Engineering Imm
 * [![Node][Node.js]][Node-url]
 
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+[Next.js](https://nextjs.org/) bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -150,7 +150,7 @@ RPP2204:
 * Eric Kalin
 * Jewell Wilson
 * JT Liu
-* Justo Marquez
+* Justo Marquez - <a href="mailto:marquezmiko@gmail.com">marquezmiko@gmail.com</a>
 * Keith Hall
 * Keren Liu
 * Miranda Zhou
@@ -165,7 +165,7 @@ Project Link: [https://github.com/boc-bulbasaur/FindYourSpace](https://github.co
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* Hack Reactor Galvanize
+* <a href="https://www.hackreactor.com/">Hack Reactor Galvanize</a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
