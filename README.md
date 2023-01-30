@@ -57,7 +57,12 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li>
+      <a href="#usage">Usage</a>
+      <ul>
+        <li><a href="#renter-history">Renter History</a></li>
+      </ul>
+    </li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
@@ -70,9 +75,22 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<img src="/screenshots/FindYourSpace.png" alt="FindYourSpace" width="300">
 
 Blue Ocean Capstone project as part of the Hack Reactor Software Engineering Immersive program. This is a full-stack web based application built by a small team of engineers.
+
+<img src="/screenshots/HomePage.png" alt="Home Page" width="600">
+
+### Renter History
+
+By using the "Renter" half of the toggle button, a User will see their rental history in a dynamic table. Selection of a row will populate a card component to show more data of the space, including the owner's picture.
+
+<img src="/screenshots/RHistory_Overview.png" alt="Renter History" width="600">
+
+A map from the open source map API, LeafletJS, is also rendered and interactive.
+
+<img src="/screenshots/RHistory_map.png" alt="Renter History Map" width="600">
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -193,7 +211,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 [license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
